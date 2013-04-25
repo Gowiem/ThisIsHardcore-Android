@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/more"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="@string/more"/>
+    
+    <item
+        android:id="@+id/bookmarks"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="@string/bookmarks"/>
+
+</menu>
