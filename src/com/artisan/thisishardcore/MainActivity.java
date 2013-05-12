@@ -2,7 +2,7 @@ package com.artisan.thisishardcore;
 
 import org.apache.log4j.Logger;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,12 +14,13 @@ import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.artisan.thisishardcore.logging.TIHConfigureLog4j;
+import com.artisan.thisishardcore.schedule.ScheduleFragment;
 
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener{
 	private final Logger log = Logger.getLogger(MainActivity.class);
 	private final int NEWS_TAB_TAG = 0;
 	private final int SCHEDULE_TAB_TAG = 1;
-	private final int PHOTOS_TAB_TAG = 3;
+	private final int PHOTOS_TAB_TAG = 2;
 	
 
 	@Override
@@ -67,17 +68,18 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		log.debug("onTabSelected");
 		int tabIdentifier = (Integer) tab.getTag();
 		if (tabIdentifier == NEWS_TAB_TAG) {
 			log.debug("News Tab Selected");
-			
 			ft.replace(android.R.id.content, NewsFragment.newInstance());
 		} else if (tabIdentifier == SCHEDULE_TAB_TAG) {
 			log.debug("Schedule Tab Selected");
-			
+			log.debug("ScheduleFragment: " + ScheduleFragment.class);
+			log.debug("After printing ScheduleFragment.class");
+			ft.replace(android.R.id.content, ScheduleFragment.newInstance());
 		} else if (tabIdentifier == PHOTOS_TAB_TAG) {
 			log.debug("Photo Pit Tab Selected");
+			ft.replace(android.R.id.content, PhotoPitFragment.newInstance());
 		} else {
 			log.debug("onTabSelected -> couldn't find the tab with tag: " + tabIdentifier);
 		}

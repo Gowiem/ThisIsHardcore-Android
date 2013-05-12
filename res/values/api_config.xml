@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="event_url">api-v2/this_is_hardcore/events.json</string>
+    <string name="results_url">override me in your app</string>
+    <string name="album_url">override me in your app</string>
+    <string name="video_url">override me in your app</string>
     <string name="stats_url">override me in your app</string>
     <string name="photo_url1">override me in your app</string>
     <string name="photo_url2">override me in your app</string>
+    <string name="stats_webview_url">override me in your app</string>
+    <string name="player_name">override me in your app</string>
+    <string name="bio_url">override me in your app</string>
 </resources>

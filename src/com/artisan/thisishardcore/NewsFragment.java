@@ -20,8 +20,8 @@ public class NewsFragment extends SherlockFragment {
 //	@Override
 //	public void onCreate(Bundle savedInstanceState) {
 //		super.onCreate(savedInstanceState);
-//		if (getSupportFragmentManager().findFragmentById(android.R.id.content) == null) {
-//			Fragment fragment = SimpleContentFragment.newInstance(file);
+//		if (getSupportFragmentManager().findFragmentById(android.R.id.newsFragment) == null) {
+//			SherlockFragment fragment = NewsFragment.newInstance();
 //			getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment).commit();
 //		}
 //	}
