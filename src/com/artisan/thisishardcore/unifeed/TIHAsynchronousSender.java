@@ -11,6 +11,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
+import org.apache.log4j.Logger;
 
 import android.os.Handler;
 
@@ -18,18 +19,18 @@ import com.artisan.thisishardcore.parser.TIHParser;
 import com.unifeed.Constants;
 import com.unifeed.MLog;
 import com.unifeed.parser.Parser;
-import com.unifeed.webservice.CallbackWrapper;
 
 public class TIHAsynchronousSender extends Thread {
+	private final static Logger log = Logger.getLogger(TIHAsynchronousSender.class);
 	private static String TAG = "AsynchronousSender";
 
 	private DefaultHttpClient httpClient;
 	private HttpRequest request;
 	private Handler handler;
-	private CallbackWrapper wrapper;
+	private TIHCallbackWrapper wrapper;
 
 	public TIHAsynchronousSender(HttpRequest request, Handler handler,
-			CallbackWrapper wrapper) {
+			TIHCallbackWrapper wrapper) {
 		this.request = request;
 		this.handler = handler;
 		this.wrapper = wrapper;
@@ -43,15 +44,12 @@ public class TIHAsynchronousSender extends Thread {
 			int timeout = 60000;
 			HttpConnectionParams.setConnectionTimeout(httpParams, timeout);
 			httpParams = httpParams.setParameter("JSON", true);
-			MLog.d(TAG, "httParams.json: " + httpParams.getParameter("JSON"));
 			HttpResponse response;
 			synchronized (this) {
 				httpClient.setParams(httpParams);
 				response = getClient().execute((HttpUriRequest) request);
 			}
 			Object object = invokeParser(response, wrapper.requestType);
-			MLog.d(TAG, "wrapper: " + wrapper);
-			MLog.d(TAG, "handle: " + handler);
 			wrapper.setResponse(object);
 			handler.post(wrapper);
 
@@ -78,39 +76,20 @@ public class TIHAsynchronousSender extends Thread {
 	private Object invokeParser(HttpResponse response, int reqType){
 		Object object = null;
 		switch (reqType) {
-		case Constants.GET_AUTHENTICATION_ID:
-			object = Parser.parseAuthenticationToken(response);
+		
+		case Constants.GET_NEWS:
+			object = TIHParser.parseNewsList(response);
 			break;
-		case Constants.GET_NEWS_DETAILS:
-			//object = Parser.outPutResponse(response);
-			object = Parser.parseResult(response);
-			break;
-
-		case Constants.GET_ALBUM_DETAILS:
-			//object = Parser.outPutResponse(response);
-			object = Parser.parseAlbumDetails(response);
-			break;
-
-		case Constants.GET_VIDEO_DETAILS:
-			//object = Parser.outPutResponse(response);
-			object = Parser.paresVideoDetails(response);
-			break;
+			
 		case Constants.GET_EVENTS_DETAILS:
-			MLog.d("GET_EVENTS_DETAILS", "parseEventDetails");
 			object = TIHParser.parseEventList(response);
-			break;
-		case Constants.GET_STATUS_DETAILS:
-			//object = Parser.outPutResponse(response);
-			object = Parser.parseStatsDetails(response);
 			break;
 
 		case Constants.GET_PHOTOS_DETAILS:
 			//object = Parser.outPutResponse(response);
-			object = Parser.parsePhotoDetails(response);
+//			object = TIHParser.parsePhotoDetails(response);
 			break;
-
-
-
+			
 		default:
 			break;
 		}

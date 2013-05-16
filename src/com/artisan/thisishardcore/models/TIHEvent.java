@@ -1,7 +1,6 @@
-package com.artisan.thisishardcore.parser;
+package com.artisan.thisishardcore.models;
 
 import java.io.Serializable;
-import java.util.LinkedHashMap;
 
 import com.google.gson.annotations.SerializedName;
 

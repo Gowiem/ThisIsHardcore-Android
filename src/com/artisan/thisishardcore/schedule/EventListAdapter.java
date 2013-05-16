@@ -1,7 +1,6 @@
 package com.artisan.thisishardcore.schedule;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.parser.TIHEvent;
-import com.artisan.thisishardcore.parser.TIHEventList;
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.artisan.thisishardcore.models.TIHEvent;
+import com.artisan.thisishardcore.models.TIHEventList;
 
 public class EventListAdapter extends ArrayAdapter<TIHEvent>{
 	private final Context context; 

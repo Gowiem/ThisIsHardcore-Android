@@ -1,44 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp" >
+    android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/artist_image"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/band_load" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp" >
 
-    <TextView
-        android:id="@+id/artist_name"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/artist_name_placeholder" />
-
-    <RelativeLayout
-        android:id="@+id/detail_relative_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        <ImageView
+            android:id="@+id/artist_image"
+            android:layout_width="fill_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/band_load" />
 
         <TextView
-            android:id="@+id/artist_time"
-            android:layout_width="wrap_content"
+            android:id="@+id/artist_name"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/artist_time_placeholder" />
+            android:text="@string/artist_name_placeholder" />
 
-        <ImageButton android:id="@+id/website_button" />
+        <RelativeLayout
+            android:id="@+id/detail_relative_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
-        <ImageButton android:id="@+id/facebook_button" />
+            <TextView
+                android:id="@+id/artist_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/artist_time_placeholder" />
+            
+            <TextView
+                android:id="@+id/artist_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/artist_description_placeholder"
+                android:layout_below="@id/artist_time" />
 
-        <ImageButton android:id="@+id/twitter_button" />
+            <ImageButton
+                android:id="@+id/website_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/artist_description" />
 
-        <TextView
-            android:id="@+id/artist_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/artist_description_placeholder" />
-        
-    </RelativeLayout>
-</LinearLayout>
+            <ImageButton
+                android:id="@+id/facebook_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/website_button"
+                android:layout_toRightOf="@id/artist_description" />
+
+            <ImageButton
+                android:id="@+id/twitter_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/facebook_button"
+                android:layout_toRightOf="@id/artist_description" />
+            
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

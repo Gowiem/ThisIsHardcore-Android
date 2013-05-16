@@ -1,6 +1,9 @@
 package com.artisan.thisishardcore;
 
+
+
 import android.support.v4.app.FragmentTransaction;
+
 import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.app.SherlockFragmentActivity;

@@ -1,5 +1,7 @@
 package com.artisan.thisishardcore.schedule;
 
+
+
 import org.apache.log4j.Logger;
 
 import android.content.Intent;
@@ -7,16 +9,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.UnifeedFragment;
-import com.artisan.thisishardcore.parser.TIHEvent;
-import com.artisan.thisishardcore.parser.TIHEventList;
+import com.artisan.thisishardcore.models.TIHEvent;
+import com.artisan.thisishardcore.models.TIHEventList;
 import com.unifeed.AppState;
 import com.unifeed.Constants;
 import com.unifeed.MLog;
-import com.unifeed.R;
-import com.unifeed.responsetype.Authentication;
 import com.unifeed.webservice.ResponseListener;
 
 public class ScheduleFragment extends UnifeedFragment implements ResponseListener {
@@ -39,7 +42,15 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 	public View onCreateView(LayoutInflater inflater, 
 							 ViewGroup container,
 							 Bundle savedInstanceState) {
-		View result = inflater.inflate(R.layout.news_results, container, false);
+		View result = inflater.inflate(R.layout.schedule, container, false);
+		ListView listView = (ListView)result.findViewById(R.id.listview);
+		listView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+		            int position, long id) {
+				onEventRowClicked(view);
+			}
+		});
 		return(result); 
 	}
 
@@ -61,7 +72,6 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 		if(view.getTag() != null && view.getTag().toString().trim().length() > 0){
 			int viewPosition = (Integer) view.getTag();
 			TIHEvent event   = this.eventList.events.get(viewPosition); 
-			
 			Intent intent = new Intent(getActivity(), EventDetailActivity.class);
 			intent.putExtra(EventDetailActivity.ARTIST_NAME, event.artistName);
 			intent.putExtra(EventDetailActivity.ARTIST_TIME, event.getTime());
@@ -75,13 +85,8 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 		getView().findViewById(R.id.connection_status_view).setVisibility(View.GONE);
 		getView().findViewById(R.id.progress_view).setVisibility(View.VISIBLE);
 		MLog.d("", "Failure web service = "+failureWebServiceReq);
-		switch (failureWebServiceReq) {
-		case Constants.GET_AUTHENTICATION_ID:
+		if (failureWebServiceReq == Constants.GET_EVENTS_DETAILS) {
 			sendEventRequest();
-			break;
-		case Constants.GET_EVENTS_DETAILS:
-			sendEventRequest();
-			break;
 		}
 	}
 
@@ -94,22 +99,9 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 			getView().findViewById(R.id.connection_status_view).setVisibility(View.VISIBLE);
 			getView().findViewById(R.id.listview).setVisibility(View.GONE);
 			getView().findViewById(R.id.progress_view).setVisibility(View.GONE);
-			return;
-		}
-
-		else{
-			switch (requestType) {
-			case Constants.GET_EVENTS_DETAILS:
-				TIHEventList eventList = (TIHEventList)response;
-				updateEventsUI(eventList);
-				break;
-			case Constants.GET_AUTHENTICATION_ID:
-				Authentication authentication = (Authentication)response;
-				AppState.AUTHENTICATION_TOKEN = authentication.authenticationID;
-				MLog.d("", "ID = "+authentication.authenticationID);
-				sendEventRequest();
-				break;
-			}
+		} else if (requestType == Constants.GET_EVENTS_DETAILS) {
+			TIHEventList eventList = (TIHEventList)response;
+			updateEventsUI(eventList);
 		}
 	}
 	
@@ -122,7 +114,6 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 			getView().findViewById(R.id.progress_view).setVisibility(View.GONE);
 			getView().findViewById(R.id.connection_status_view).setVisibility(View.GONE);
 			getView().findViewById(R.id.listview).setVisibility(View.VISIBLE);
-			log.debug("updateEventsUI - eventList: " + eventList.toString());
 			((ListView) getView().findViewById(R.id.listview))
 					.setAdapter(new EventListAdapter(getView().getContext(), eventList));
 		}

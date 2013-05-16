@@ -1,5 +1,6 @@
 package com.artisan.thisishardcore.unifeed;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
+import org.apache.log4j.Logger;
 
 import android.os.Handler;
 
@@ -19,6 +21,7 @@ import com.unifeed.webservice.CallbackWrapper;
 import com.unifeed.webservice.ResponseListener;
 
 public class TIHRestClient {
+	private final Logger log = Logger.getLogger(TIHRestClient.class);
 	
 	private ArrayList<NameValuePair> headers;
 	private ArrayList<NameValuePair> parameters;
@@ -42,65 +45,63 @@ public class TIHRestClient {
 			throws Exception {
 		switch (method) {
 		case GET:
-
-			String combinedParams = "";
-            if(!parameters.isEmpty()){
-                combinedParams += "?";
-                for(NameValuePair p : parameters)
-                {
-                	// if array that is json formatted array, just add the value to URL
-                	if(p.getName().equalsIgnoreCase("array")) {
-                		combinedParams += p.getValue();
-                	} else {
-                        String paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(),"UTF-8");
-                        if(combinedParams.length() > 1){
-                            combinedParams  +=  "&" + paramString;
-                        }
-                        else{
-                            combinedParams += paramString;
-                        }
-                	}
-
-                }
-            }
-            MLog.i("", "Request params " + url + combinedParams);
+			String combinedParams = addParamsToUrl();
+            log.debug("execute request - Final URL: " + url + combinedParams);
             HttpGet request = new HttpGet(url + combinedParams);
 
             //add headers
             for(NameValuePair h : headers){
                 request.addHeader(h.getName(), h.getValue());
             }
-
-            MLog.d("TIHRestClient", "before sending async request");
+            
 			new TIHAsynchronousSender(request,
 					new Handler(),
-					new CallbackWrapper((ResponseListener) fragment, requestType)
+					new TIHCallbackWrapper((ResponseListener) fragment, requestType)
 			).start();
             break;
 
-		case POST:
-			MLog.d("", "url = "+url);
-			HttpPost postRequest = new HttpPost(this.url);
-			for (NameValuePair param :parameters) {
-				MLog.d("", ""+param);
-			}
-
-			if (!parameters.isEmpty()) {
-				postRequest.setEntity(new UrlEncodedFormEntity(parameters,
-						HTTP.UTF_8));
-				new AsynchronousSender(postRequest, new Handler(),
-						new CallbackWrapper((ResponseListener) fragment,
-								requestType)).start();
-			}
-			break;
-
-		case PUT:
-
-			break;
-
+//		case POST:
+//			MLog.d("", "url = "+url);
+//			HttpPost postRequest = new HttpPost(this.url);
+//			for (NameValuePair param :parameters) {
+//				MLog.d("", ""+param);
+//			}
+//
+//			if (!parameters.isEmpty()) {
+//				postRequest.setEntity(new UrlEncodedFormEntity(parameters,
+//						HTTP.UTF_8));
+//				new AsynchronousSender(postRequest, new Handler(),
+//						new CallbackWrapper((ResponseListener) fragment,
+//								requestType)).start();
+//			}
+//			break;
 		default:
 			break;
 		}
+	}
+
+	private String addParamsToUrl() throws UnsupportedEncodingException {
+		String combinedParams = "";
+		if(!parameters.isEmpty()){
+		    combinedParams += "?";
+		    for(NameValuePair p : parameters)
+		    {
+		    	// if array that is json formatted array, just add the value to URL
+		    	if(p.getName().equalsIgnoreCase("array")) {
+		    		combinedParams += p.getValue();
+		    	} else {
+		            String paramString = p.getName() + "=" + URLEncoder.encode(p.getValue(),"UTF-8");
+		            if(combinedParams.length() > 1){
+		                combinedParams  +=  "&" + paramString;
+		            }
+		            else{
+		                combinedParams += paramString;
+		            }
+		    	}
+
+		    }
+		}
+		return combinedParams;
 	}
 
 	public void addParameter(String name, String value) {

@@ -1,12 +1,11 @@
 package com.artisan.thisishardcore;
 
+
+
 import org.apache.log4j.Logger;
 
-
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -17,34 +16,45 @@ import com.artisan.thisishardcore.logging.TIHConfigureLog4j;
 import com.artisan.thisishardcore.schedule.ScheduleFragment;
 
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener{
-	private final Logger log = Logger.getLogger(MainActivity.class);
-	private final int NEWS_TAB_TAG = 0;
-	private final int SCHEDULE_TAB_TAG = 1;
-	private final int PHOTOS_TAB_TAG = 2;
+	private final Logger log = Logger.getLogger("MainActivity-ThisIsHardcore");
 	
-
+	public static final String TAB_SELECTED = "TAB_SELECTED";  
+	public enum TabIdentifier{ NEWS_TAB, SCHEDULE_TAB, PHOTOS_TAB }
+	
+	public TabIdentifier currentlySelectedTab;
+	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		Log.d("test", "External Storage Directory: " + Environment.getExternalStorageDirectory().toString());
 		TIHConfigureLog4j.configure();
+		log.debug("onCreate");
 		
 		final ActionBar bar = getSupportActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		bar.addTab(bar.newTab()
                 .setText("News")
-                .setTag(NEWS_TAB_TAG)
+                .setTag(TabIdentifier.NEWS_TAB)
                 .setTabListener(this));
 		bar.addTab(bar.newTab()
 				.setText("Schedule")
-				.setTag(SCHEDULE_TAB_TAG)
+				.setTag(TabIdentifier.SCHEDULE_TAB)
 				.setTabListener(this));
 		bar.addTab(bar.newTab()
 				.setText("Photo Pit")
-				.setTag(PHOTOS_TAB_TAG)
+				.setTag(TabIdentifier.PHOTOS_TAB)
 				.setTabListener(this));	
+
+		log.debug("savedInstanceState: " + savedInstanceState);
+		if (savedInstanceState != null) {
+			TabIdentifier tabIdentifier = TabIdentifier.valueOf(savedInstanceState.getString(TAB_SELECTED));
+			log.debug("savedInstanceState was not null, trying to select tab with identifier: " 
+					+ tabIdentifier.toString());
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			selectTab(tabIdentifier, ft);
+		}
 	}
+
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -65,24 +75,36 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 		}
 		return(super.onOptionsItemSelected(item));
 	}
-
+	
 	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		int tabIdentifier = (Integer) tab.getTag();
-		if (tabIdentifier == NEWS_TAB_TAG) {
+	public void onSaveInstanceState(Bundle outState) {
+		log.debug("onSaveInstanceState -  setting currentlySelectedTab: " + currentlySelectedTab.toString());
+		outState.putString(TAB_SELECTED, currentlySelectedTab.toString());
+	}
+	
+	private void selectTab(TabIdentifier tabIdentifier, final FragmentTransaction ft) {
+		if (tabIdentifier == TabIdentifier.NEWS_TAB) {
 			log.debug("News Tab Selected");
+			currentlySelectedTab = TabIdentifier.NEWS_TAB;
 			ft.replace(android.R.id.content, NewsFragment.newInstance());
-		} else if (tabIdentifier == SCHEDULE_TAB_TAG) {
+		} else if (tabIdentifier == TabIdentifier.SCHEDULE_TAB) {
 			log.debug("Schedule Tab Selected");
-			log.debug("ScheduleFragment: " + ScheduleFragment.class);
+			currentlySelectedTab = TabIdentifier.SCHEDULE_TAB;
 			log.debug("After printing ScheduleFragment.class");
 			ft.replace(android.R.id.content, ScheduleFragment.newInstance());
-		} else if (tabIdentifier == PHOTOS_TAB_TAG) {
+		} else if (tabIdentifier == TabIdentifier.PHOTOS_TAB) {
 			log.debug("Photo Pit Tab Selected");
+			currentlySelectedTab = TabIdentifier.PHOTOS_TAB;
 			ft.replace(android.R.id.content, PhotoPitFragment.newInstance());
 		} else {
 			log.debug("onTabSelected -> couldn't find the tab with tag: " + tabIdentifier);
 		}
+	}
+
+	@Override
+	public void onTabSelected(Tab tab, FragmentTransaction ft) {
+		TabIdentifier tabIdentifier = (TabIdentifier) tab.getTag();
+		selectTab(tabIdentifier, ft);
 	}
 
 	@Override

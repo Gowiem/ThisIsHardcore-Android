@@ -1,16 +1,17 @@
 package com.artisan.thisishardcore.schedule;
+
+
 import org.apache.log4j.Logger;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.MenuItem;
+import com.artisan.thisishardcore.MainActivity;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
@@ -31,6 +32,7 @@ public class EventDetailActivity extends SherlockActivity {
 		log.debug("EventDetailFragment - onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_detail);
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		// Grab the event details from the intent
 		Intent intent = getIntent();
@@ -47,9 +49,9 @@ public class EventDetailActivity extends SherlockActivity {
 		TextView artistNameTextView 	   = (TextView) findViewById(R.id.artist_name);
 		TextView artistTimeTextView 	   = (TextView) findViewById(R.id.artist_time);
 		TextView artistDescriptionTextView = (TextView) findViewById(R.id.artist_description);
-		Button websiteButton  			   = (Button) findViewById(R.id.website_button);
-		Button facebookButton 			   = (Button) findViewById(R.id.facebook_button);
-		Button twitterButton  			   = (Button) findViewById(R.id.twitter_button);
+		ImageButton websiteButton  		   = (ImageButton) findViewById(R.id.website_button);
+		ImageButton facebookButton 		   = (ImageButton) findViewById(R.id.facebook_button);
+		ImageButton twitterButton  		   = (ImageButton) findViewById(R.id.twitter_button);
 		
 		// Assign the details to the views
 		if (!TIHUtils.isEmpty(artistImageUrl)) {
@@ -58,6 +60,23 @@ public class EventDetailActivity extends SherlockActivity {
 		artistNameTextView.setText(artistName);
 		artistTimeTextView.setText(artistTime);
 		artistDescriptionTextView.setText(artistDescription);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // This is called when the Home (Up) button is pressed
+	            // in the Action Bar.
+//	            Intent parentActivityIntent = new Intent(this, MainActivity.class);
+//	            parentActivityIntent.addFlags(
+//	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
+//	                    Intent.FLAG_ACTIVITY_NEW_TASK);
+//	            startActivity(parentActivityIntent);
+	            finish();
+	            return true;
+	    }
+	    return super.onOptionsItemSelected(item);
 	}
 	
 }

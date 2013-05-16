@@ -1,5 +1,7 @@
 package com.artisan.thisishardcore;
 
+
+
 import org.apache.log4j.Logger;
 
 import android.os.Bundle;
