@@ -1,24 +1,20 @@
 package com.artisan.thisishardcore;
 
-
-
-import org.apache.log4j.Logger;
-
 import com.actionbarsherlock.app.SherlockFragment;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.unifeed.TIHRequestManager;
 
 public class UnifeedFragment extends SherlockFragment {
-	private final Logger log = Logger.getLogger(UnifeedFragment.class);
+	private final TIHLogger logger = new TIHLogger(UnifeedFragment.class);
 	
 	//event request
 	public void sendEventRequest(){
-		log.debug("UnifeedFragment - sendEventRequest");
-		log.debug("UnifeedFragment - Sending getEventDetails with fragment: " + this);
+		logger.d("sendEventRequest");
 		TIHRequestManager.getEvents((SherlockFragment)this);
 	}
 	
 	public void sendNewsRequest(int pageNum, int pageSize, String feedType) {
-		log.debug("UnifeedFragment - sendNewsRequest");
+		logger.d("sendNewsRequest");
 		TIHRequestManager.getNews((SherlockFragment)this, pageNum, pageSize, feedType);
 	}
 

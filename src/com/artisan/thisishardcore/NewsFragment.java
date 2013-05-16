@@ -1,17 +1,15 @@
 package com.artisan.thisishardcore;
 
-import org.apache.log4j.Logger;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.actionbarsherlock.app.SherlockFragment;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.unifeed.webservice.ResponseListener;
 
 public class NewsFragment extends UnifeedFragment implements ResponseListener {
-	private final Logger log = Logger.getLogger(NewsFragment.class); 
+	private final TIHLogger logger = new TIHLogger(NewsFragment.class); 
 	public static final String OFFICIAL_FEED = "OFFICIAL_FEED";
 	public static final String FAN_FEED      = "FAN_FEED";
 
@@ -39,6 +37,6 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
-		log.debug("onResponseReceived - reponse: " + response);
+		logger.d("onResponseReceived - reponse: ", response);
 	}
 }

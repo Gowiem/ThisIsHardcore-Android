@@ -15,14 +15,15 @@ import org.apache.log4j.Logger;
 
 import android.os.Handler;
 
+import com.artisan.thisishardcore.PhotoPitFragment;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.parser.TIHParser;
 import com.unifeed.Constants;
 import com.unifeed.MLog;
 import com.unifeed.parser.Parser;
 
 public class TIHAsynchronousSender extends Thread {
-	private final static Logger log = Logger.getLogger(TIHAsynchronousSender.class);
-	private static String TAG = "AsynchronousSender";
+	private static final TIHLogger logger = new TIHLogger(PhotoPitFragment.class);
 
 	private DefaultHttpClient httpClient;
 	private HttpRequest request;
@@ -64,8 +65,8 @@ public class TIHAsynchronousSender extends Thread {
 			Object object = invokeParser(null, wrapper.requestType);
 			wrapper.setResponse(object);
 			handler.post(wrapper);
-		}catch (Exception e) {
-			MLog.d(TAG, "exception: " + e);
+		} catch (Exception e) {
+			logger.e("exception: " + e);
 		}
 	}
 

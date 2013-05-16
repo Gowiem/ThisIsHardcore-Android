@@ -12,6 +12,8 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
 
+import com.artisan.thisishardcore.MainActivity;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
 import com.artisan.thisishardcore.models.TIHNewsList;
@@ -27,16 +29,7 @@ import com.unifeed.responsetype.VideoDetails;
 
 
 public class TIHParser {
-	private final static Logger log = Logger.getLogger(TIHParser.class);
-
-	public static void logResponse(String str) {
-		if(str.length() > 4000) {
-			log.debug("reponse: " + str.substring(0, 4000));
-			logResponse(str.substring(4000));
-		} else {
-			log.debug("response: " + str);
-		}
-	}
+	private static final TIHLogger logger = new TIHLogger(TIHParser.class);
 
 	public static Reader response(Reader reader){
 		BufferedReader br = new BufferedReader(reader);
@@ -50,7 +43,7 @@ public class TIHParser {
 			response = builder.toString();
 			InputStream inputStream = new ByteArrayInputStream(response.getBytes("UTF-8"));
 			Reader inReader = new InputStreamReader(inputStream);
-			//			logResponse(response);
+			// logLongMessage(response);
 			return inReader;
 		} catch (IOException e) {
 			e.printStackTrace();

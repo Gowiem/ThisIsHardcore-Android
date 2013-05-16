@@ -15,13 +15,15 @@ import org.apache.log4j.Logger;
 import android.os.Handler;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.artisan.thisishardcore.PhotoPitFragment;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.unifeed.MLog;
 import com.unifeed.webservice.AsynchronousSender;
 import com.unifeed.webservice.CallbackWrapper;
 import com.unifeed.webservice.ResponseListener;
 
 public class TIHRestClient {
-	private final Logger log = Logger.getLogger(TIHRestClient.class);
+	private static final TIHLogger logger = new TIHLogger(TIHRestClient.class);
 	
 	private ArrayList<NameValuePair> headers;
 	private ArrayList<NameValuePair> parameters;
@@ -46,7 +48,7 @@ public class TIHRestClient {
 		switch (method) {
 		case GET:
 			String combinedParams = addParamsToUrl();
-            log.debug("execute request - Final URL: " + url + combinedParams);
+            logger.d("execute request - Final URL: " + url + combinedParams);
             HttpGet request = new HttpGet(url + combinedParams);
 
             //add headers
@@ -59,22 +61,7 @@ public class TIHRestClient {
 					new TIHCallbackWrapper((ResponseListener) fragment, requestType)
 			).start();
             break;
-
-//		case POST:
-//			MLog.d("", "url = "+url);
-//			HttpPost postRequest = new HttpPost(this.url);
-//			for (NameValuePair param :parameters) {
-//				MLog.d("", ""+param);
-//			}
-//
-//			if (!parameters.isEmpty()) {
-//				postRequest.setEntity(new UrlEncodedFormEntity(parameters,
-//						HTTP.UTF_8));
-//				new AsynchronousSender(postRequest, new Handler(),
-//						new CallbackWrapper((ResponseListener) fragment,
-//								requestType)).start();
-//			}
-//			break;
+            
 		default:
 			break;
 		}

@@ -7,15 +7,13 @@ import org.apache.log4j.Logger;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.NewsFragment;
 import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.unifeed.TIHRestClient.REQUEST_METHOD;
-import com.unifeed.AppState;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.unifeed.Constants;
 import com.unifeed.MLog;
 
 
 public class TIHRequestManager {
-	private static final Logger log = Logger.getLogger(TIHRequestManager.class);
-	final static String TAG = "RequestManager";
+	private static final TIHLogger logger = new TIHLogger(TIHRequestManager.class);
 	
 	////////////////////////////////////////////////////////////////////////////////////////////////
 	// TIH METHODS TILL I REMOVE ALL THE OTHERS
@@ -23,19 +21,19 @@ public class TIHRequestManager {
 	
 	public static void getEvents(SherlockFragment fragment) {
 		String path = fragment.getResources().getString(R.string.event_url);
-		log.debug("getEvents path: " + path);
+		logger.d("getEvents path: ", path);
 		TIHRestClient client = new TIHRestClient(Constants.URL + path, Constants.GET_EVENTS_DETAILS);
 		try {
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {
-			MLog.e("", e.toString());
+			logger.e(e.toString());
 			e.printStackTrace();
 		}
 	}
 	
 	public static void getNews(SherlockFragment fragment, int pageNum, int pageSize, String feedType) {
-		MLog.d("", "Page No = " + pageNum);
-		MLog.d("", "Size = " + pageSize);
+		logger.d("Page No = ", pageNum);
+		logger.d("Size = ", pageSize);
 		String newsUrl = buildNewsUrl(fragment, feedType);
 		TIHRestClient client = new TIHRestClient(newsUrl, Constants.GET_NEWS);
 		if(pageNum >= 0 && pageSize >= 0){
@@ -45,7 +43,7 @@ public class TIHRequestManager {
 		try {
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {
-			MLog.e("", e.toString());
+			logger.e(e.toString());
 			e.printStackTrace();
 		}
 	}
@@ -59,7 +57,7 @@ public class TIHRequestManager {
 		} else if (feedType.equals(NewsFragment.FAN_FEED)) {
 			urlBuilder.append("fanfeed.json");
 		} else {
-			log.debug("buildNewsUrl - Error: feedType was not one of the expected values.");
+			logger.e("buildNewsUrl - Error: feedType was not one of the expected values.");
 		}
 		return urlBuilder.toString();
 	}

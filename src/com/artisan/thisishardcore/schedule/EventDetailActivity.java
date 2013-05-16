@@ -12,12 +12,14 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
 import com.artisan.thisishardcore.MainActivity;
+import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.R;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
 
 public class EventDetailActivity extends SherlockActivity {
-	private final static Logger log = Logger.getLogger(EventDetailActivity.class);
+	private static final TIHLogger logger = new TIHLogger(EventDetailActivity.class);
 	
 	public final static String ARTIST_NAME        = "ARTIST_NAME";
 	public final static String ARTIST_TIME 	      = "ARTIST_TIME";
@@ -29,7 +31,7 @@ public class EventDetailActivity extends SherlockActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		log.debug("EventDetailFragment - onCreate");
+		logger.d("onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_detail);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -68,11 +70,6 @@ public class EventDetailActivity extends SherlockActivity {
 	        case android.R.id.home:
 	            // This is called when the Home (Up) button is pressed
 	            // in the Action Bar.
-//	            Intent parentActivityIntent = new Intent(this, MainActivity.class);
-//	            parentActivityIntent.addFlags(
-//	                    Intent.FLAG_ACTIVITY_CLEAR_TOP |
-//	                    Intent.FLAG_ACTIVITY_NEW_TASK);
-//	            startActivity(parentActivityIntent);
 	            finish();
 	            return true;
 	    }

@@ -1,8 +1,6 @@
 package com.artisan.thisishardcore;
 
-
-
-import org.apache.log4j.Logger;
+import com.artisan.thisishardcore.logging.TIHLogger;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,10 +9,10 @@ import android.view.ViewGroup;
 
 
 public class PhotoPitFragment extends UnifeedFragment {
-	private final static Logger log = Logger.getLogger(PhotoPitFragment.class);
+	private static final TIHLogger logger = new TIHLogger(PhotoPitFragment.class);
 
 	protected static PhotoPitFragment newInstance() {
-		log.debug("PhotoPitFragment - newInstance");
+		logger.d("PhotoPitFragment - newInstance");
 		PhotoPitFragment contentFragment = new PhotoPitFragment();
 		Bundle args = new Bundle();
 		contentFragment.setArguments(args);

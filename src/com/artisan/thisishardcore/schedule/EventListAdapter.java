@@ -8,11 +8,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.R;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
 
 public class EventListAdapter extends ArrayAdapter<TIHEvent>{
+	private static final TIHLogger logger = new TIHLogger(EventListAdapter.class);
+	
 	private final Context context; 
 	private final TIHEventList eventList;
 	

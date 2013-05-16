@@ -3,11 +3,13 @@ package com.artisan.thisishardcore.unifeed;
 
 import org.apache.log4j.Logger;
 
+import com.artisan.thisishardcore.PhotoPitFragment;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.unifeed.webservice.ResponseListener;
 
 
 public class TIHCallbackWrapper implements Runnable {
-	private final Logger log = Logger.getLogger(TIHCallbackWrapper.class);
+	private static final TIHLogger logger = new TIHLogger(TIHCallbackWrapper.class);
 
 	private ResponseListener callbackActivity;
 	private Object response;
@@ -20,7 +22,6 @@ public class TIHCallbackWrapper implements Runnable {
 
 	@Override
 	public void run() {
-//		log.debug("callbackActivity.onResponseReceived being called with response: " + response);
 		callbackActivity.onResponseReceived(response, requestType);
 	}
 

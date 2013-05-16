@@ -4,11 +4,13 @@ package com.artisan.thisishardcore;
 
 import org.apache.log4j.Logger;
 
+import com.artisan.thisishardcore.logging.TIHLogger;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 
 public class TIHAppState {	
-	private static final Logger log = Logger.getLogger(TIHAppState.class);
+	private static final TIHLogger logger = new TIHLogger(TIHAppState.class);
 
 	public static ProgressDialog progressDialog;
 
@@ -26,14 +28,14 @@ public class TIHAppState {
 
 
 	public static void showActivityIndicator(Context context, String msg){
-		log.debug("showActivityIndicator");
+		logger.d("showActivityIndicator");
 		if(progressDialog != null && progressDialog.isShowing()){
 			progressDialog.setMessage(msg);
 		}
 		else{
 			progressDialog = ProgressDialog.show(context, null, msg);
 			progressDialog.show();
-			log.debug("progressDialog.show() was called");
+			logger.d("progressDialog.show() was called");
 		}
 	}
 
@@ -42,7 +44,7 @@ public class TIHAppState {
 	}
 
 	public static void stopActivityIndicator(){
-		log.debug("stopActivityIndicator - progressDialog: " + progressDialog);
+		logger.d("stopActivityIndicator - progressDialog: ", progressDialog);
 		try {
 			if(progressDialog != null && progressDialog.isShowing())
 				progressDialog.dismiss();

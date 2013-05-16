@@ -13,8 +13,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.UnifeedFragment;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
 import com.unifeed.AppState;
@@ -23,14 +25,15 @@ import com.unifeed.MLog;
 import com.unifeed.webservice.ResponseListener;
 
 public class ScheduleFragment extends UnifeedFragment implements ResponseListener {
-	private final static Logger log = Logger.getLogger(ScheduleFragment.class);
+	private static final TIHLogger logger = new TIHLogger(PhotoPitFragment.class);
+	
 	
 	private TIHEventList eventList; 
 	private int failureWebServiceReq;
 	private boolean isReqSent;
 
 	public static ScheduleFragment newInstance() {
-		log.debug("ScheduleFragment - newInstance");
+		logger.d("newInstance");
 		ScheduleFragment fragment = new ScheduleFragment();
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
@@ -56,7 +59,7 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		log.debug("ScheduleFragment - onCreate");
+		logger.d("onCreate");
 		super.onCreate(savedInstanceState);
 		//Add scroll listener and footer view to listview
 		//((ListView)findViewById(R.id.listview)).setOnScrollListener(this);
@@ -84,7 +87,7 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 	public void onTryAgainClicked(View view){
 		getView().findViewById(R.id.connection_status_view).setVisibility(View.GONE);
 		getView().findViewById(R.id.progress_view).setVisibility(View.VISIBLE);
-		MLog.d("", "Failure web service = "+failureWebServiceReq);
+		logger.w("Failure web service: ", failureWebServiceReq);
 		if (failureWebServiceReq == Constants.GET_EVENTS_DETAILS) {
 			sendEventRequest();
 		}
@@ -92,7 +95,7 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
-		log.debug("onResponseReceived");
+		logger.d("onResponseReceived");
 		AppState.stopActivityIndicator();
 		if(response == null){
 			failureWebServiceReq = requestType;
@@ -108,7 +111,7 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 	//updating event view after getting response from server
 	private void updateEventsUI(TIHEventList eventList) {
 		isReqSent = false;
-		log.debug("ScheduleFragment - updateEventsUI");
+		logger.d("updateEventsUI");
 		if (eventList != null && !eventList.events.isEmpty()) {
 			this.eventList = eventList;
 			getView().findViewById(R.id.progress_view).setVisibility(View.GONE);
