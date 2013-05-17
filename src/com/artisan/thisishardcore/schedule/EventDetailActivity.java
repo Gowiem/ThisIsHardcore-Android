@@ -1,8 +1,6 @@
 package com.artisan.thisishardcore.schedule;
 
 
-import org.apache.log4j.Logger;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ImageButton;
@@ -11,8 +9,6 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.artisan.thisishardcore.MainActivity;
-import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.utils.TIHUtils;

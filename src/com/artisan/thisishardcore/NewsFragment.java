@@ -9,11 +9,12 @@ import com.artisan.thisishardcore.logging.TIHLogger;
 import com.unifeed.webservice.ResponseListener;
 
 public class NewsFragment extends UnifeedFragment implements ResponseListener {
-	private final TIHLogger logger = new TIHLogger(NewsFragment.class); 
+	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 
 	public static final String OFFICIAL_FEED = "OFFICIAL_FEED";
 	public static final String FAN_FEED      = "FAN_FEED";
 
 	protected static NewsFragment newInstance() {
+		logger.d("newInstance");
 		NewsFragment contentFragment = new NewsFragment();
 		Bundle args = new Bundle();
 		contentFragment.setArguments(args);
@@ -23,6 +24,7 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		logger.d("onCreate");
 		super.onCreate(savedInstanceState);
 		sendNewsRequest(0, 20, OFFICIAL_FEED);
 	}

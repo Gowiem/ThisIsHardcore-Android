@@ -2,6 +2,8 @@ package com.artisan.thisishardcore.logging;
 
 import org.apache.log4j.Logger;
 
+import com.artisan.thisishardcore.utils.TIHUtils;
+
 public class TIHLogger {
 	private static final Logger logger = Logger.getLogger("com.artisan.thisishardcore");
 	private final Class<?> clazz;
@@ -33,9 +35,15 @@ public class TIHLogger {
 	
 	private String buildLogMessage(Object... logObjects) {
 		StringBuilder logBuilder = new StringBuilder();
-		logBuilder.append(clazz.getName().toString());
+		logBuilder.append(clazz.getSimpleName().toString());
+		logBuilder.append("==> ");
 		for(Object logObject : logObjects) {
-			logBuilder.append(logObject.toString());
+			if (logObject != null && !TIHUtils.isEmpty(logObject.toString())) {
+				logBuilder.append(logObject.toString());
+			} else {
+				logBuilder.append("-NULL-");
+			}
+			logBuilder.append(" ");
 		}
 		return logBuilder.toString();
 	}

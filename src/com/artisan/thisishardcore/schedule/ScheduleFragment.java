@@ -25,7 +25,7 @@ import com.unifeed.MLog;
 import com.unifeed.webservice.ResponseListener;
 
 public class ScheduleFragment extends UnifeedFragment implements ResponseListener {
-	private static final TIHLogger logger = new TIHLogger(PhotoPitFragment.class);
+	private static final TIHLogger logger = new TIHLogger(ScheduleFragment.class);
 	
 	
 	private TIHEventList eventList; 
