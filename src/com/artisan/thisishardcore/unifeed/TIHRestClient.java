@@ -55,7 +55,7 @@ public class TIHRestClient {
             for(NameValuePair h : headers){
                 request.addHeader(h.getName(), h.getValue());
             }
-            
+            logger.d("Before sending request");
 			new TIHAsynchronousSender(request,
 					new Handler(),
 					new TIHCallbackWrapper((ResponseListener) fragment, requestType)

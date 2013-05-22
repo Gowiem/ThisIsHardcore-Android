@@ -5,11 +5,17 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.news.NewsListAdapter;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.ImageView;
 
 public class TIHUtils {
+	private static final TIHLogger logger = new TIHLogger(TIHUtils.class);
 
 	public static Bitmap getBitmapFromURL(String src) {
 		try {
@@ -27,7 +33,7 @@ public class TIHUtils {
 			return null;
 		}
 	}
-	
+
 	public static boolean isEmpty(String string) {
 		if (string == null || string.trim().length() <= 0) {
 			return true;

@@ -10,6 +10,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.artisan.thisishardcore.logging.TIHConfigureLog4j;
 import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.news.NewsFragment;
 import com.artisan.thisishardcore.schedule.ScheduleFragment;
 
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener{

@@ -5,9 +5,9 @@ package com.artisan.thisishardcore.unifeed;
 import org.apache.log4j.Logger;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.artisan.thisishardcore.NewsFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.news.NewsFragment;
 import com.unifeed.Constants;
 import com.unifeed.MLog;
 
@@ -41,6 +41,7 @@ public class TIHRequestManager {
 			client.addParameter("size", String.valueOf(pageSize));
 		}
 		try {
+			logger.d("Before client execute with fragment: ", fragment);
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {
 			logger.e(e.toString());

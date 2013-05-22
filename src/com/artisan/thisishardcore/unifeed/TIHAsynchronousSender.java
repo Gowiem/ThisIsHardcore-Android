@@ -23,7 +23,7 @@ import com.unifeed.MLog;
 import com.unifeed.parser.Parser;
 
 public class TIHAsynchronousSender extends Thread {
-	private static final TIHLogger logger = new TIHLogger(PhotoPitFragment.class);
+	private static final TIHLogger logger = new TIHLogger(TIHAsynchronousSender.class);
 
 	private DefaultHttpClient httpClient;
 	private HttpRequest request;
@@ -79,10 +79,12 @@ public class TIHAsynchronousSender extends Thread {
 		switch (reqType) {
 		
 		case Constants.GET_NEWS:
+			logger.d("Before parseNewsList");
 			object = TIHParser.parseNewsList(response);
 			break;
 			
 		case Constants.GET_EVENTS_DETAILS:
+			logger.d("Before parseEventList");
 			object = TIHParser.parseEventList(response);
 			break;
 

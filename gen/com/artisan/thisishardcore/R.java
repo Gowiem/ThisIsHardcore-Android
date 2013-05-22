@@ -1061,10 +1061,10 @@ containing a value of this type.
         public static final int more_icon=0x7f020082;
         public static final int news_icon=0x7f020083;
         public static final int next=0x7f020084;
-        public static final int notification_item_background_color=0x7f020096;
-        public static final int notification_item_background_color_pressed=0x7f020097;
-        public static final int notification_template_icon_bg=0x7f02009f;
-        public static final int notification_template_icon_low_bg=0x7f0200a0;
+        public static final int notification_item_background_color=0x7f020097;
+        public static final int notification_item_background_color_pressed=0x7f020098;
+        public static final int notification_template_icon_bg=0x7f0200a0;
+        public static final int notification_template_icon_low_bg=0x7f0200a1;
         public static final int odd_result_bg=0x7f020085;
         public static final int photo_pit_load=0x7f020086;
         public static final int prev=0x7f020087;
@@ -1073,46 +1073,47 @@ containing a value of this type.
         public static final int refresh_bg=0x7f02008a;
         public static final int refresh_icon=0x7f02008b;
         public static final int rss_icon=0x7f02008c;
-        public static final int safe_mode_background=0x7f020099;
-        public static final int screen_background_dark=0x7f020093;
+        public static final int safe_mode_background=0x7f02009a;
+        public static final int screen_background_dark=0x7f020094;
         /** 
      Background drawable that can be used for a transparent activity to
          be able to display a dark UI: this darkens its background to make
          a dark (default theme) UI more visible.
     
          */
-        public static final int screen_background_dark_transparent=0x7f02009a;
-        public static final int screen_background_holo_dark=0x7f02009e;
+        public static final int screen_background_dark_transparent=0x7f02009b;
+        public static final int screen_background_holo_dark=0x7f02009f;
         /**  For holo theme 
          */
-        public static final int screen_background_holo_light=0x7f02009d;
+        public static final int screen_background_holo_light=0x7f02009e;
         /** 
      Color taken from: 
      https://raw.github.com/android/platform_frameworks_base/master/core/res/res/values/colors.xml
     
          */
-        public static final int screen_background_light=0x7f020092;
+        public static final int screen_background_light=0x7f020093;
         /** 
      Background drawable that can be used for a transparent activity to
          be able to display a light UI: this lightens its background to make
          a light UI more visible.
     
          */
-        public static final int screen_background_light_transparent=0x7f02009b;
-        public static final int search_bar_default_color=0x7f020098;
+        public static final int screen_background_light_transparent=0x7f02009c;
+        public static final int search_bar_default_color=0x7f020099;
         /**  For date picker widget 
          */
-        public static final int selected_day_background=0x7f02009c;
+        public static final int selected_day_background=0x7f02009d;
         public static final int splash=0x7f02008d;
         public static final int stats_icon=0x7f02008e;
-        public static final int status_bar_closed_default_background=0x7f020094;
-        public static final int status_bar_opened_default_background=0x7f020095;
+        public static final int status_bar_closed_default_background=0x7f020095;
+        public static final int status_bar_opened_default_background=0x7f020096;
         public static final int text_badge_bg=0x7f02008f;
         public static final int twitter=0x7f020090;
-        public static final int video_gallery_icon=0x7f020091;
+        public static final int twitter_icon=0x7f020091;
+        public static final int video_gallery_icon=0x7f020092;
     }
     public static final class id {
-        public static final int RelativeLayout01=0x7f060072;
+        public static final int RelativeLayout01=0x7f060077;
         public static final int abs__action_bar=0x7f060020;
         public static final int abs__action_bar_container=0x7f06001f;
         public static final int abs__action_bar_subtitle=0x7f060011;
@@ -1159,8 +1160,8 @@ containing a value of this type.
         public static final int artist_image=0x7f060041;
         public static final int artist_name=0x7f060042;
         public static final int artist_time=0x7f060044;
-        public static final int bookmarks=0x7f06007f;
-        public static final int connection_status_view=0x7f06005e;
+        public static final int bookmarks=0x7f060084;
+        public static final int connection_status_view=0x7f060064;
         public static final int custom_menu_table=0x7f060036;
         public static final int detail_relative_layout=0x7f060043;
         public static final int disableHome=0x7f060009;
@@ -1179,64 +1180,69 @@ containing a value of this type.
         public static final int facebook_button=0x7f060047;
         public static final int footer_progress=0x7f06004e;
         public static final int footer_view=0x7f06004c;
-        public static final int gallery_photo=0x7f060066;
+        public static final int gallery_photo=0x7f06006b;
         public static final int get_authentication=0x7f06004f;
         public static final int get_result=0x7f060052;
         public static final int homeAsUp=0x7f060006;
         public static final int image_zoom_progress=0x7f060058;
         public static final int left=0x7f06005a;
         public static final int listMode=0x7f060002;
-        public static final int listview=0x7f060060;
+        public static final int listview=0x7f06005d;
         public static final int mediaLayout=0x7f06005c;
         public static final int menu_item_icon=0x7f060037;
         public static final int menu_item_title=0x7f060038;
-        public static final int more=0x7f06007e;
+        public static final int more=0x7f060083;
+        public static final int news_author=0x7f060063;
+        public static final int news_body=0x7f060062;
+        public static final int news_date=0x7f06005f;
+        public static final int news_icon=0x7f060060;
         public static final int normal=0x7f060001;
-        public static final int offset=0x7f06006f;
+        public static final int offset=0x7f060074;
         public static final int page_box=0x7f060051;
         public static final int page_count=0x7f06004d;
-        public static final int pb=0x7f06006c;
+        public static final int pb=0x7f060071;
         public static final int photo=0x7f060054;
         public static final int photo_count=0x7f060035;
-        public static final int photo_gallery=0x7f060065;
+        public static final int photo_gallery=0x7f06006a;
         public static final int photo_name=0x7f060034;
-        public static final int progress_view=0x7f06005d;
-        public static final int pull_to_refresh_header=0x7f060067;
-        public static final int pull_to_refresh_image=0x7f060069;
-        public static final int pull_to_refresh_listview=0x7f06005f;
-        public static final int pull_to_refresh_progress=0x7f060068;
-        public static final int pull_to_refresh_text=0x7f06006a;
-        public static final int pull_to_refresh_updated_at=0x7f06006b;
-        public static final int refresh_icon=0x7f06007c;
-        public static final int response=0x7f06007d;
+        public static final int progress_view=0x7f06005e;
+        public static final int pull_to_refresh_header=0x7f06006c;
+        public static final int pull_to_refresh_image=0x7f06006e;
+        public static final int pull_to_refresh_listview=0x7f060065;
+        public static final int pull_to_refresh_progress=0x7f06006d;
+        public static final int pull_to_refresh_text=0x7f06006f;
+        public static final int pull_to_refresh_updated_at=0x7f060070;
+        public static final int refresh_icon=0x7f060081;
+        public static final int response=0x7f060082;
         public static final int result_arrow=0x7f06003c;
-        public static final int result_author=0x7f060064;
-        public static final int result_body=0x7f060063;
-        public static final int result_posted_date=0x7f060061;
-        public static final int result_social_icon=0x7f060062;
+        public static final int result_author=0x7f060069;
+        public static final int result_body=0x7f060068;
+        public static final int result_posted_date=0x7f060066;
+        public static final int result_social_icon=0x7f060067;
         public static final int right=0x7f06005b;
+        public static final int row_image=0x7f060061;
         public static final int showCustom=0x7f060008;
         public static final int showHome=0x7f060005;
         public static final int showTitle=0x7f060007;
         public static final int size_box=0x7f060050;
-        public static final int splash=0x7f060070;
-        public static final int splash_progress=0x7f060071;
+        public static final int splash=0x7f060075;
+        public static final int splash_progress=0x7f060076;
         public static final int stats=0x7f060057;
         public static final int tabMode=0x7f060003;
-        public static final int titleTv=0x7f060074;
-        public static final int title_bar_logo=0x7f060073;
-        public static final int title_no=0x7f060076;
-        public static final int title_progress=0x7f060075;
-        public static final int top_layout=0x7f06006d;
-        public static final int total_rows=0x7f06006e;
+        public static final int titleTv=0x7f060079;
+        public static final int title_bar_logo=0x7f060078;
+        public static final int title_no=0x7f06007b;
+        public static final int title_progress=0x7f06007a;
+        public static final int top_layout=0x7f060072;
+        public static final int total_rows=0x7f060073;
         public static final int twitter_button=0x7f060048;
         public static final int useLogo=0x7f060004;
         public static final int video=0x7f060056;
-        public static final int video_arrow=0x7f060077;
-        public static final int video_name=0x7f060079;
-        public static final int video_photo=0x7f060078;
-        public static final int view_full_result=0x7f06007b;
-        public static final int view_result_progress_bar=0x7f06007a;
+        public static final int video_arrow=0x7f06007c;
+        public static final int video_name=0x7f06007e;
+        public static final int video_photo=0x7f06007d;
+        public static final int view_full_result=0x7f060080;
+        public static final int view_result_progress_bar=0x7f06007f;
         public static final int web_view=0x7f060059;
         public static final int website_button=0x7f060046;
         public static final int wrap_content=0x7f060000;
@@ -1278,23 +1284,24 @@ containing a value of this type.
         public static final int main=0x7f03001e;
         public static final int media_gallery=0x7f03001f;
         public static final int news=0x7f030020;
-        public static final int news_results=0x7f030021;
-        public static final int news_results_content=0x7f030022;
-        public static final int photo_gallery=0x7f030023;
-        public static final int photo_gallery_content=0x7f030024;
-        public static final int photo_pit=0x7f030025;
-        public static final int pull_to_refresh=0x7f030026;
-        public static final int pull_to_refresh_header=0x7f030027;
-        public static final int refresh_view=0x7f030028;
-        public static final int results=0x7f030029;
-        public static final int schedule=0x7f03002a;
-        public static final int sherlock_spinner_dropdown_item=0x7f03002b;
-        public static final int sherlock_spinner_item=0x7f03002c;
-        public static final int splash_screen=0x7f03002d;
-        public static final int titlebar=0x7f03002e;
-        public static final int video_gallery_content=0x7f03002f;
-        public static final int view_full_result=0x7f030030;
-        public static final int view_response=0x7f030031;
+        public static final int news_item_row=0x7f030021;
+        public static final int news_results=0x7f030022;
+        public static final int news_results_content=0x7f030023;
+        public static final int photo_gallery=0x7f030024;
+        public static final int photo_gallery_content=0x7f030025;
+        public static final int photo_pit=0x7f030026;
+        public static final int pull_to_refresh=0x7f030027;
+        public static final int pull_to_refresh_header=0x7f030028;
+        public static final int refresh_view=0x7f030029;
+        public static final int results=0x7f03002a;
+        public static final int schedule=0x7f03002b;
+        public static final int sherlock_spinner_dropdown_item=0x7f03002c;
+        public static final int sherlock_spinner_item=0x7f03002d;
+        public static final int splash_screen=0x7f03002e;
+        public static final int titlebar=0x7f03002f;
+        public static final int video_gallery_content=0x7f030030;
+        public static final int view_full_result=0x7f030031;
+        public static final int view_response=0x7f030032;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1350,6 +1357,8 @@ containing a value of this type.
         public static final int event_icon=0x7f050020;
         public static final int event_url=0x7f050003;
         public static final int more=0x7f05001f;
+        public static final int news_author_placeholder=0x7f050025;
+        public static final int news_body_placeholder=0x7f050024;
         public static final int news_url=0x7f05001c;
         public static final int photo_url1=0x7f050005;
         public static final int photo_url2=0x7f050006;
