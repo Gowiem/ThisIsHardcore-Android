@@ -13,7 +13,7 @@ public class UnifeedFragment extends SherlockFragment {
 		TIHRequestManager.getEvents((SherlockFragment)this);
 	}
 	
-	public void sendNewsRequest(int pageNum, int pageSize, String feedType) {
+	public void sendNewsRequest(int pageNum, int pageSize, int feedType) {
 		logger.d("sendNewsRequest");
 		TIHRequestManager.getNews((SherlockFragment)this, pageNum, pageSize, feedType);
 	}

@@ -1,16 +1,19 @@
 package com.artisan.thisishardcore.models;
 
+import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.utils.TIHUtils;
 import com.google.gson.annotations.SerializedName;
 
 
 public class TIHNewsItem {
+	private static final TIHLogger logger = new TIHLogger(TIHNewsItem.class);
 	
 	public String toString() {
 		return "----- News Item -> body: " + getBody();
 	}
 	
 	public String getDateString() {
-		return "??? - ???";
+		return TIHUtils.convertEpochTimeToString(this.getCreatedAt());
 	}
 	
 	///////////////////////////////////////////////////////////////////////////
@@ -34,7 +37,7 @@ public class TIHNewsItem {
 		return value.body;
 	}
 	
-	public int getCreatedAt() {
+	public long getCreatedAt() {
 		return value.createdAt;
 	}
 	
@@ -63,7 +66,7 @@ public class TIHNewsItem {
 		public String body;
 		
 		@SerializedName("created_at")
-		public int createdAt;
+		public long createdAt;
 		
 		@SerializedName("profile_url")
 		public String profileUrl;

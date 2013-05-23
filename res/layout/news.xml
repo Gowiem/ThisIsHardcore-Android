@@ -4,6 +4,41 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="25dp"
+        android:background="@color/lighter_gray"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" >
+        
+     	<ImageView
+     	    android:id="@+id/official_tab"
+     	    android:onClick="officialTabClicked"
+     	    android:layout_width="wrap_content"
+     	    android:layout_height="wrap_content"
+     	    android:layout_weight="1"
+     	    android:contentDescription="official tab"
+     	    android:src="@drawable/official_blue" />
+     	
+     	<ImageView
+     	    android:id="@+id/fan_feed_tab"
+     	    android:onClick="fanTabClicked"
+     	    android:layout_width="wrap_content"
+     	    android:layout_height="wrap_content"
+     	    android:layout_weight="1"
+     	    android:contentDescription="fan feed tab"
+     	    android:src="@drawable/fan_feed_grey" />
+        
+    </LinearLayout>
+
+    <ImageView 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="tab header"
+        android:src="@drawable/tab_header_cap" />
+    
     <ListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
@@ -13,6 +48,6 @@
         android:fadingEdge="vertical"
         android:fastScrollEnabled="true"
         android:scrollingCache="false"
-        android:smoothScrollbar="true" />
+        android:scrollbars="none" />
 
 </LinearLayout>

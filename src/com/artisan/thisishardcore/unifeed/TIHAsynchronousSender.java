@@ -78,11 +78,14 @@ public class TIHAsynchronousSender extends Thread {
 		Object object = null;
 		switch (reqType) {
 		
-		case Constants.GET_NEWS:
-			logger.d("Before parseNewsList");
+		case Constants.GET_FAN_NEWS:
+			logger.d("Before parsing fan news list");
 			object = TIHParser.parseNewsList(response);
 			break;
-			
+		case Constants.GET_OFFICIAL_NEWS:
+			logger.d("Before parsing official news list");
+			object = TIHParser.parseNewsList(response);
+			break;
 		case Constants.GET_EVENTS_DETAILS:
 			logger.d("Before parseEventList");
 			object = TIHParser.parseEventList(response);
