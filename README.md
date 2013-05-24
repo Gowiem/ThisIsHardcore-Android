@@ -1,4 +1,4 @@
 ThisIsHardcore-Android
 ======================
 
-Android version for the This Is Hardcore app. 
+Android version of the This Is Hardcore app. 
