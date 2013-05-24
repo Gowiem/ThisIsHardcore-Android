@@ -43,6 +43,13 @@
             android:configChanges="orientation|keyboardHidden"
             android:name="com.artisan.thisishardcore.schedule.EventDetailActivity" >
         </activity>
+        <!-- TIHWebViewActivity -->
+        <activity 
+            android:screenOrientation="portrait" 
+            android:configChanges="orientation|keyboardHidden"
+            android:name="com.artisan.thisishardcore.TIHWebViewActivity" >
+        </activity>
+        
     </application>
 
 </manifest>

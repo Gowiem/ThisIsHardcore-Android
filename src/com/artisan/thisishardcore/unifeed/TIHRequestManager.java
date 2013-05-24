@@ -31,11 +31,12 @@ public class TIHRequestManager {
 		}
 	}
 	
-	public static void getNews(SherlockFragment fragment, int pageNum, int pageSize, int feedType) {
+	public static void getNews(SherlockFragment fragment, int pageNum, int pageSize, int requestType) {
 		logger.d("Page No = ", pageNum);
 		logger.d("Size = ", pageSize);
-		String newsUrl = buildNewsUrl(fragment, feedType);
-		TIHRestClient client = new TIHRestClient(newsUrl, feedType);
+		String newsUrl = buildNewsUrl(fragment, requestType);
+		logger.d("getNews sending with requestType: ", requestType);
+		TIHRestClient client = new TIHRestClient(newsUrl, requestType);
 		if(pageNum >= 0 && pageSize >= 0){
 			client.addParameter("page", String.valueOf(pageNum));
 			client.addParameter("size", String.valueOf(pageSize));
@@ -54,8 +55,10 @@ public class TIHRequestManager {
 		urlBuilder.append(Constants.URL);
 		urlBuilder.append(fragment.getResources().getString(R.string.news_url));
 		if (feedType == TIHConstants.GET_OFFICIAL_NEWS) {
+			logger.d("building news URL for Official Feed");
 			urlBuilder.append("official.json");
 		} else if (feedType == TIHConstants.GET_FAN_NEWS) {
+			logger.d("building news URL for Fan Feed");
 			urlBuilder.append("fanfeed.json");
 		} else {
 			logger.e("buildNewsUrl - Error: feedType was not one of the expected values.");

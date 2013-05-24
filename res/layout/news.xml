@@ -15,7 +15,6 @@
         
      	<ImageView
      	    android:id="@+id/official_tab"
-     	    android:onClick="officialTabClicked"
      	    android:layout_width="wrap_content"
      	    android:layout_height="wrap_content"
      	    android:layout_weight="1"
@@ -24,7 +23,6 @@
      	
      	<ImageView
      	    android:id="@+id/fan_feed_tab"
-     	    android:onClick="fanTabClicked"
      	    android:layout_width="wrap_content"
      	    android:layout_height="wrap_content"
      	    android:layout_weight="1"

@@ -50,6 +50,7 @@ public class TIHAsynchronousSender extends Thread {
 				httpClient.setParams(httpParams);
 				response = getClient().execute((HttpUriRequest) request);
 			}
+			logger.d("Before invokeParser - wrapper.requestType:", wrapper.requestType);
 			Object object = invokeParser(response, wrapper.requestType);
 			wrapper.setResponse(object);
 			handler.post(wrapper);
@@ -78,20 +79,19 @@ public class TIHAsynchronousSender extends Thread {
 		Object object = null;
 		switch (reqType) {
 		
-		case Constants.GET_FAN_NEWS:
+		case TIHConstants.GET_FAN_NEWS:
 			logger.d("Before parsing fan news list");
 			object = TIHParser.parseNewsList(response);
 			break;
-		case Constants.GET_OFFICIAL_NEWS:
+		case TIHConstants.GET_OFFICIAL_NEWS:
 			logger.d("Before parsing official news list");
 			object = TIHParser.parseNewsList(response);
 			break;
-		case Constants.GET_EVENTS_DETAILS:
+		case TIHConstants.GET_EVENTS_DETAILS:
 			logger.d("Before parseEventList");
 			object = TIHParser.parseEventList(response);
 			break;
-
-		case Constants.GET_PHOTOS_DETAILS:
+		case TIHConstants.GET_PHOTOS_DETAILS:
 			//object = Parser.outPutResponse(response);
 //			object = TIHParser.parsePhotoDetails(response);
 			break;

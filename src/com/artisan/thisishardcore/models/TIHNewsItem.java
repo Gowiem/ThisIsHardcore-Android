@@ -9,7 +9,7 @@ public class TIHNewsItem {
 	private static final TIHLogger logger = new TIHLogger(TIHNewsItem.class);
 	
 	public String toString() {
-		return "----- News Item -> body: " + getBody();
+		return "----- News Item -> author: " + getAuthor() + "body: " + getBody();
 	}
 	
 	public String getDateString() {

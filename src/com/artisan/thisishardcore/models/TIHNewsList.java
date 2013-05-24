@@ -28,6 +28,10 @@ public class TIHNewsList {
 		
 	}
 	
+	public TIHNewsItem getNewsItemAtIndex(int index) {
+		return newsItems.get(index);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

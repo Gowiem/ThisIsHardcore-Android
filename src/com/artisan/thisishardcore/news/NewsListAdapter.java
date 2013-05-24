@@ -38,6 +38,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		ImageView newsIconImageView = (ImageView)rowView.findViewById(R.id.news_icon); 
 		TextView dateTextView = (TextView) rowView.findViewById(R.id.news_date);
 		TextView newsBodyTextView = (TextView) rowView.findViewById(R.id.news_body);
+		TextView newsAuthorTextView = (TextView) rowView.findViewById(R.id.news_author);
 		ImageView rowImageView = (ImageView)rowView.findViewById(R.id.row_image);
 
 		// Grab the newsItem for this position and get it's content
@@ -45,10 +46,12 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		String bodyText        = newsItem.getBody();
 		String dateString      = newsItem.getDateString();
 		String profileImageUrl = newsItem.getProfileUrl();
+		String authorString    = newsItem.getAuthor();
 		
 		// Set the content for the views
 		newsBodyTextView.setText(newsItem.getBody());
 		dateTextView.setText(dateString);
+		newsAuthorTextView.setText(authorString);
 		
 		// If we have the profile image url then either grab it from the hashmap 
 		// cache and set it to the ImageView or use the DownloadImageTask and 
