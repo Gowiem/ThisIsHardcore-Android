@@ -16,10 +16,16 @@ import com.artisan.thisishardcore.schedule.ScheduleFragment;
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener{
 	private final TIHLogger logger = new TIHLogger(MainActivity.class);
 	
-	public static final String TAB_SELECTED = "TAB_SELECTED";  
-	public enum TabIdentifier{ NEWS_TAB, SCHEDULE_TAB, PHOTOS_TAB }
+	public static final String TAB_SELECTED = "TAB_SELECTED"; 
+	public final String NEWS_TAB = "NEWS_TAB";
+	public final String SCHEDULE_TAB = "SCHEDULE_TAB";
+	public final String PHOTO_PIT_TAB = "PHOTO_PIT_TAB";
 	
-	public TabIdentifier currentlySelectedTab;
+	private NewsFragment newsFragment;
+	private ScheduleFragment scheduleFragment;
+	private PhotoPitFragment photoPitFragment;
+	
+	public String currentlySelectedTab;
 	 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,20 +38,20 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		bar.addTab(bar.newTab()
                 .setText("News")
-                .setTag(TabIdentifier.NEWS_TAB)
+                .setTag(NEWS_TAB)
                 .setTabListener(this));
 		bar.addTab(bar.newTab()
 				.setText("Schedule")
-				.setTag(TabIdentifier.SCHEDULE_TAB)
+				.setTag(SCHEDULE_TAB)
 				.setTabListener(this));
 		bar.addTab(bar.newTab()
 				.setText("Photo Pit")
-				.setTag(TabIdentifier.PHOTOS_TAB)
+				.setTag(PHOTO_PIT_TAB)
 				.setTabListener(this));	
 
 		logger.d("savedInstanceState: ", savedInstanceState);
 		if (savedInstanceState != null) {
-			TabIdentifier tabIdentifier = TabIdentifier.valueOf(savedInstanceState.getString(TAB_SELECTED));
+			String tabIdentifier = savedInstanceState.getString(TAB_SELECTED);
 			logger.d("savedInstanceState was not null, trying to select tab with identifier: ", tabIdentifier.toString());
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			selectTab(tabIdentifier, ft);
@@ -75,24 +81,56 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		logger.d("onSaveInstanceState -  setting currentlySelectedTab: ", currentlySelectedTab.toString());
-		outState.putString(TAB_SELECTED, currentlySelectedTab.toString());
+		logger.d("onSaveInstanceState -  setting currentlySelectedTab: ", currentlySelectedTab);
+		outState.putString(TAB_SELECTED, currentlySelectedTab);
 	}
 	
-	private void selectTab(TabIdentifier tabIdentifier, final FragmentTransaction ft) {
-		if (tabIdentifier == TabIdentifier.NEWS_TAB) {
+	private void detachFragment(FragmentTransaction ft) {
+		logger.d("Detaching Fragment:", currentlySelectedTab);
+		if (currentlySelectedTab == null) { return; }; 
+		if (currentlySelectedTab.equals(NEWS_TAB)) {
+			ft.detach(newsFragment);
+		} else if (currentlySelectedTab.equals(PHOTO_PIT_TAB)) {
+			ft.detach(photoPitFragment);
+		} else if (currentlySelectedTab.equals(SCHEDULE_TAB)) {
+			ft.detach(scheduleFragment);
+		} else {
+			logger.d("Currently selected tab was null, nothing to detach");
+		}
+	}
+	
+	private void selectTab(String tabIdentifier, final FragmentTransaction ft) {
+		detachFragment(ft);
+		if (tabIdentifier.equals(NEWS_TAB)) {
 			logger.d("News Tab Selected");
-			currentlySelectedTab = TabIdentifier.NEWS_TAB;
-			ft.replace(android.R.id.content, NewsFragment.newInstance());
-		} else if (tabIdentifier == TabIdentifier.SCHEDULE_TAB) {
+			currentlySelectedTab = NEWS_TAB;
+			if (newsFragment == null) {
+				logger.d("News Fragment was null - creating new instance");
+				newsFragment = NewsFragment.newInstance();
+				ft.add(R.id.fragment_container, newsFragment, NEWS_TAB);
+			} else {
+				ft.attach(newsFragment);	
+			}
+		} else if (tabIdentifier.equals(SCHEDULE_TAB)) {
 			logger.d("Schedule Tab Selected");
-			currentlySelectedTab = TabIdentifier.SCHEDULE_TAB;
-			logger.d("After printing ScheduleFragment.class");
-			ft.replace(android.R.id.content, ScheduleFragment.newInstance());
-		} else if (tabIdentifier == TabIdentifier.PHOTOS_TAB) {
+			currentlySelectedTab = SCHEDULE_TAB;
+			if (scheduleFragment == null) {
+				logger.d("Schedule Fragment was null - creating new instance");
+				scheduleFragment = ScheduleFragment.newInstance();
+				ft.add(R.id.fragment_container, scheduleFragment, SCHEDULE_TAB);
+			} else {
+				ft.attach(scheduleFragment);	
+			}
+		} else if (tabIdentifier.equals(PHOTO_PIT_TAB)) {
 			logger.d("Photo Pit Tab Selected");
-			currentlySelectedTab = TabIdentifier.PHOTOS_TAB;
-			ft.replace(android.R.id.content, PhotoPitFragment.newInstance());
+			currentlySelectedTab = PHOTO_PIT_TAB;
+			if (photoPitFragment == null) {
+				logger.d("Photo Pit Fragment was null - creating new instance");
+				photoPitFragment = PhotoPitFragment.newInstance();
+				ft.add(R.id.fragment_container, photoPitFragment, PHOTO_PIT_TAB);
+			} else {
+				ft.attach(photoPitFragment);	
+			}
 		} else {
 			logger.d("onTabSelected -> couldn't find the tab with tag: ", tabIdentifier);
 		}
@@ -100,7 +138,7 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		TabIdentifier tabIdentifier = (TabIdentifier) tab.getTag();
+		String tabIdentifier = (String) tab.getTag();
 		selectTab(tabIdentifier, ft);
 	}
 

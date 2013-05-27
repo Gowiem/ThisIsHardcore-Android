@@ -30,8 +30,8 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
 		
 		webView = (WebView) findViewById(R.id.webview);
 		webView.getSettings().setJavaScriptEnabled(true);
+		webView.setWebViewClient(new TIHWebViewClient());
 		webView.loadUrl(url);
-		webView.setWebViewClient(new WebViewClient());
 	}
 	
 	@Override
@@ -45,4 +45,12 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
 	    }
 	    return super.onOptionsItemSelected(item);
 	}
+	
+	private class TIHWebViewClient extends WebViewClient {
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            view.loadUrl(url);
+            return true;
+        }
+    }
 }

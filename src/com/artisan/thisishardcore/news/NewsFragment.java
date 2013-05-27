@@ -24,15 +24,18 @@ import com.unifeed.webservice.ResponseListener;
 public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 
 	
-	private int currentTab;
+	private String currentTab;
+	private final String OFFICIAL_TAB = "OFFICIAL_TAB";
+	private final String FAN_TAB = "FAN_TAB";
+	
 	private TIHNewsList officialNewsList;
 	private TIHNewsList fanNewsList;
 	
 	private int failureWebServiceReq;
 	private boolean isReqSent;
 	
-	private ImageView officialTab;
-	private ImageView fanTab;
+	private ImageView officialTabImageView;
+	private ImageView fanTabImageView;
 	private ListView listView;
 
 	public static NewsFragment newInstance() {
@@ -54,11 +57,12 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	public View onCreateView(LayoutInflater inflater, 
 							 ViewGroup container,
 							 Bundle savedInstanceState) {
+		logger.d("onCreateView");
 		View result = inflater.inflate(R.layout.news, container, false);
 		
 		listView = (ListView) result.findViewById(R.id.listview);
-		officialTab = (ImageView) result.findViewById(R.id.official_tab);
-		fanTab = (ImageView) result.findViewById(R.id.fan_feed_tab);
+		officialTabImageView = (ImageView) result.findViewById(R.id.official_tab);
+		fanTabImageView = (ImageView) result.findViewById(R.id.fan_feed_tab);
 		
 		// Setup click listeners for the list items and the tabs
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -68,25 +72,40 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 			};
 		});
 		
-		officialTab.setOnClickListener(new OnClickListener() {
+		officialTabImageView.setOnClickListener(new OnClickListener() {
 		    @Override
 		    public void onClick(View v) { officialTabClicked(v); }
 		});
 		
-		fanTab.setOnClickListener(new OnClickListener() {
+		fanTabImageView.setOnClickListener(new OnClickListener() {
 		    @Override
 		    public void onClick(View v) { fanTabClicked(v); }
 		});
 		
-		officialTabClicked(officialTab);
+		if (currentTab == null) {
+			officialTabClicked(officialTabImageView);	
+		} else {
+			updateListForCurrentTab();
+		}
+		
 		return(result); 
+	}
+	
+	private void updateListForCurrentTab() {
+		if (currentTab.equals(OFFICIAL_TAB)) {
+			
+		} else if (currentTab.equals(FAN_TAB)) {
+			
+		} else {
+			
+		}
 	}
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
 		TIHNewsItem itemClicked = null;
-		if (currentTab == TIHConstants.GET_OFFICIAL_NEWS) {
+		if (currentTab.equals(OFFICIAL_TAB)) {
 			itemClicked = officialNewsList.getNewsItemAtIndex(position);
-		} else if (currentTab == TIHConstants.GET_FAN_NEWS) {
+		} else if (currentTab.equals(FAN_TAB)) {
 			itemClicked = fanNewsList.getNewsItemAtIndex(position);
 		}
 		if (itemClicked != null) {
@@ -97,8 +116,9 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	}
 	
 	public void officialTabClicked(View v) {
-		if (currentTab != TIHConstants.GET_OFFICIAL_NEWS) {
-			currentTab = TIHConstants.GET_OFFICIAL_NEWS;
+		logger.d("officialTabClicked");
+		if (!currentTab.equals(OFFICIAL_TAB)) {
+			currentTab = OFFICIAL_TAB;
 			
 			// If we haven't sent the request yet then send it, otherwise update the news list 
 			// with the official feed items
@@ -109,14 +129,15 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 			}
 			
 			// Swap the tab images 
-			officialTab.setImageResource(R.drawable.official_blue);
-			fanTab.setImageResource(R.drawable.fan_feed_grey);	
+			officialTabImageView.setImageResource(R.drawable.official_blue);
+			fanTabImageView.setImageResource(R.drawable.fan_feed_grey);	
 		}
 	}
 	
 	public void fanTabClicked(View v) {
-		if (currentTab != TIHConstants.GET_FAN_NEWS) {
-			currentTab = TIHConstants.GET_FAN_NEWS;
+		logger.d("fanTabClicked");
+		if (!currentTab.equals(FAN_TAB)) {
+			currentTab = FAN_TAB;
 			
 			// If we haven't sent the request yet then send it, otherwise update the news list 
 			// with the fan feed list 
@@ -127,8 +148,8 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 			}
 			
 			// Swap the tab images
-			officialTab.setImageResource(R.drawable.official_grey);
-			fanTab.setImageResource(R.drawable.fan_feed_blue);
+			officialTabImageView.setImageResource(R.drawable.official_grey);
+			fanTabImageView.setImageResource(R.drawable.fan_feed_blue);
 		}
 	}
 
