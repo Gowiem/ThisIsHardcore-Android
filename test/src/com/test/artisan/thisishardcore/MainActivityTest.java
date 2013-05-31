@@ -11,28 +11,16 @@ import com.actionbarsherlock.ActionBarSherlock;
 import com.actionbarsherlock.internal.ActionBarSherlockCompat;
 import com.actionbarsherlock.internal.ActionBarSherlockNative;
 import com.artisan.thisishardcore.MainActivity;
+import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.models.TIHEventList;
 
 
 @RunWith(TIHTestRunner.class)
 public class MainActivityTest {
-	private MainActivity activity;
-	private String appName;
+	private final TIHLogger logger = new TIHLogger(MainActivityTest.class);
 	
 	@Before
     public void setUp() throws Exception {
-		System.out.println("SHRED");
-		
-        // Robolectric && ABS => http://robolectric.blogspot.com/2013/03/using-actionbarsherlock-with.html
-//        ActionBarSherlock.registerImplementation(ActionBarSherlockRobolectric.class);
-//        ActionBarSherlock.unregisterImplementation(ActionBarSherlockNative.class);
-//        ActionBarSherlock.unregisterImplementation(ActionBarSherlockCompat.class);
-        
-//        activity = Robolectric.buildActivity(MainActivity.class).create().get();
-    }
-	
-	@Test
-    public void shouldHaveThisIsHardcoreTitle() throws Exception {
-		System.out.println("SHRED");
-		assertThat((String) activity.getSupportActionBar().getTitle(), equalTo("This is Hardcore"));
+		logger.d("setUp");
     }
 }

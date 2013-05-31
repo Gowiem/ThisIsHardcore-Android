@@ -1,4 +1,4 @@
-package com.test.artisan.thisishardcore;
+package com.test.artisan.thisishardcore.abs.bullshit;
 
 import static org.robolectric.Robolectric.shadowOf;
 import android.app.Activity;

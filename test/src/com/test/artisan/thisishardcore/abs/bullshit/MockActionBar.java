@@ -1,4 +1,4 @@
-package com.test.artisan.thisishardcore;
+package com.test.artisan.thisishardcore.abs.bullshit;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.View;

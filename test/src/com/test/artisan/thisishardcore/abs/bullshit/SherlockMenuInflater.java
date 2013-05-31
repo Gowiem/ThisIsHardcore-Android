@@ -1,5 +1,5 @@
 // Copyright 2012 Square, Inc.
-package com.test.artisan.thisishardcore;
+package com.test.artisan.thisishardcore.abs.bullshit;
 
 import static org.robolectric.Robolectric.shadowOf;
 

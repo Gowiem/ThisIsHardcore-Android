@@ -17,7 +17,6 @@ import com.artisan.thisishardcore.UnifeedFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.artisan.thisishardcore.models.TIHNewsList;
-import com.artisan.thisishardcore.schedule.EventDetailActivity;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
 import com.unifeed.webservice.ResponseListener;
 
