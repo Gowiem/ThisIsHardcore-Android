@@ -22,7 +22,7 @@ public class TIHRequestManager {
 	public static void getEvents(SherlockFragment fragment) {
 		String path = fragment.getResources().getString(R.string.event_url);
 		logger.d("getEvents path: ", path);
-		TIHRestClient client = new TIHRestClient(Constants.URL + path, Constants.GET_EVENTS_DETAILS);
+		TIHRestClient client = new TIHRestClient(Constants.URL + path, TIHConstants.GET_EVENTS_DETAILS);
 		try {
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {

@@ -28,5 +28,7 @@ public class PhotoPitFragment extends UnifeedFragment {
 		return(result); 
 	}
 
-	
+	public void updateForCurrentTab() {
+		
+	}
 }

@@ -24,7 +24,6 @@ import com.unifeed.webservice.ResponseListener;
 public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 
 	
-	private String currentTab;
 	private final String OFFICIAL_TAB = "OFFICIAL_TAB";
 	private final String FAN_TAB = "FAN_TAB";
 	
@@ -32,11 +31,13 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	private TIHNewsList fanNewsList;
 	
 	private int failureWebServiceReq;
-	private boolean isReqSent;
 	
 	private ImageView officialTabImageView;
 	private ImageView fanTabImageView;
 	private ListView listView;
+	
+	// Lifecycle
+	/////////////
 
 	public static NewsFragment newInstance() {
 		logger.d("newInstance");
@@ -46,7 +47,7 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 		
 		return contentFragment;
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		logger.d("onCreate");
@@ -82,24 +83,79 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 		    public void onClick(View v) { fanTabClicked(v); }
 		});
 		
-		if (currentTab == null) {
-			officialTabClicked(officialTabImageView);	
-		} else {
-			updateListForCurrentTab();
-		}
-		
 		return(result); 
 	}
 	
-	private void updateListForCurrentTab() {
-		if (currentTab.equals(OFFICIAL_TAB)) {
-			
-		} else if (currentTab.equals(FAN_TAB)) {
-			
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
+	    logger.d("onActivityCreated");
+		
+	    // Setup content view
+	    setContentView(R.layout.news);
+	    // Setup text for empty content
+	    // setEmptyText(R.string.news_empty);
+		if (currentTab == null) {
+			officialTabClicked(officialTabImageView);	
 		} else {
-			
+			updateForCurrentTab();
 		}
 	}
+	
+	// Tab Helpers
+	////////////////
+	
+	public void updateForCurrentTab() {
+		if (currentTab.equals(OFFICIAL_TAB)) {
+			officialTabClicked(officialTabImageView);
+		} else if (currentTab.equals(FAN_TAB)) {
+			fanTabClicked(fanTabImageView);
+		} else {
+			logger.d("updateListForCurrentTab()");
+		}
+	}
+	
+	public void officialTabClicked(View v) {
+		logger.d("officialTabClicked");
+		logger.d("currentTab:", currentTab);
+		if (currentTab == null || !currentTab.equals(OFFICIAL_TAB)) {
+			currentTab = OFFICIAL_TAB;
+			
+			// If we haven't sent the request yet then send it, otherwise update the news list 
+			// with the official feed items
+			if (officialNewsList == null) {
+				sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_OFFICIAL_NEWS);	
+			} else {
+				updateUI(officialNewsList, TIHConstants.GET_OFFICIAL_NEWS);
+			}
+			
+			// Swap the tab images 
+			officialTabImageView.setImageResource(R.drawable.official_blue);
+			fanTabImageView.setImageResource(R.drawable.fan_feed_grey);	
+		}
+	}
+	
+	public void fanTabClicked(View v) {
+		logger.d("fanTabClicked");
+		if (currentTab == null || !currentTab.equals(FAN_TAB)) {
+			currentTab = FAN_TAB;
+			
+			// If we haven't sent the request yet then send it, otherwise update the news list 
+			// with the fan feed list 
+			if (fanNewsList == null) {
+				sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_NEWS);		
+			} else {
+				updateUI(fanNewsList, TIHConstants.GET_FAN_NEWS);
+			}
+			
+			// Swap the tab images
+			officialTabImageView.setImageResource(R.drawable.official_grey);
+			fanTabImageView.setImageResource(R.drawable.fan_feed_blue);
+		}
+	}
+	
+	// List Functionality
+	//////////////////////
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
 		TIHNewsItem itemClicked = null;
@@ -115,61 +171,22 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 		}
 	}
 	
-	public void officialTabClicked(View v) {
-		logger.d("officialTabClicked");
-		if (!currentTab.equals(OFFICIAL_TAB)) {
-			currentTab = OFFICIAL_TAB;
-			
-			// If we haven't sent the request yet then send it, otherwise update the news list 
-			// with the official feed items
-			if (officialNewsList == null) {
-				sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_OFFICIAL_NEWS);	
-			} else {
-				updateNewsList(officialNewsList, TIHConstants.GET_OFFICIAL_NEWS);
-			}
-			
-			// Swap the tab images 
-			officialTabImageView.setImageResource(R.drawable.official_blue);
-			fanTabImageView.setImageResource(R.drawable.fan_feed_grey);	
-		}
-	}
-	
-	public void fanTabClicked(View v) {
-		logger.d("fanTabClicked");
-		if (!currentTab.equals(FAN_TAB)) {
-			currentTab = FAN_TAB;
-			
-			// If we haven't sent the request yet then send it, otherwise update the news list 
-			// with the fan feed list 
-			if (fanNewsList == null) {
-				sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_NEWS);		
-			} else {
-				updateNewsList(fanNewsList, TIHConstants.GET_FAN_NEWS);
-			}
-			
-			// Swap the tab images
-			officialTabImageView.setImageResource(R.drawable.official_grey);
-			fanTabImageView.setImageResource(R.drawable.fan_feed_blue);
-		}
-	}
+	// UnifeedFragment Overrides
+	//////////////////////////////
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
 		logger.d("onResponseReceived - reponse:", response);
-		if(response == null){
-			failureWebServiceReq = requestType;
-//			getView().findViewById(R.id.connection_status_view).setVisibility(View.VISIBLE);
-//			getView().findViewById(R.id.listview).setVisibility(View.GONE);
-//			getView().findViewById(R.id.progress_view).setVisibility(View.GONE);
-		} else {
+		super.onResponseReceived(response, requestType);
+		if(response != null){
 			TIHNewsList newsList = (TIHNewsList)response;
-			updateNewsList(newsList, requestType);
+			updateUI(newsList, requestType);
 		}
 	}
 	
 	//updating event view after getting response from server
-	private void updateNewsList(TIHNewsList newsList, int requestType) {
-		isReqSent = false;
+	private void updateUI(TIHNewsList newsList, int requestType) {
+		super.updateUI(newsList, requestType);
 		logger.d("updateEventsUI");
 		if (newsList != null && !newsList.newsItems.isEmpty()) {
 			if (requestType == TIHConstants.GET_FAN_NEWS) {
@@ -177,9 +194,6 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 			} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
 				this.officialNewsList = newsList;
 			}
-//			getView().findViewById(R.id.progress_view).setVisibility(View.GONE);
-//			getView().findViewById(R.id.connection_status_view).setVisibility(View.GONE);
-			getView().findViewById(R.id.listview).setVisibility(View.VISIBLE);
 			((ListView) getView().findViewById(R.id.listview))
 					.setAdapter(new NewsListAdapter(getView().getContext(), newsList));
 		}

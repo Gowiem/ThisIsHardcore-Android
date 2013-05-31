@@ -28,9 +28,10 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 	private static final TIHLogger logger = new TIHLogger(ScheduleFragment.class);
 	
 	private TIHEventList eventList; 
-	private int failureWebServiceReq;
-	private boolean isReqSent;
-
+	
+	// Lifecycle
+	//////////////
+	
 	public static ScheduleFragment newInstance() {
 		logger.d("newInstance");
 		ScheduleFragment fragment = new ScheduleFragment();
@@ -41,10 +42,17 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 	}
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, 
-							 ViewGroup container,
-							 Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		logger.d("onCreate");
+		super.onCreate(savedInstanceState);
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
+			Bundle savedInstanceState) {
 		View result = inflater.inflate(R.layout.schedule, container, false);
+		
+		// Set the List item click listener
 		ListView listView = (ListView)result.findViewById(R.id.listview);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -53,20 +61,31 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 				onEventRowClicked(view);
 			}
 		});
+		
 		return(result); 
 	}
-
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		logger.d("onCreate");
-		super.onCreate(savedInstanceState);
-		//Add scroll listener and footer view to listview
-		//((ListView)findViewById(R.id.listview)).setOnScrollListener(this);
-		//View view = getLayoutInflater().inflate(R.layout.footer_view, null);
-		//((ListView)findViewById(R.id.listview)).addFooterView(view);
+	public void onActivityCreated(Bundle savedInstanceState) {
+	    super.onActivityCreated(savedInstanceState);
+	    logger.d("onActivityCreated");
+
+	    setContentView(R.layout.schedule);
+	    // Setup text for empty content
+	    // setEmptyText(R.string.news_empty);
 		
-		//send event web service
-		sendEventRequest();
+		if (currentTab == null) {
+			sendEventRequest();
+		} else {
+			updateForCurrentTab();
+		}
+	}
+	
+	// Tab Methods
+	///////////////
+	
+	public void updateForCurrentTab() {
+		
 	}
 
 	//Open Url via browser or webview based on constant varriable
@@ -82,40 +101,27 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 		}
 	}
 
-	//Send failure web service when "please try again" button clicked
-	public void onTryAgainClicked(View view){
-		getView().findViewById(R.id.connection_status_view).setVisibility(View.GONE);
-		getView().findViewById(R.id.progress_view).setVisibility(View.VISIBLE);
-		logger.w("Failure web service: ", failureWebServiceReq);
-		if (failureWebServiceReq == Constants.GET_EVENTS_DETAILS) {
-			sendEventRequest();
-		}
+	// Send failure web service when "please try again" button clicked
+	public void onTryAgainClicked(View view) {
+		logger.w("onTryAgainClicked");
 	}
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
 		logger.d("onResponseReceived");
-		AppState.stopActivityIndicator();
-		if(response == null){
-			failureWebServiceReq = requestType;
-			getView().findViewById(R.id.connection_status_view).setVisibility(View.VISIBLE);
-			getView().findViewById(R.id.listview).setVisibility(View.GONE);
-			getView().findViewById(R.id.progress_view).setVisibility(View.GONE);
-		} else if (requestType == Constants.GET_EVENTS_DETAILS) {
+		super.onResponseReceived(response, requestType);
+		if(response != null){
 			TIHEventList eventList = (TIHEventList)response;
-			updateEventsUI(eventList);
+			updateUI(eventList);
 		}
 	}
 	
 	//updating event view after getting response from server
-	private void updateEventsUI(TIHEventList eventList) {
-		isReqSent = false;
-		logger.d("updateEventsUI");
+	private void updateUI(TIHEventList eventList) {
+		logger.d("updateUI");
+		super.updateUI(eventList);;
 		if (eventList != null && !eventList.events.isEmpty()) {
 			this.eventList = eventList;
-			getView().findViewById(R.id.progress_view).setVisibility(View.GONE);
-			getView().findViewById(R.id.connection_status_view).setVisibility(View.GONE);
-			getView().findViewById(R.id.listview).setVisibility(View.VISIBLE);
 			((ListView) getView().findViewById(R.id.listview))
 					.setAdapter(new EventListAdapter(getView().getContext(), eventList));
 		}

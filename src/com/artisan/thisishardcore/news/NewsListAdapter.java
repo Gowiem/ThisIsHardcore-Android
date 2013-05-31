@@ -23,12 +23,14 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 
 	public NewsListAdapter(Context context, TIHNewsList newsList) {
 		super(context, R.layout.news_item_row, newsList.newsItems);
+		logger.d("NewsListAdapter constructor");
 		this.context = context; 
 		this.newsList = newsList;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		logger.d("getView() -> position:", position);
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
