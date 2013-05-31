@@ -23,11 +23,11 @@ public class MainActivityTest {
 		System.out.println("SHRED");
 		
         // Robolectric && ABS => http://robolectric.blogspot.com/2013/03/using-actionbarsherlock-with.html
-        ActionBarSherlock.registerImplementation(ActionBarSherlockRobolectric.class);
-        ActionBarSherlock.unregisterImplementation(ActionBarSherlockNative.class);
-        ActionBarSherlock.unregisterImplementation(ActionBarSherlockCompat.class);
+//        ActionBarSherlock.registerImplementation(ActionBarSherlockRobolectric.class);
+//        ActionBarSherlock.unregisterImplementation(ActionBarSherlockNative.class);
+//        ActionBarSherlock.unregisterImplementation(ActionBarSherlockCompat.class);
         
-        activity = Robolectric.buildActivity(MainActivity.class).create().get();
+//        activity = Robolectric.buildActivity(MainActivity.class).create().get();
     }
 	
 	@Test

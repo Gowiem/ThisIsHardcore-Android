@@ -16,7 +16,7 @@ public class TIHTestRunner extends RobolectricTestRunner {
         super(testClass);
         System.out.println("TIHTestRunner constructor");
         System.out.println("SDK INT: " + SDK_INT);
-        Robolectric.Reflection.setFinalStaticField(Build.VERSION.class, "SDK_INT", 10);
+//        Robolectric.Reflection.setFinalStaticField(Build.VERSION.class, "SDK_INT", 10);
     }
     
 //    @Override
