@@ -1,14 +1,11 @@
 package com.test.artisan.thisishardcore;
 
-import java.lang.reflect.Method;
-
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;
 
+import com.artisan.thisishardcore.logging.TIHConfigureLog4jTest;
 import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHEventList;
-
-import android.os.Build;
+import com.artisan.thisishardcore.utils.TIHUtils;
 
 
 public class TIHTestRunner extends RobolectricTestRunner {
@@ -16,7 +13,9 @@ public class TIHTestRunner extends RobolectricTestRunner {
 	
     public TIHTestRunner(Class testClass) throws InitializationError {
         super(testClass);
-        logger.d("TIHTestRunner constructor");
+        System.out.println("After setting runningTestSuite to true");
+        TIHConfigureLog4jTest.configure();
+        TIHUtils.runningTestSuite = true;
     }
     
 //  @Override

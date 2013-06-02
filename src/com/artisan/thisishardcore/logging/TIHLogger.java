@@ -7,8 +7,26 @@ import com.artisan.thisishardcore.utils.TIHUtils;
 public class TIHLogger {
 	private static final Logger logger = Logger.getLogger("com.artisan.thisishardcore");
 	private final Class<?> clazz;
+	private static boolean loggerIsConfigured = false;
 	
 	public TIHLogger(Class<?> clazz) {
+//		if(clazz.getName().contains("com.test.artisan")) {
+//			System.out.println("clazz name included com.test.artisan, setting runningTestSuite to true");
+//			System.out.println("loggerIsConfigured: " + loggerIsConfigured);
+//			TIHUtils.runningTestSuite = true;
+//		}
+//		if(!loggerIsConfigured) {
+//			System.out.println("runningTestSuite:" + TIHUtils.runningTestSuite);
+//			System.out.println("clazz getName: " + clazz.getName());
+//			if (TIHUtils.runningTestSuite) {
+//				TIHConfigureLog4jTest.configure();
+//				System.out.println("Configured logger for Testing");
+//			} else {
+//				TIHConfigureLog4j.configure();
+//				System.out.println("Configured logger for Android");
+//			}
+//			loggerIsConfigured = true;
+//		}
 		this.clazz = clazz;
 	}
 	

@@ -14,7 +14,7 @@ public class TIHConfigureLog4j {
 	 */
 	public static void configure() {
 		final LogConfigurator logConfigurator = new LogConfigurator();
-		logConfigurator.setFileName(Environment.getExternalStorageDirectory() + File.separator + "tih-android.log");
+		//logConfigurator.setFileName(Environment.getExternalStorageDirectory() + File.separator + "tih-android.log");
 		logConfigurator.setRootLevel(Level.DEBUG);
 		
 		// Set log level of a specific logger

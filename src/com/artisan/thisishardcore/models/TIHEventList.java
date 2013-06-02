@@ -1,48 +1,98 @@
 package com.artisan.thisishardcore.models;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.R.integer;
+
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
-import com.artisan.thisishardcore.utils.TIHUtils;
 
 
 public class TIHEventList {
 	private final TIHLogger logger = new TIHLogger(TIHEventList.class);
 
+	private Calendar calendar;
+	private Date DAY_1;
+	private Date DAY_2;
+	private Date DAY_3;
+	private Date DAY_4;
+
 	public List<TIHEvent> events;
-	public Map<Integer, List<TIHEvent>> eventsByDay;
+	public Map<Integer, ArrayList<TIHEvent>> eventsByDay;
 
 	public TIHEventList(List<TIHEvent> events) {
 		this.events = events;
+		this.eventsByDay = new HashMap<Integer, ArrayList<TIHEvent>>();
+		instantiateEventDays();
 		sectionUpEventsByDay();
 	}
-	
-	private void sectionUpEventsByDay() {
-		
+
+	private void instantiateEventDays() {
+		logger.d("instantiateEventDays");
+		calendar = Calendar.getInstance();
+		calendar.set(Calendar.YEAR, 2013);
+		calendar.set(Calendar.MONTH, Calendar.AUGUST);
+		calendar.set(Calendar.HOUR_OF_DAY, 23);
+		calendar.set(Calendar.MINUTE, 59);
+		calendar.set(Calendar.SECOND, 0);
+		// Day 1
+		calendar.set(Calendar.DAY_OF_MONTH, 8);
+		DAY_1 = calendar.getTime();
+		// Day 2
+		calendar.set(Calendar.DAY_OF_MONTH, 9);
+		DAY_2 = calendar.getTime();
+		// Day 3
+		calendar.set(Calendar.DAY_OF_MONTH, 10);
+		DAY_3 = calendar.getTime();
+		// Day 4
+		calendar.set(Calendar.DAY_OF_MONTH, 11);
+		DAY_4 = calendar.getTime();
+		logger.d("Day1:", DAY_1);
+		logger.d("Day2:", DAY_2);
+		logger.d("Day3:", DAY_3);
+		logger.d("Day4:", DAY_4);
 	}
 
-	public List<TIHEvent> getEventsByDay(final int eventDay) {
-		switch (eventDay) {
-			case TIHConstants.FEST_DAY_ONE:
-				// Day 1
-				return null;
-			case TIHConstants.FEST_DAY_TWO:
-				// Day 2
-				return null;
-			case TIHConstants.FEST_DAY_THREE:
-				// Day 3
-				return null;
-			case TIHConstants.FEST_DAY_FOUR:
-				// Day 4
-				return null;
-			default: 
-				// Event Day is an unexpected value
-				logger.e("Event Day value was unexpected. eventDay was", eventDay, 
-						"but needs to be 1 - 4");
+	private void sectionUpEventsByDay() {
+		for (TIHEvent event : events) {
+			Date startDate = event.getStartDate();
+			logger.d("Event startDate:", startDate);
+			if (startDate.before(DAY_1)) {
+				addEventToEventDayList(event, TIHConstants.FEST_DAY_ONE);
+			} else if (startDate.before(DAY_2)) {
+				addEventToEventDayList(event, TIHConstants.FEST_DAY_TWO);
+			} else if (startDate.before(DAY_3)) {
+				addEventToEventDayList(event, TIHConstants.FEST_DAY_THREE);
+			} else if (startDate.before(DAY_4)) {
+				addEventToEventDayList(event, TIHConstants.FEST_DAY_FOUR);
+			} else {
+				throw new RuntimeException("Tried to add Event which didn't fit into one of the three dates");
+			}
 		}
-		return null;
+	}
+
+	private void addEventToEventDayList(TIHEvent event, int eventDayIdentifier) {
+		if (eventsByDay.containsKey(eventDayIdentifier)) {
+			ArrayList<TIHEvent> eventList = eventsByDay.get(eventDayIdentifier);
+			eventList.add(event);
+		} else {
+			ArrayList<TIHEvent> eventList = new ArrayList<TIHEvent>();
+			eventList.add(event);
+			eventsByDay.put(eventDayIdentifier, eventList);
+		}
+	}
+
+	public ArrayList<TIHEvent> getEventsByDay(final int eventDay) {
+		if (eventsByDay.containsKey(eventDay)) {
+			return eventsByDay.get(eventDay);		
+		} else {
+			throw new RuntimeException("No events for the eventDay: " + eventDay);
+		}
 	}
 
 	public String toString() {

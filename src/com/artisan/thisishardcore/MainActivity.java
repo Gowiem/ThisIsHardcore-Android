@@ -31,7 +31,6 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		TIHConfigureLog4j.configure();
 		logger.d("onCreate");
 		
 		final ActionBar bar = getSupportActionBar();

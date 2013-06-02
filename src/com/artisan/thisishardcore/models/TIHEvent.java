@@ -1,7 +1,9 @@
 package com.artisan.thisishardcore.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
+import com.artisan.thisishardcore.utils.TIHUtils;
 import com.google.gson.annotations.SerializedName;
 
 public class TIHEvent implements Serializable {
@@ -11,6 +13,28 @@ public class TIHEvent implements Serializable {
 	public String getTime() {
 		// TODO: Deal with this shit. Fuck.  
 		return "??? - ???";
+	}
+	
+	private Date eventStartDate;
+	private Date eventEndDate;
+	
+	public Date getEndDate() {
+		if(eventEndDate == null) {
+			eventEndDate = TIHUtils.convertEpochTimeToDate(endTime);
+		}
+		return eventEndDate;
+	}
+	
+	public Date getStartDate() {
+		if(eventStartDate == null) {
+			eventStartDate = TIHUtils.convertEpochTimeToDate(startTime);
+		}
+		return eventStartDate;
+	}
+	
+	public String toString() {
+		return String.format("TIHEvent --- \n Artist Name: %s Venue: %s \n ---", 
+				this.artistName, this.venue);
 	}
 	
 	// ========================================================================
@@ -82,10 +106,4 @@ public class TIHEvent implements Serializable {
 
 	@SerializedName("created_at")
 	public int createdAt;
-	
-	public String toString() {
-		return String.format("TIHEvent ------------ \n Artist Name: %s Venue: %s \n -------------", 
-				this.artistName, this.venue);
-	}
-
 }
