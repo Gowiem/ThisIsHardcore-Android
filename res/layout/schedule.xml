@@ -33,6 +33,45 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical" >
+        
+         <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:background="@color/lighter_gray"
+            android:orientation="horizontal"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp" >
+            <ImageView
+                android:id="@+id/day_one_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="day 1 tab"
+                android:src="@drawable/day_one_tab_blue" />
+            <ImageView
+                android:id="@+id/day_two_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="day 2 tab"
+                android:src="@drawable/day_two_tab_grey" />
+            <ImageView
+                android:id="@+id/day_three_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="day 3 tab"
+                android:src="@drawable/day_three_tab_grey" />
+            <ImageView
+                android:id="@+id/day_four_tab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:contentDescription="day 4 tab"
+                android:src="@drawable/day_four_tab_grey" />
+        </LinearLayout>
+        
 
         <ListView
             android:id="@+id/listview"

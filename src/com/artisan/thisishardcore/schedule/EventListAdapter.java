@@ -1,5 +1,7 @@
 package com.artisan.thisishardcore.schedule;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,18 +21,16 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 	private static final TIHLogger logger = new TIHLogger(EventListAdapter.class);
 
 	private final Context context; 
-	private final TIHEventList eventList;
+	private final ArrayList<TIHEvent> events;
 
-	public EventListAdapter(Context context, TIHEventList eventList) {
-		super(context, R.layout.event_row, eventList.events);
-		logger.d("EventListAdapter constructor");
+	public EventListAdapter(Context context, ArrayList<TIHEvent> events) {
+		super(context, R.layout.event_row, events);
 		this.context = context; 
-		this.eventList = eventList;
+		this.events = events;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		logger.d("getView - position:", position);
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -42,7 +42,7 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		TextView eventTimeTextView = (TextView) rowView.findViewById(R.id.event_time);
 
 		// Grab the event for this position and set up the views with it's data
-		TIHEvent event = eventList.events.get(position);
+		TIHEvent event = events.get(position);
 		artistNameTextView.setText(event.artistName);
 		eventTimeTextView.setText("??? - ???");
 		

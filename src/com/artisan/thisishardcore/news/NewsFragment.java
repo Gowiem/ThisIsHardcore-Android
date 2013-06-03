@@ -28,9 +28,7 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	
 	private TIHNewsList officialNewsList;
 	private TIHNewsList fanNewsList;
-	
-	private int failureWebServiceReq;
-	
+		
 	private ImageView officialTabImageView;
 	private ImageView fanTabImageView;
 	private ListView listView;
