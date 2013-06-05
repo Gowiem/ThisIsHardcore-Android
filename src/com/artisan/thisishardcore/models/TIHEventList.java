@@ -2,6 +2,7 @@ package com.artisan.thisishardcore.models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 import android.R.integer;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.schedule.EventListAdapter;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
 
 
@@ -30,6 +32,7 @@ public class TIHEventList {
 		this.eventsByDay = new HashMap<Integer, ArrayList<TIHEvent>>();
 		instantiateEventDays();
 		sectionUpEventsByDay();
+		sortEvents();
 	}
 
 	private void instantiateEventDays() {
@@ -52,10 +55,6 @@ public class TIHEventList {
 		// Day 4
 		calendar.set(Calendar.DAY_OF_MONTH, 11);
 		DAY_4 = calendar.getTime();
-		logger.d("Day1:", DAY_1);
-		logger.d("Day2:", DAY_2);
-		logger.d("Day3:", DAY_3);
-		logger.d("Day4:", DAY_4);
 	}
 
 	private void sectionUpEventsByDay() {
@@ -72,6 +71,15 @@ public class TIHEventList {
 				addEventToEventDayList(event, TIHConstants.FEST_DAY_FOUR);
 			} else {
 				throw new RuntimeException("Tried to add Event which didn't fit into one of the three dates");
+			}
+		}
+	}
+	
+	private void sortEvents() {
+		for (int eventDay : eventsByDay.keySet()) {
+			ArrayList<TIHEvent> eventList = eventsByDay.get(eventDay);  
+			if(eventList.size() != 0) {
+				Collections.sort(eventList);
 			}
 		}
 	}

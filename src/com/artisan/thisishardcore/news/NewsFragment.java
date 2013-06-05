@@ -99,6 +99,13 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 		}
 	}
 	
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		logger.d("onDestroyView");
+		currentTab = null;
+	}
+	
 	// Tab Helpers
 	////////////////
 	

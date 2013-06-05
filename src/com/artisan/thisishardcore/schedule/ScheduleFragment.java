@@ -123,51 +123,60 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 		
 		if (currentTab == null) {
 			sendEventRequest();
-		} else {
-			updateForCurrentTab();
+		} else {	
+			
+			updateTabForPreviousVisit();
 		}
+	}
+	
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		logger.d("onDestroyView");
 	}
 	
 	// Tab Methods
 	///////////////
 	
+	public void updateTabForPreviousVisit() {
+		if (!currentTab.equals(DAY_ONE_TAB)) {
+			swapTabResourceForTabIdentifier(DAY_ONE_TAB);
+			swapTabResourceForTabIdentifier(currentTab);	
+		}
+		updateUI(eventList);
+	}
+	
 	public void tabClicked(View view, String tabIdentifier) {
 		logger.d("tabClicked:", tabIdentifier);
-		// Don't update if we're already on the clicked tab
+		
+		// Don't update if we're already on the current tab
 		if (currentTab == tabIdentifier) { return; }
 		
-		// Get the image views for the images we need to swap
-		ImageView currentTabImageView = getTabImageViewForTabIdentifier(currentTab);
-		ImageView clickedTabImageView = getTabImageViewForTabIdentifier(tabIdentifier);
-		
-		logger.d("currentTabImageView:", currentTabImageView);
-		logger.d("clickedTabImageView:", clickedTabImageView);
-		
-		// Get the resource names of the images we need to swap
-		int currentTabResource = (Integer)currentTabImageView.getTag();
-		int clickedTabResource = (Integer)clickedTabImageView.getTag();
-		
-		logger.d("currentTabResource:", currentTabResource);
-		logger.d("clickedTabResources:", clickedTabResource);
-		
-		// Create tab drawable resource strings 
-		int greyResource = swapDrawable(currentTabResource);
-		int blueResource = swapDrawable(clickedTabResource);
-		
-		logger.d("greyResource:", greyResource);
-		logger.d("blueResource:", blueResource);
-		
-		// Assign new resources to the tabs
-		currentTabImageView.setImageResource(greyResource);
-		clickedTabImageView.setImageResource(blueResource);
-		
-		// Assign new tags to the tabs
-		currentTabImageView.setTag(greyResource);
-		clickedTabImageView.setTag(blueResource);
+		// Swap the previously selected tab to grey and the newly selected tab to blue
+		swapTabResourceForTabIdentifier(currentTab);
+		swapTabResourceForTabIdentifier(tabIdentifier);
 		
 		// Set the currentTab to the identifier and update the list for this new tab
 		currentTab = tabIdentifier;
-		updateForCurrentTab();
+		updateUI(eventList);
+	}
+	
+	private void swapTabResourceForTabIdentifier(String tabIdentifier) {
+		// Get the image view for the image we need to swap
+		ImageView imageViewToSwap = getTabImageViewForTabIdentifier(tabIdentifier);
+		
+		// Get the resource name of the image we need to swap
+		// This is represented as Android drawable id (int)
+		int originalTabResource = (Integer)imageViewToSwap.getTag();
+		
+		// Get the new tab drawable resource id which is a swap of the original (i.e. blue => grey)
+		int newResourceId = swapDrawable(originalTabResource);
+		
+		// Assign the new resource to the tab
+		imageViewToSwap.setImageResource(newResourceId);
+		
+		// Set the tag on the Image View so it can be swapped again later
+		imageViewToSwap.setTag(newResourceId);
 	}
 	
 	private int swapDrawable(int drawable) {
@@ -196,16 +205,6 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 			logger.e("swapDrawable - Couldn't find drawable resource for int:", drawable);
 			return 0;
 		}
-	}
-	
-	private String createTabDrawableString(String drawableString, boolean tabIsSelected) {
-		String resultString;
-		if (tabIsSelected) {
-			resultString = drawableString + "blue.png";
-		} else {
-			resultString = drawableString + "grey.png";
-		}
-		return resultString;
 	}
 	
 	public void updateForCurrentTab() {
@@ -273,6 +272,7 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 		super.onResponseReceived(response, requestType);
 		if(response != null){
 			TIHEventList eventList = (TIHEventList)response;
+			currentTab = DAY_ONE_TAB;
 			updateUI(eventList);
 		}
 	}
@@ -283,7 +283,6 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 		super.updateUI(eventList);
 		if (eventList != null && !eventList.events.isEmpty()) {
 			this.eventList = eventList;
-			currentTab = DAY_ONE_TAB;
 			updateForCurrentTab();
 		}
 	}
