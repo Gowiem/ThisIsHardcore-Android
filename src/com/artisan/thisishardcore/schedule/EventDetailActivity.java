@@ -3,8 +3,10 @@ package com.artisan.thisishardcore.schedule;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -12,6 +14,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.utils.TIHUtils;
+import com.artisan.thisishardcore.utils.TIHUtils.DownloadImageTask;
 
 
 public class EventDetailActivity extends SherlockActivity {
@@ -51,9 +54,12 @@ public class EventDetailActivity extends SherlockActivity {
 		ImageButton facebookButton 		   = (ImageButton) findViewById(R.id.facebook_button);
 		ImageButton twitterButton  		   = (ImageButton) findViewById(R.id.twitter_button);
 		
+		ProgressBar artistImageProgress = (ProgressBar) findViewById(R.id.image_progress); 
+		
 		// Assign the details to the views
 		if (!TIHUtils.isEmpty(artistImageUrl)) {
-			// TODO: Figure out how to lazy load images for views 			
+			artistImageProgress.setVisibility(View.VISIBLE);
+			new DownloadImageTask(artistImageView).execute(artistImageUrl);
 		}
 		artistNameTextView.setText(artistName);
 		artistTimeTextView.setText(artistTime);
@@ -64,8 +70,6 @@ public class EventDetailActivity extends SherlockActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
-	            // This is called when the Home (Up) button is pressed
-	            // in the Action Bar.
 	            finish();
 	            return true;
 	    }

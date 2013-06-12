@@ -1,8 +1,16 @@
 package com.artisan.thisishardcore.utils;
 
 
+import java.io.InputStream;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Handler;
+import android.widget.ImageView;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
 
@@ -29,6 +37,39 @@ public class TIHUtils {
 			return true;
 		} else {
 			return false;
+		}
+	}
+	
+	public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+		private ImageView imageView;
+		private String url;
+
+		public DownloadImageTask(ImageView imageView) {
+			this.imageView = imageView;
+		}
+
+		protected Bitmap doInBackground(String... urls) {
+			url = urls[0];
+			Bitmap bitmapImage = null;
+			try {
+				InputStream inputStream = new URL(url).openStream();
+				bitmapImage = BitmapFactory.decodeStream(inputStream);
+			} catch (Exception e) {
+				logger.e("Error trying to get bitmap from URL:", url, "Error message: ", e.getMessage());
+				e.printStackTrace();
+			}
+			return bitmapImage;
+		}
+
+		protected void onPostExecute(final Bitmap result) {
+			Handler handler = new Handler();
+			Runnable runnable = new Runnable() {
+				@Override
+				public void run() {
+					imageView.setImageBitmap(result);	
+				}        
+			};
+			handler.postDelayed(runnable, 310000);
 		}
 	}
 

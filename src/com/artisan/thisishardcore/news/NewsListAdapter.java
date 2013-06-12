@@ -12,7 +12,7 @@ import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.artisan.thisishardcore.models.TIHNewsList;
 import com.artisan.thisishardcore.utils.TIHListAdapter;
-import com.artisan.thisishardcore.utils.TIHListAdapter.DownloadImageTask;
+import com.artisan.thisishardcore.utils.TIHListAdapter.CachingDownloadImageTask;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
@@ -30,7 +30,6 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		logger.d("getView() -> position:", position);
 		LayoutInflater inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -62,7 +61,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 			if (this.networkImages.containsKey(profileImageUrl)) {
 				rowImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
 			} else {
-				new DownloadImageTask(rowImageView).execute(profileImageUrl);	
+				new CachingDownloadImageTask(rowImageView).execute(profileImageUrl);	
 			}
 		}
 

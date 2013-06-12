@@ -257,6 +257,7 @@ public class ScheduleFragment extends UnifeedFragment implements ResponseListene
 			intent.putExtra(EventDetailActivity.ARTIST_NAME, event.artistName);
 			intent.putExtra(EventDetailActivity.ARTIST_TIME, event.getTime());
 			intent.putExtra(EventDetailActivity.ARTIST_DESCRIPTION, event.description);
+			intent.putExtra(EventDetailActivity.ARTIST_IMAGE_URL, event.imageUrl);
 			startActivity(intent);
 		}
 	}

@@ -9,11 +9,28 @@
         android:orientation="vertical"
         android:padding="10dp" >
 
-        <ImageView
-            android:id="@+id/artist_image"
+        <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="300dp"
-            android:src="@drawable/band_load" />
+            android:layout_height="250dp">
+            
+            <ImageView
+                android:id="@+id/artist_image"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:src="@drawable/band_load" />
+
+            <ProgressBar
+                android:id="@+id/image_progress"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="gone"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:paddingBottom="20dp" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/artist_name"
@@ -31,13 +48,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/artist_time_placeholder" />
-            
+
             <TextView
                 android:id="@+id/artist_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/artist_description_placeholder"
-                android:layout_below="@id/artist_time" />
+                android:layout_below="@id/artist_time"
+                android:layout_marginTop="10dp"
+                android:text="@string/artist_description_placeholder" />
 
             <ImageButton
                 android:id="@+id/website_button"
@@ -58,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/facebook_button"
                 android:layout_toRightOf="@id/artist_description" />
-            
         </RelativeLayout>
     </LinearLayout>
+
 </ScrollView>

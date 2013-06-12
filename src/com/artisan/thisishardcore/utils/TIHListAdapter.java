@@ -26,12 +26,12 @@ public abstract class TIHListAdapter<T> extends ArrayAdapter<T> {
 		this.context = context;
 		this.networkImages = new HashMap<String, Bitmap>();
 	}
-
-	public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+	
+	public class CachingDownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		private ImageView imageView;
 		private String url;
 
-		public DownloadImageTask(ImageView imageView) {
+		public CachingDownloadImageTask(ImageView imageView) {
 			this.imageView = imageView;
 		}
 

@@ -14,7 +14,7 @@ import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
 import com.artisan.thisishardcore.utils.TIHListAdapter;
-import com.artisan.thisishardcore.utils.TIHListAdapter.DownloadImageTask;
+import com.artisan.thisishardcore.utils.TIHListAdapter.CachingDownloadImageTask;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class EventListAdapter extends TIHListAdapter<TIHEvent>{
@@ -52,7 +52,7 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 			if (this.networkImages.containsKey(bandIconUrl)) {
 				iconImageView.setImageBitmap(this.networkImages.get(bandIconUrl));
 			} else {
-				new DownloadImageTask(iconImageView).execute(bandIconUrl);	
+				new CachingDownloadImageTask(iconImageView).execute(bandIconUrl);	
 			}
 		}
 
