@@ -1,14 +1,12 @@
 package com.artisan.thisishardcore;
 
-import android.R.integer;
-
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.progress.ProgressSherlockFragment;
 import com.artisan.thisishardcore.unifeed.TIHRequestManager;
-import com.unifeed.webservice.ResponseListener;
+import com.artisan.thisishardcore.unifeed.TIHResponseListener;
 
-public abstract class UnifeedFragment extends ProgressSherlockFragment implements ResponseListener {
+public abstract class UnifeedFragment extends ProgressSherlockFragment implements TIHResponseListener {
 	private final TIHLogger logger = new TIHLogger(UnifeedFragment.class);
 	
 	// Shared fields

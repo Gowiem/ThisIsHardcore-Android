@@ -4,36 +4,26 @@ package com.artisan.thisishardcore.schedule;
 
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
-
-import android.R.integer;
-import android.R.raw;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.CalendarContract.Events;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.UnifeedFragment;
-import com.artisan.thisishardcore.R.id;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
-import com.unifeed.AppState;
-import com.unifeed.Constants;
-import com.unifeed.MLog;
-import com.unifeed.webservice.ResponseListener;
+import com.artisan.thisishardcore.unifeed.TIHResponseListener;
 
-public class ScheduleFragment extends UnifeedFragment implements ResponseListener {
+public class ScheduleFragment extends UnifeedFragment {
 	private static final TIHLogger logger = new TIHLogger(ScheduleFragment.class);
 	
 	private final String DAY_ONE_TAB   = "DAY_ONE_TAB";

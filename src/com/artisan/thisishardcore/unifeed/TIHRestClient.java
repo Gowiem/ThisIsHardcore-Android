@@ -17,10 +17,6 @@ import android.os.Handler;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
-import com.unifeed.MLog;
-import com.unifeed.webservice.AsynchronousSender;
-import com.unifeed.webservice.CallbackWrapper;
-import com.unifeed.webservice.ResponseListener;
 
 public class TIHRestClient {
 	private static final TIHLogger logger = new TIHLogger(TIHRestClient.class);
@@ -58,7 +54,7 @@ public class TIHRestClient {
             logger.d("Before sending request");
 			new TIHAsynchronousSender(request,
 					new Handler(),
-					new TIHCallbackWrapper((ResponseListener) fragment, requestType)
+					new TIHCallbackWrapper((TIHResponseListener) fragment, requestType)
 			).start();
             break;
             

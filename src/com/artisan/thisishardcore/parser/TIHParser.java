@@ -19,12 +19,6 @@ import com.artisan.thisishardcore.models.TIHEventList;
 import com.artisan.thisishardcore.models.TIHNewsList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.unifeed.responsetype.AlbumsDetails;
-import com.unifeed.responsetype.Authentication;
-import com.unifeed.responsetype.PhotoDetails;
-import com.unifeed.responsetype.Results;
-import com.unifeed.responsetype.StatsDetails;
-import com.unifeed.responsetype.VideoDetails;
 
 
 

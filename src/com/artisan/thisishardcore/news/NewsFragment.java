@@ -14,14 +14,12 @@ import android.widget.ListView;
 import com.artisan.thisishardcore.FeedFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.TIHWebViewActivity;
-import com.artisan.thisishardcore.UnifeedFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.artisan.thisishardcore.models.TIHNewsList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
-import com.unifeed.webservice.ResponseListener;
 
-public class NewsFragment extends FeedFragment implements ResponseListener {
+public class NewsFragment extends FeedFragment {
 	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 
 	
 	// Lifecycle

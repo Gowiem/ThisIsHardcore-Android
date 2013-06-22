@@ -10,21 +10,15 @@ import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.news.NewsFragment;
-import com.unifeed.Constants;
-import com.unifeed.MLog;
 
 
 public class TIHRequestManager {
 	private static final TIHLogger logger = new TIHLogger(TIHRequestManager.class);
 	
-	////////////////////////////////////////////////////////////////////////////////////////////////
-	// TIH METHODS TILL I REMOVE ALL THE OTHERS
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-	
 	public static void getEvents(SherlockFragment fragment) {
 		String path = fragment.getResources().getString(R.string.event_url);
-		logger.d("getEvents path: ", path);
-		TIHRestClient client = new TIHRestClient(Constants.URL + path, TIHConstants.GET_EVENTS_DETAILS);
+		String url  = TIHConstants.URL + path; 
+		TIHRestClient client = new TIHRestClient(url, TIHConstants.GET_EVENTS_DETAILS);
 		try {
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {

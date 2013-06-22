@@ -1,21 +1,17 @@
 package com.artisan.thisishardcore.unifeed;
 
 
-import org.apache.log4j.Logger;
-
-import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
-import com.unifeed.webservice.ResponseListener;
 
 
 public class TIHCallbackWrapper implements Runnable {
 	private static final TIHLogger logger = new TIHLogger(TIHCallbackWrapper.class);
 
-	private ResponseListener callbackActivity;
+	private TIHResponseListener callbackActivity;
 	private Object response;
 	public int requestType;
 
-	public TIHCallbackWrapper(ResponseListener callbackActivity, int requestType) {
+	public TIHCallbackWrapper(TIHResponseListener callbackActivity, int requestType) {
 		this.callbackActivity = callbackActivity;
 		this.requestType = requestType;
 	}

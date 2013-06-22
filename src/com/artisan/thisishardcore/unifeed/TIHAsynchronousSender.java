@@ -18,9 +18,7 @@ import android.os.Handler;
 import com.artisan.thisishardcore.PhotoPitFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.parser.TIHParser;
-import com.unifeed.Constants;
-import com.unifeed.MLog;
-import com.unifeed.parser.Parser;
+
 
 public class TIHAsynchronousSender extends Thread {
 	private static final TIHLogger logger = new TIHLogger(TIHAsynchronousSender.class);
