@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.artisan.thisishardcore.FeedFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.TIHWebViewActivity;
 import com.artisan.thisishardcore.UnifeedFragment;
@@ -20,18 +21,8 @@ import com.artisan.thisishardcore.models.TIHNewsList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
 import com.unifeed.webservice.ResponseListener;
 
-public class NewsFragment extends UnifeedFragment implements ResponseListener {
+public class NewsFragment extends FeedFragment implements ResponseListener {
 	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 
-	
-	private final String OFFICIAL_TAB = "OFFICIAL_TAB";
-	private final String FAN_TAB = "FAN_TAB";
-	
-	private TIHNewsList officialNewsList;
-	private TIHNewsList fanNewsList;
-		
-	private ImageView officialTabImageView;
-	private ImageView fanTabImageView;
-	private ListView listView;
 	
 	// Lifecycle
 	/////////////
@@ -106,55 +97,29 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 		currentTab = null;
 	}
 	
-	// Tab Helpers
-	////////////////
+	// FeedFragment Methods
+	////////////////////////
 	
-	public void updateForCurrentTab() {
-		if (currentTab.equals(OFFICIAL_TAB)) {
-			officialTabClicked(officialTabImageView);
-		} else if (currentTab.equals(FAN_TAB)) {
-			fanTabClicked(fanTabImageView);
+	public void sendRequest(String tabIdentifier) {
+		if (tabIdentifier.equals(OFFICIAL_TAB)) {
+			sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_OFFICIAL_NEWS);
+		} else if (tabIdentifier.equals(FAN_TAB)) {
+			sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_NEWS);
 		} else {
-			logger.d("updateListForCurrentTab()");
+			logger.d("sendRequest tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
 		}
 	}
 	
-	public void officialTabClicked(View v) {
-		logger.d("officialTabClicked");
-		logger.d("currentTab:", currentTab);
-		if (currentTab == null || !currentTab.equals(OFFICIAL_TAB)) {
-			currentTab = OFFICIAL_TAB;
-			
-			// If we haven't sent the request yet then send it, otherwise update the news list 
-			// with the official feed items
-			if (officialNewsList == null) {
-				sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_OFFICIAL_NEWS);	
-			} else {
-				updateUI(officialNewsList, TIHConstants.GET_OFFICIAL_NEWS);
-			}
-			
-			// Swap the tab images 
-			officialTabImageView.setImageResource(R.drawable.official_blue);
-			fanTabImageView.setImageResource(R.drawable.fan_feed_grey);	
-		}
-	}
-	
-	public void fanTabClicked(View v) {
-		logger.d("fanTabClicked");
-		if (currentTab == null || !currentTab.equals(FAN_TAB)) {
-			currentTab = FAN_TAB;
-			
-			// If we haven't sent the request yet then send it, otherwise update the news list 
-			// with the fan feed list 
-			if (fanNewsList == null) {
-				sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_NEWS);		
-			} else {
-				updateUI(fanNewsList, TIHConstants.GET_FAN_NEWS);
-			}
-			
-			// Swap the tab images
-			officialTabImageView.setImageResource(R.drawable.official_grey);
-			fanTabImageView.setImageResource(R.drawable.fan_feed_blue);
+	public void updateUI(String tabIdentifier) {
+		logger.d("UpdateUI called with tabIdentifier:", tabIdentifier);
+		if (tabIdentifier.equals(OFFICIAL_TAB)) {
+			logger.d("UpdateUI -- Updating for OFFICIAL TAB");
+			updateNewsUI((TIHNewsList)officialList, TIHConstants.GET_OFFICIAL_NEWS);
+		} else if (tabIdentifier.equals(FAN_TAB)) {
+			logger.d("UpdateUI -- Updating for FAN TAB");
+			updateNewsUI((TIHNewsList)fanList, TIHConstants.GET_FAN_NEWS);
+		} else {
+			logger.d("updateUI tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
 		}
 	}
 	
@@ -163,11 +128,11 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
 		TIHNewsItem itemClicked = null;
-		if (currentTab.equals(OFFICIAL_TAB)) {
-			itemClicked = officialNewsList.getNewsItemAtIndex(position);
-		} else if (currentTab.equals(FAN_TAB)) {
-			itemClicked = fanNewsList.getNewsItemAtIndex(position);
-		}
+		// Don't allow users to check out fan news items
+		if (currentTab.equals(FAN_TAB)) {
+			return;
+		}	
+		itemClicked = ((TIHNewsList)officialList).getNewsItemAtIndex(position);
 		if (itemClicked != null) {
 			Intent webViewIntent = new Intent(getActivity(), TIHWebViewActivity.class);
 			webViewIntent.putExtra(TIHWebViewActivity.WEB_VIEW_URL, itemClicked.getUrl());
@@ -180,26 +145,32 @@ public class NewsFragment extends UnifeedFragment implements ResponseListener {
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
-		logger.d("onResponseReceived - reponse:", response);
+		logger.d("onResponseReceived");
 		super.onResponseReceived(response, requestType);
 		if(response != null){
 			TIHNewsList newsList = (TIHNewsList)response;
-			updateUI(newsList, requestType);
+			updateNewsUI(newsList, requestType);
 		}
 	}
 	
 	//updating event view after getting response from server
-	private void updateUI(TIHNewsList newsList, int requestType) {
+	private void updateNewsUI(TIHNewsList newsList, int requestType) {
 		super.updateUI(newsList, requestType);
-		logger.d("updateEventsUI");
+		logger.d("updateNewsUI");
 		if (newsList != null && !newsList.newsItems.isEmpty()) {
+			String tabIdentifier;
 			if (requestType == TIHConstants.GET_FAN_NEWS) {
-				this.fanNewsList = newsList;
+				this.fanList = newsList;
+				tabIdentifier = FAN_TAB;
 			} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
-				this.officialNewsList = newsList;
+				this.officialList = newsList;
+				tabIdentifier = OFFICIAL_TAB;
+			} else {
+				logger.e("updateNewsUI - requestType was not one of the expected values. Something went wrong");
+				return;
 			}
 			((ListView) getView().findViewById(R.id.listview))
-					.setAdapter(new NewsListAdapter(getView().getContext(), newsList));
+					.setAdapter(new NewsListAdapter(getView().getContext(), newsList, tabIdentifier));
 		}
 	}
 }

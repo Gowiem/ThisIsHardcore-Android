@@ -2,11 +2,12 @@ package com.artisan.thisishardcore.models;
 
 import java.util.List;
 
+import com.artisan.thisishardcore.TIHFeedList;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.news.NewsFragment;
 import com.google.gson.annotations.SerializedName;
 
-public class TIHNewsList {
+public class TIHNewsList extends TIHFeedList {
 	private static final TIHLogger logger = new TIHLogger(TIHNewsList.class); 
 	
 	@SerializedName("rows")

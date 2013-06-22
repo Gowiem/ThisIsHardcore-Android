@@ -1,5 +1,7 @@
 package com.artisan.thisishardcore;
 
+import android.R.integer;
+
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.progress.ProgressSherlockFragment;
@@ -32,6 +34,7 @@ public abstract class UnifeedFragment extends ProgressSherlockFragment implement
 	}
 	
 	public void updateUI(Object list, int requestType) {
+		logger.d("UnifeedFragment UpdateUI");
 		setContentShown(true);
 	}
 	
@@ -43,15 +46,21 @@ public abstract class UnifeedFragment extends ProgressSherlockFragment implement
 	///////////////////
 	
 	public void sendEventRequest(){
-		logger.d("sendEventRequest");
+		logger.d("--- sendEventRequest ---");
 		setContentShown(false);
 		TIHRequestManager.getEvents((SherlockFragment)this);
 	}
 	
 	public void sendNewsRequest(int pageNum, int pageSize, int feedType) {
-		logger.d("sendNewsRequest");
+		logger.d("--- sendNewsRequest ---");
 		setContentShown(false);
 		TIHRequestManager.getNews((SherlockFragment)this, pageNum, pageSize, feedType);
+	}
+	
+	public void sendPhotoPitRequest(int pageNum, int pageSize, int feedType) {
+		logger.d("--- sendPhotoPitRequest ---");
+		setContentShown(false);
+		TIHRequestManager.getPhotos((SherlockFragment)this, pageNum, pageSize, feedType);
 	}
 
 }

@@ -43,7 +43,7 @@ public class TIHParser {
 			response = builder.toString();
 			InputStream inputStream = new ByteArrayInputStream(response.getBytes("UTF-8"));
 			Reader inReader = new InputStreamReader(inputStream);
-			logger.d("List Response:", response);
+//			logger.d("List Response:", response);
 			return inReader;
 		} catch (IOException e) {
 			e.printStackTrace();

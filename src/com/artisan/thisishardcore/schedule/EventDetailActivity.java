@@ -56,7 +56,8 @@ public class EventDetailActivity extends SherlockActivity {
 		
 		ProgressBar artistImageProgress = (ProgressBar) findViewById(R.id.image_progress); 
 		
-		// Assign the details to the views
+		// Assign the details to the views. The DownloadImageTask takes in the artistImageProgress
+		// and handles showing/hiding it in the view.
 		if (!TIHUtils.isEmpty(artistImageUrl)) {
 			new DownloadImageTask(artistImageView, artistImageProgress).execute(artistImageUrl);
 		}

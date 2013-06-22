@@ -91,8 +91,10 @@ public class TIHAsynchronousSender extends Thread {
 			logger.d("Before parseEventList");
 			object = TIHParser.parseEventList(response);
 			break;
-		case TIHConstants.GET_PHOTOS_DETAILS:
-			//object = Parser.outPutResponse(response);
+		case TIHConstants.GET_OFFICIAL_PHOTOS:
+//			object = TIHParser.parsePhotoDetails(response);
+			break;
+		case TIHConstants.GET_FAN_PHOTOS:
 //			object = TIHParser.parsePhotoDetails(response);
 			break;
 			

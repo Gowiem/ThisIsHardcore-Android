@@ -2,4 +2,5 @@
 <resources>
     <string name="event_url">api-v2/this_is_hardcore/events.json</string>
     <string name="news_url">api-v2/this_is_hardcore/news_feed/</string>
+    <string name="photo_pit_url">api-v2/this_is_hardcore/instagram/</string>
 </resources>
