@@ -36,7 +36,6 @@ public class TIHEventList {
 	}
 
 	private void instantiateEventDays() {
-		logger.d("instantiateEventDays");
 		calendar = Calendar.getInstance();
 		calendar.set(Calendar.YEAR, 2013);
 		calendar.set(Calendar.MONTH, Calendar.AUGUST);
@@ -60,7 +59,6 @@ public class TIHEventList {
 	private void sectionUpEventsByDay() {
 		for (TIHEvent event : events) {
 			Date startDate = event.getStartDate();
-			logger.d("Event startDate:", startDate);
 			if (startDate.before(DAY_1)) {
 				addEventToEventDayList(event, TIHConstants.FEST_DAY_ONE);
 			} else if (startDate.before(DAY_2)) {

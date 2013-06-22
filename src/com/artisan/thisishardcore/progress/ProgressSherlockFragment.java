@@ -25,7 +25,6 @@ import android.widget.TextView;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.news.NewsFragment;
 
 /**
  * The implementation of the fragment to display content. Based on {@link android.support.v4.app.ListFragment}.

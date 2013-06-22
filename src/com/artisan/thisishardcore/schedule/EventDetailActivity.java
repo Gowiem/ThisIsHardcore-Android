@@ -58,8 +58,7 @@ public class EventDetailActivity extends SherlockActivity {
 		
 		// Assign the details to the views
 		if (!TIHUtils.isEmpty(artistImageUrl)) {
-			artistImageProgress.setVisibility(View.VISIBLE);
-			new DownloadImageTask(artistImageView).execute(artistImageUrl);
+			new DownloadImageTask(artistImageView, artistImageProgress).execute(artistImageUrl);
 		}
 		artistNameTextView.setText(artistName);
 		artistTimeTextView.setText(artistTime);

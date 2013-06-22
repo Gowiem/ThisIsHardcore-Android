@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
@@ -42,16 +43,28 @@ public class TIHUtils {
 	
 	public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		private ImageView imageView;
-		private String url;
-
+		private View progressView;
+		private String url;		
+		
 		public DownloadImageTask(ImageView imageView) {
 			this.imageView = imageView;
+		}
+
+		public DownloadImageTask(ImageView imageView, View progressView) {
+			this.imageView = imageView;
+			this.progressView = progressView;
+			logger.d("progressView: ", progressView);
+			if (progressView != null) {
+				logger.d("Setting progressView visibility to visible");
+				progressView.setVisibility(View.VISIBLE);
+			}
 		}
 
 		protected Bitmap doInBackground(String... urls) {
 			url = urls[0];
 			Bitmap bitmapImage = null;
 			try {
+				logger.d("DownloadImageTask - Creating bitmap for url:", url);
 				InputStream inputStream = new URL(url).openStream();
 				bitmapImage = BitmapFactory.decodeStream(inputStream);
 			} catch (Exception e) {
@@ -63,13 +76,17 @@ public class TIHUtils {
 
 		protected void onPostExecute(final Bitmap result) {
 			Handler handler = new Handler();
+			logger.d("onPostExecute()");
 			Runnable runnable = new Runnable() {
 				@Override
 				public void run() {
-					imageView.setImageBitmap(result);	
+					imageView.setImageBitmap(result);
+					if (progressView != null) {
+						progressView.setVisibility(View.GONE);
+					}
 				}        
 			};
-			handler.postDelayed(runnable, 310000);
+			handler.postDelayed(runnable, 500);
 		}
 	}
 
