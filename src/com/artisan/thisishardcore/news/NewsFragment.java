@@ -36,7 +36,7 @@ public class NewsFragment extends FeedFragment {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		logger.d("onCreate");
+		logger.i("onCreate");
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -44,31 +44,20 @@ public class NewsFragment extends FeedFragment {
 	public View onCreateView(LayoutInflater inflater, 
 							 ViewGroup container,
 							 Bundle savedInstanceState) {
-		logger.d("onCreateView");
+		logger.i("onCreateView");
 		View result = inflater.inflate(R.layout.news, container, false);
 		
-		listView = (ListView) result.findViewById(R.id.listview);
-		officialTabImageView = (ImageView) result.findViewById(R.id.official_tab);
-		fanTabImageView = (ImageView) result.findViewById(R.id.fan_feed_tab);
+		// Set up our listView, and tab image views
+		onCreateViewHelper(result);
 		
-		// Setup click listeners for the list items and the tabs
+		// Setup click listener for the list items
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				listItemClicked(parent, view, position, id);
 			};
 		});
-		
-		officialTabImageView.setOnClickListener(new OnClickListener() {
-		    @Override
-		    public void onClick(View v) { officialTabClicked(v); }
-		});
-		
-		fanTabImageView.setOnClickListener(new OnClickListener() {
-		    @Override
-		    public void onClick(View v) { fanTabClicked(v); }
-		});
-		
+				
 		return(result); 
 	}
 	
@@ -130,7 +119,7 @@ public class NewsFragment extends FeedFragment {
 		if (currentTab.equals(FAN_TAB)) {
 			return;
 		}	
-		itemClicked = ((TIHNewsList)officialList).getNewsItemAtIndex(position);
+		itemClicked = (TIHNewsItem) officialList.getItemAtIndex(position);
 		if (itemClicked != null) {
 			Intent webViewIntent = new Intent(getActivity(), TIHWebViewActivity.class);
 			webViewIntent.putExtra(TIHWebViewActivity.WEB_VIEW_URL, itemClicked.getUrl());
@@ -155,7 +144,7 @@ public class NewsFragment extends FeedFragment {
 	private void updateNewsUI(TIHNewsList newsList, int requestType) {
 		super.updateUI(newsList, requestType);
 		logger.d("updateNewsUI");
-		if (newsList != null && !newsList.newsItems.isEmpty()) {
+		if (newsList != null && !newsList.items.isEmpty()) {
 			String tabIdentifier;
 			if (requestType == TIHConstants.GET_FAN_NEWS) {
 				this.fanList = newsList;

@@ -48,9 +48,10 @@ public class TIHAsynchronousSender extends Thread {
 				httpClient.setParams(httpParams);
 				response = getClient().execute((HttpUriRequest) request);
 			}
-			logger.d("Before invokeParser - wrapper.requestType:", wrapper.requestType);
 			Object object = invokeParser(response, wrapper.requestType);
+			logger.d("Before setResponse");
 			wrapper.setResponse(object);
+			logger.d("Before posting to Handler");
 			handler.post(wrapper);
 
 		} catch (ClientProtocolException e) {
@@ -90,10 +91,10 @@ public class TIHAsynchronousSender extends Thread {
 			object = TIHParser.parseEventList(response);
 			break;
 		case TIHConstants.GET_OFFICIAL_PHOTOS:
-//			object = TIHParser.parsePhotoDetails(response);
+			object = TIHParser.parsePhotoList(response);
 			break;
 		case TIHConstants.GET_FAN_PHOTOS:
-//			object = TIHParser.parsePhotoDetails(response);
+			object = TIHParser.parsePhotoList(response);
 			break;
 			
 		default:

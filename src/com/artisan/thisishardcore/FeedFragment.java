@@ -5,6 +5,7 @@ import com.artisan.thisishardcore.news.NewsFragment;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
 
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -23,12 +24,36 @@ public abstract class FeedFragment extends UnifeedFragment {
 	public ImageView fanTabImageView;
 	public ListView listView;
 	
-	public TIHFeedList officialList;
-	public TIHFeedList fanList;
+	public TIHFeedList<?> officialList;
+	public TIHFeedList<?> fanList;
 	
 	public abstract void sendRequest(String tabIdentifier);
 	public abstract void updateUI(String tabIdentifier);
+	
+	// Lifecycle
+	/////////////
+	
+	public View onCreateViewHelper(View resultView) {
+		listView = (ListView) resultView.findViewById(R.id.listview);
+		officialTabImageView = (ImageView) resultView.findViewById(R.id.official_tab);
+		fanTabImageView = (ImageView) resultView.findViewById(R.id.fan_feed_tab);
+		
+		officialTabImageView.setOnClickListener(new OnClickListener() {
+		    @Override
+		    public void onClick(View v) { officialTabClicked(v); }
+		});
+		
+		fanTabImageView.setOnClickListener(new OnClickListener() {
+		    @Override
+		    public void onClick(View v) { fanTabClicked(v); }
+		});
+		
+		return resultView;
+	}
 
+	// Tab Methods
+	///////////////
+	
 	@Override
 	public void updateForCurrentTab() {
 		if (currentTab.equals(OFFICIAL_TAB)) {

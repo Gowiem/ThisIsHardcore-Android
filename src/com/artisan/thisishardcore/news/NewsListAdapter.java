@@ -1,6 +1,5 @@
 package com.artisan.thisishardcore.news;
 
-import android.R.integer;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +12,7 @@ import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.artisan.thisishardcore.models.TIHNewsList;
-import com.artisan.thisishardcore.unifeed.TIHConstants;
 import com.artisan.thisishardcore.utils.TIHListAdapter;
-import com.artisan.thisishardcore.utils.TIHListAdapter.CachingDownloadImageTask;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
@@ -26,7 +23,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 	private final String tabIdentifier;
 
 	public NewsListAdapter(Context context, TIHNewsList newsList, String tabIdentifier) {
-		super(context, R.layout.news_item_row, newsList.newsItems);
+		super(context, R.layout.news_item_row, newsList.items);
 		this.context = context; 
 		this.newsList = newsList;
 		this.tabIdentifier = tabIdentifier;
@@ -48,7 +45,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		ImageView indicatorView = (ImageView)rowView.findViewById(R.id.indicator);
 
 		// Grab the newsItem for this position and get it's content
-		TIHNewsItem newsItem = newsList.newsItems.get(position);
+		TIHNewsItem newsItem = (TIHNewsItem) newsList.getItemAtIndex(position);
 		String bodyText        = newsItem.getBody();
 		String dateString      = newsItem.getDateString();
 		String profileImageUrl = newsItem.getProfileUrl();

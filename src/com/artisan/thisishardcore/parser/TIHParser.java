@@ -13,6 +13,8 @@ import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
 
 import com.artisan.thisishardcore.MainActivity;
+import com.artisan.thisishardcore.TIHFeedList;
+import com.artisan.thisishardcore.TIHPhotoList;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
@@ -37,7 +39,7 @@ public class TIHParser {
 			response = builder.toString();
 			InputStream inputStream = new ByteArrayInputStream(response.getBytes("UTF-8"));
 			Reader inReader = new InputStreamReader(inputStream);
-//			logger.d("List Response:", response);
+			//			logger.d("List Response:", response);
 			return inReader;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -83,23 +85,22 @@ public class TIHParser {
 		return null;
 	}
 
-	//	public static PhotoDetails parsePhotoDetails(HttpResponse response) {
-	//		if(response == null){
-	//			return null;
-	//		}
-	//		else{
-	//			try {
-	//				Reader reader = new InputStreamReader(response.getEntity().getContent());
-	//				reader = response(reader);
-	//				return new Gson().fromJson(reader, PhotoDetails.class);
-	//			} catch (IllegalStateException e) {
-	//				e.printStackTrace();
-	//			} catch (IOException e) {
-	//				e.printStackTrace();
-	//			}
-	//
-	//		}
-	//		return null;
-	//	}
+	public static TIHPhotoList parsePhotoList(HttpResponse response) {
+		logger.d("parsePhotoList");
+		if(response != null){
+			try {
+				Reader reader = new InputStreamReader(response.getEntity().getContent());
+				Reader newReader = response(reader);
+				Type listType = new TypeToken<TIHPhotoList>(){}.getType();
+				TIHPhotoList photoList = (TIHPhotoList)new Gson().fromJson(newReader, listType);
+				return photoList;
+			} catch (IllegalStateException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
 
 }
