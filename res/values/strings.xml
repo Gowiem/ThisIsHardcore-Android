@@ -7,6 +7,9 @@
     <string name="bookmarks">Bookmarks</string>
     <string name="more">More</string>
     <string name="event_icon">eventIcon</string>
+    <string name="photo_author_placeholder"> Photo Name Placeholder </string>
+    <string name="photo_time_placeholder"> 10:00 - 11:00 PM </string>
+    <string name="photo_body_placeholder"> "That whiskey burns going down Old man pour me another round </string>
     <string name="artist_name_placeholder"> Artist Name Placeholder </string>
     <string name="artist_time_placeholder"> 10:00 - 11:00 PM </string>
     <string name="artist_description_placeholder"> "That whiskey burns going down Old man pour me another round

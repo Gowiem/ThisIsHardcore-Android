@@ -1,6 +1,7 @@
 package com.artisan.thisishardcore;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.models.TIHFeedList;
 import com.artisan.thisishardcore.news.NewsFragment;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
 

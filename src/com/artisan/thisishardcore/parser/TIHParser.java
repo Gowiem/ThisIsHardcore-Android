@@ -13,12 +13,12 @@ import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
 
 import com.artisan.thisishardcore.MainActivity;
-import com.artisan.thisishardcore.TIHFeedList;
-import com.artisan.thisishardcore.TIHPhotoList;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
+import com.artisan.thisishardcore.models.TIHFeedList;
 import com.artisan.thisishardcore.models.TIHNewsList;
+import com.artisan.thisishardcore.models.TIHPhotoList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

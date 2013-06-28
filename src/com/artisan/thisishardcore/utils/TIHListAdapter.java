@@ -10,6 +10,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
@@ -29,10 +30,19 @@ public abstract class TIHListAdapter<T> extends ArrayAdapter<T> {
 	
 	public class CachingDownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		private ImageView imageView;
+		private View progressView;
 		private String url;
 
 		public CachingDownloadImageTask(ImageView imageView) {
 			this.imageView = imageView;
+		}
+		
+		public CachingDownloadImageTask(ImageView imageView, View progressView) {
+			this.imageView = imageView;
+			this.progressView = progressView;
+			if (progressView != null) {
+				progressView.setVisibility(View.VISIBLE);
+			}
 		}
 
 		protected Bitmap doInBackground(String... urls) {
@@ -50,6 +60,9 @@ public abstract class TIHListAdapter<T> extends ArrayAdapter<T> {
 
 		protected void onPostExecute(Bitmap result) {
 			networkImages.put(url, result);
+			if (progressView != null) {
+				progressView.setVisibility(View.GONE);
+			}
 			imageView.setImageBitmap(result);
 		}
 	}

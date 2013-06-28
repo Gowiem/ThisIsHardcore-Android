@@ -72,10 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/progress_view"
             android:animationCache="true"
-            android:fadingEdge="vertical"
-            android:fastScrollEnabled="true"
-            android:scrollbars="none"
-            android:scrollingCache="false" />
+            android:scrollbars="none" />
     </LinearLayout>
 
 </LinearLayout>

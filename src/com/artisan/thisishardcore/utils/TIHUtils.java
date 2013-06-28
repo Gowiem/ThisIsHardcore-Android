@@ -53,9 +53,7 @@ public class TIHUtils {
 		public DownloadImageTask(ImageView imageView, View progressView) {
 			this.imageView = imageView;
 			this.progressView = progressView;
-			logger.d("progressView: ", progressView);
 			if (progressView != null) {
-				logger.d("Setting progressView visibility to visible");
 				progressView.setVisibility(View.VISIBLE);
 			}
 		}
@@ -64,7 +62,6 @@ public class TIHUtils {
 			url = urls[0];
 			Bitmap bitmapImage = null;
 			try {
-				logger.d("DownloadImageTask - Creating bitmap for url:", url);
 				InputStream inputStream = new URL(url).openStream();
 				bitmapImage = BitmapFactory.decodeStream(inputStream);
 			} catch (Exception e) {

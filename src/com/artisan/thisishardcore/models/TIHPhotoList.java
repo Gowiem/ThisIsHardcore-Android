@@ -1,8 +1,7 @@
-package com.artisan.thisishardcore;
+package com.artisan.thisishardcore.models;
 
 import java.util.List;
 
-import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.google.gson.annotations.SerializedName;
 
 public class TIHPhotoList extends TIHFeedList<TIHPhotoItem> {

@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.artisan.thisishardcore.models;
 
 import com.artisan.thisishardcore.utils.TIHUtils;
 import com.google.gson.annotations.SerializedName;

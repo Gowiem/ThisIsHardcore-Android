@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.models.TIHPhotoList;
 import com.artisan.thisishardcore.news.PhotoPitListAdapter;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
 
