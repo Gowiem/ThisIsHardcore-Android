@@ -6,6 +6,9 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+import org.joda.time.Instant;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -31,6 +34,11 @@ public class TIHUtils {
 	public static Date convertEpochTimeToDate(long epochTime) {
 		Date epochDate = new Date(epochTime*1000);
 		return epochDate;
+	}
+	
+	public static DateTime convertEpochTimeToDateTime(long epochTime) {
+		Instant epochDateTime = new Instant(epochTime * 1000);
+		return epochDateTime.toDateTime();
 	}
 
 	public static boolean isEmpty(String string) {

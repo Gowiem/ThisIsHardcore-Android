@@ -3,7 +3,9 @@ package com.artisan.thisishardcore.models;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import android.R.integer;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.PeriodType;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.utils.TIHUtils;
@@ -16,24 +18,22 @@ public class TIHPhotoItem extends TIHFeedItem {
 	///////////
 	
 	public String getTimeAgo() {
-		Date createdAt = TIHUtils.convertEpochTimeToDate(this.getCreatedAt());
-		logger.d("getTimeAgo =>> createdAt: ", createdAt);
-		int difference = (int) (createdAt.getTime() - new Date().getTime());
-		int months = (int) TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
-		if (months  > 0) {
-			return "More than a month ago";
-		} 
-		difference = Math.abs(difference);
-		int diffInDays = (int) TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
-		if (diffInDays > 0) {
-			return diffInDays + " days ago";
+		DateTime createdAt = TIHUtils.convertEpochTimeToDateTime(this.getCreatedAt());
+		DateTime now = new DateTime();
+		PeriodType monthDayTime = PeriodType.yearMonthDayTime().withYearsRemoved();
+		Period difference = new Period(createdAt, now, monthDayTime);
+		logger.d("getTimeAgo =>> createdAt: ", createdAt, " period difference: ", difference);
+		if (difference.getMonths() > 0) {
+			return String.format("About %s month ago", difference.getMonths());
+		} else if (difference.getDays() > 0) {
+			return String.format("%s days ago", difference.getDays());
+		} else if (difference.getHours() > 0) {
+			return String.format("%s hours ago", difference.getHours());
+		} else if (difference.getMinutes() > 0) {
+			return String.format("%s minutes ago", difference.getMinutes());
+		} else {
+			return "No idea when";
 		}
-		int diffInHours = (int) TimeUnit.HOURS.convert(difference, TimeUnit.MILLISECONDS);
-		if (diffInHours > 0) {
-			return diffInHours + " hours ago";
-		}
-		int diffInMinutes = (int) TimeUnit.MINUTES.convert(difference, TimeUnit.MILLISECONDS);
-		return diffInMinutes + " minutes ago";	
 	}
 	
 	public String toString() {
