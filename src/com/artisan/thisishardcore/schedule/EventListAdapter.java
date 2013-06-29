@@ -37,7 +37,7 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		// Grab the views for this row
 		View rowView = inflater.inflate(R.layout.event_row, parent, false);
 		rowView.setTag(position);
-		ImageView iconImageView = (ImageView)rowView.findViewById(R.id.event_icon_image); 
+		ImageView iconImageView = (ImageView) rowView.findViewById(R.id.event_icon_image); 
 		TextView artistNameTextView = (TextView) rowView.findViewById(R.id.artist_name);
 		TextView eventTimeTextView = (TextView) rowView.findViewById(R.id.event_time);
 
@@ -48,13 +48,21 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		
 		// Grab the image from the cache or download it from the netz
 		String bandIconUrl = event.iconUrl;
-		if (TIHUtils.isEmpty(bandIconUrl)) {
+		if (!TIHUtils.isEmpty(bandIconUrl) && !bandIconUrl.equalsIgnoreCase("/icons/original/missing.png")) {
 			if (this.networkImages.containsKey(bandIconUrl)) {
 				iconImageView.setImageBitmap(this.networkImages.get(bandIconUrl));
 			} else {
-				new CachingDownloadImageTask(iconImageView).execute(bandIconUrl);	
+				new CachingDownloadImageTask(iconImageView).execute(bandIconUrl);
 			}
 		}
+		
+//		if (!TIHUtils.isEmpty(profileImageUrl)) {
+//			if (this.networkImages.containsKey(profileImageUrl)) {
+//				userImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
+//			} else {
+//				new CachingDownloadImageTask(userImageView).execute(profileImageUrl);	
+//			}
+//		}
 
 		return rowView;
 	}
