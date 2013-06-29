@@ -3,8 +3,11 @@ package com.artisan.thisishardcore;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
@@ -16,6 +19,7 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
 	public final static String WEB_VIEW_URL = "WEB_VIEW_URL";
 	
 	private WebView webView;
+	private View progressBarContainter;
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,9 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
 		Intent intent = getIntent();
 		String url = intent.getStringExtra(WEB_VIEW_URL);
 		
+		progressBarContainter = (View) findViewById(R.id.progress_container);
+		progressBarContainter.setVisibility(View.VISIBLE);
+		
 		webView = (WebView) findViewById(R.id.webview);
 		webView.getSettings().setJavaScriptEnabled(true);
 		webView.setWebViewClient(new TIHWebViewClient());
@@ -38,8 +45,6 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 	        case android.R.id.home:
-	            // This is called when the Home (Up) button is pressed
-	            // in the Action Bar.
 	            finish();
 	            return true;
 	    }
@@ -51,6 +56,18 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             view.loadUrl(url);
             return true;
+        }
+        
+        @Override
+        public void onPageFinished(WebView view, String url) {
+        	logger.d("onPageFinished Loading");
+        	final Handler handler = new Handler();
+    	    handler.postDelayed(new Runnable() {
+    	      @Override
+    	      public void run() {
+    	    	  progressBarContainter.setVisibility(View.GONE);
+    	      }
+    	    }, 1000);
         }
     }
 }

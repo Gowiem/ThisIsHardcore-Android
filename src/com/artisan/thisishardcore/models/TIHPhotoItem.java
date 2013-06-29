@@ -22,7 +22,6 @@ public class TIHPhotoItem extends TIHFeedItem {
 		DateTime now = new DateTime();
 		PeriodType monthDayTime = PeriodType.yearMonthDayTime().withYearsRemoved();
 		Period difference = new Period(createdAt, now, monthDayTime);
-		logger.d("getTimeAgo =>> createdAt: ", createdAt, " period difference: ", difference);
 		if (difference.getMonths() > 0) {
 			return String.format("About %s month ago", difference.getMonths());
 		} else if (difference.getDays() > 0) {
