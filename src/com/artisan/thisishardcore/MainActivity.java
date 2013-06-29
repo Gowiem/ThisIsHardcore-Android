@@ -1,5 +1,6 @@
 package com.artisan.thisishardcore;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 
@@ -68,15 +69,42 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		String urlString;
 		switch (item.getItemId()) {
 		case android.R.id.home: 
 			return(true);
-		case R.id.bookmarks: 
+		case R.id.stuff_to_do_item: 
+			urlString = getResources().getString(R.string.stuff_to_do_url);
+			launchWebViewWithUrl(urlString);
 			return(true);
-		case R.id.more: 
+		case R.id.accommodations_item: 
+			urlString = getResources().getString(R.string.accommodations_url);
+			launchWebViewWithUrl(urlString);
+			return(true);
+		case R.id.facebook_item: 
+			urlString = getResources().getString(R.string.tihc_facebook_url);
+			launchWebViewWithUrl(urlString);
+			return(true);
+		case R.id.twitter_item: 
+			urlString = getResources().getString(R.string.tihc_twitter_url);
+			launchWebViewWithUrl(urlString);
+			return(true);
+		case R.id.about_tihc_item:
+			urlString = getResources().getString(R.string.about_tihc_url);
+			launchWebViewWithUrl(urlString);
+			return(true);
+		case R.id.about_artisan_item:
+			urlString = getResources().getString(R.string.about_artisan_url);
+			launchWebViewWithUrl(urlString);
 			return(true);
 		}
 		return(super.onOptionsItemSelected(item));
+	}
+	
+	private void launchWebViewWithUrl(String url) {
+		Intent webViewIntent = new Intent(this, TIHWebViewActivity.class);
+		webViewIntent.putExtra(TIHWebViewActivity.WEB_VIEW_URL, url);
+		startActivity(webViewIntent);
 	}
 	
 	@Override

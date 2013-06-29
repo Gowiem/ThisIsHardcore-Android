@@ -3,9 +3,24 @@
 
     <string name="app_name">This is Hardcore</string>
     <string name="news_empty">Couldn\'t retrieve news.</string>
-    <string name="action_settings">Settings</string>
-    <string name="bookmarks">Bookmarks</string>
-    <string name="more">More</string>
+    
+    <!-- More Navigation -->
+    <string name="stuff_to_do">Stuff to do in Philly</string>
+    <string name="accommodations">Accommodations</string>
+    <string name="tihc_facebook">TIHC Facebook</string>
+    <string name="tihc_twitter">TIHC Twitter</string>
+    <string name="about_tihc">About TIHC</string>
+    <string name="about_artisan">About Artisan</string>
+    
+    <!-- More URLs -->
+    <string name="stuff_to_do_url">http://assets.apprenaissance.com/tihc/stuff_to_do_in_philly.html</string>
+    <string name="accommodations_url">http://assets.apprenaissance.com/tihc/accomodations.html</string>
+    <string name="tihc_facebook_url">https://www.facebook.com/thisishardcorefest</string>
+    <string name="tihc_twitter_url">https://twitter.com/#!/TIHCfest</string>
+    <string name="about_tihc_url">http://www.thisishardcorefest.com/</string>
+    <string name="about_artisan_url">http://useartisan.com</string>
+    
+    <!-- Placeholder Text -->
     <string name="event_icon">eventIcon</string>
     <string name="photo_author_placeholder"> Photo Name Placeholder </string>
     <string name="photo_time_placeholder"> 10:00 - 11:00 PM </string>

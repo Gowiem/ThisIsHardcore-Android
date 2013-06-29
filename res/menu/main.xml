@@ -1,15 +1,38 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/more"
+        android:id="@+id/stuff_to_do_item"
         android:icon="@android:drawable/ic_menu_info_details"
         android:showAsAction="never"
-        android:title="@string/more"/>
+        android:title="@string/stuff_to_do"/>
     
     <item
-        android:id="@+id/bookmarks"
+        android:id="@+id/accommodations_item"
         android:icon="@android:drawable/ic_menu_info_details"
         android:showAsAction="never"
-        android:title="@string/bookmarks"/>
+        android:title="@string/accommodations"/>
 
+    <item
+        android:id="@+id/facebook_item"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="@string/tihc_facebook"/>
+    
+    <item
+        android:id="@+id/twitter_item"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="@string/tihc_twitter"/>
+    
+    <item
+        android:id="@+id/about_tihc_item"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="@string/about_tihc"/>
+    
+    <item
+        android:id="@+id/about_artisan_item"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:showAsAction="never"
+        android:title="@string/about_artisan"/>
 </menu>

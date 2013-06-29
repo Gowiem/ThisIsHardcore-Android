@@ -55,15 +55,6 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 				new CachingDownloadImageTask(iconImageView).execute(bandIconUrl);
 			}
 		}
-		
-//		if (!TIHUtils.isEmpty(profileImageUrl)) {
-//			if (this.networkImages.containsKey(profileImageUrl)) {
-//				userImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
-//			} else {
-//				new CachingDownloadImageTask(userImageView).execute(profileImageUrl);	
-//			}
-//		}
-
 		return rowView;
 	}
 }
