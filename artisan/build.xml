@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="ArtisanSupport" default="clean_build" basedir=".">
+    <description>Builds, tests, and runs the project ArtisanSupport.</description>
+    <!--  <import file="nbproject/build-impl.xml"/> -->
+
+    <property name="build.dir" value="build" />
+    <property name="lib.dir" value="lib"/>
+    <property name="classes.dir" value="build/classes" />
+    <property name="main-class" value="artisansupport.ArtisanSupportApp" />
+    <property name="jar.dir" value="${build.dir}/jar" />
+    <property name="src.dir" value="src" />
+    <property name="zip.dir" value="dist" />
+    <!-- <property name="resources.dir" value="${src.dir}/swingdemos/resources" /> -->
+
+    <path id="classpath">
+         <fileset dir="${lib.dir}" includes="**/*.jar"/>
+    </path>
+
+    <target name="clean">
+        <delete dir="build"/>
+        <delete file="artisan.zip" />
+    </target>
+    <target name="compile">
+        <mkdir dir="build/classes"/>
+         <mkdir dir="${build.dir}/${zip.dir}/artisan.zip" />
+        <javac srcdir="src" destdir="build/classes" classpathref="classpath" />
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="build/jar"/>
+       
+        <jar destfile="build/jar/ArtisanSupport.jar" basedir="build/classes">
+            <manifest>
+                <attribute name="Class-Path" value="${lib.dir}"/>
+                <attribute name="Main-Class" value="artisansupport.ArtisanSupportApp" />
+            </manifest>
+            <fileset dir="${classes.dir}" includes="**/*.class" />
+            <zipgroupfileset dir="${lib.dir}" includes="**/*.jar" />
+            </jar>
+    </target>
+
+    <target name="zip">
+          <copy todir="../artisan">
+            <fileset dir="../support_tools"/>
+        </copy>
+       <zip destfile="artisan.zip" basedir="../" includes="artisan/**" excludes="**/src/**,build.xml,**/.git/**,**/.settings/**,**/${classes.dir}/**,**/bin/**,.classpath,.gitignore,.project"/>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/${ant.project.name}.jar" fork="true" />
+        </target>
+
+    <target name="clean_build" depends="clean,compile,jar,zip">
+    </target>
+
+</project>

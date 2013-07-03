@@ -5,6 +5,7 @@ package com.artisan.thisishardcore.schedule;
 import java.util.ArrayList;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,13 +16,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.artisan.incodeapi.ARExperimentManager;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.UnifeedFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
-import com.artisan.thisishardcore.unifeed.TIHResponseListener;
 
 public class ScheduleFragment extends UnifeedFragment {
 	private static final TIHLogger logger = new TIHLogger(ScheduleFragment.class);
@@ -60,6 +61,19 @@ public class ScheduleFragment extends UnifeedFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
 		View result = inflater.inflate(R.layout.schedule, container, false);
+		
+		View contentView = result;
+		String experiment = "E1";
+		ARExperimentManager.setExperimentViewedForExperiment(experiment);
+		ARExperimentManager.setTargetReachedForExperiment(experiment);
+		 
+		if (ARExperimentManager.isCurrentVariantForExperiment("default", experiment)) {
+		    contentView.setBackgroundColor(Color.BLACK);
+		} else if (ARExperimentManager.isCurrentVariantForExperiment("cyan", experiment)) {
+			contentView.setBackgroundColor(Color.CYAN);
+		} else if (ARExperimentManager.isCurrentVariantForExperiment("red", experiment)) {
+			contentView.setBackgroundColor(Color.RED);
+		}
 		
 		// Grab the tab image views
 		dayOneTabImageView = (ImageView) result.findViewById(R.id.day_one_tab);
