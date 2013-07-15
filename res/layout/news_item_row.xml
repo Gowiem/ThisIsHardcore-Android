@@ -19,15 +19,19 @@
             android:layout_height="fill_parent"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="10dp"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textIsSelectable="false" />
 
         <ImageView
             android:id="@+id/news_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
-            android:contentDescription="Social Media Icon"
+            android:adjustViewBounds="true"
+            android:cropToPadding="false"
             android:src="@drawable/twitter_icon" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -42,8 +46,7 @@
         <ImageView
             android:id="@+id/row_image"
             android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:contentDescription="user_image" />
+            android:layout_height="48dp" />
 
         <TextView
             android:id="@+id/news_body"
@@ -56,7 +59,6 @@
         
         <ImageView
             android:id="@+id/indicator"
-            android:contentDescription="indicator"
             android:layout_centerInParent="true"
             android:layout_alignParentRight="true"
             android:layout_width="20dp"

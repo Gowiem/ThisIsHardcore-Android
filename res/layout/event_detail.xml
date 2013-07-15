@@ -5,14 +5,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="10dp" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="250dp">
-            
+            android:layout_height="250dp" >
+
             <ImageView
                 android:id="@+id/artist_image"
                 android:layout_width="fill_parent"
@@ -24,12 +24,12 @@
                 style="?android:attr/progressBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:visibility="gone"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                android:layout_marginBottom="20dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="20dp" />
+                android:indeterminate="true"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <TextView
@@ -39,7 +39,6 @@
             android:text="@string/artist_name_placeholder" />
 
         <RelativeLayout
-            android:id="@+id/detail_relative_layout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 

@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
     android:orientation="vertical"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
@@ -22,7 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_toLeftOf="@id/tiny_clock"
-        android:paddingRight="5dp" />
+        android:paddingRight="5dp"
+        android:textIsSelectable="false" />
 
     <RelativeLayout
         android:id="@+id/insta_image_layout"
@@ -56,7 +56,7 @@
         android:background="@color/tihBlue"
         android:src="@drawable/default_event_icon"
         android:layout_below="@id/insta_image_layout"
-        android:contentDescription="user_image" />
+        android:textIsSelectable="false" />
     
     <TextView
         android:id="@+id/photo_author"
@@ -64,7 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/insta_image_layout"
         android:layout_marginLeft="60dp"
-        android:text="@string/photo_author_placeholder" />
+        android:text="@string/photo_author_placeholder"
+        android:textIsSelectable="false" />
 
     <TextView
         android:id="@+id/photo_body"
@@ -74,6 +75,7 @@
         android:layout_marginRight="22dp"
         android:layout_toRightOf="@id/user_image"
         android:layout_below="@id/photo_author"
-        android:text="@string/photo_body_placeholder" />
+        android:text="@string/photo_body_placeholder"
+        android:textIsSelectable="false" />
 
 </RelativeLayout>
