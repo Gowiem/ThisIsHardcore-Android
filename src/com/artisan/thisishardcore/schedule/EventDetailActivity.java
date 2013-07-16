@@ -50,9 +50,9 @@ public class EventDetailActivity extends SherlockActivity {
 		TextView artistNameTextView 	   = (TextView) findViewById(R.id.artist_name);
 		TextView artistTimeTextView 	   = (TextView) findViewById(R.id.artist_time);
 		TextView artistDescriptionTextView = (TextView) findViewById(R.id.artist_description);
-		ImageButton websiteButton  		   = (ImageButton) findViewById(R.id.website_button);
-		ImageButton facebookButton 		   = (ImageButton) findViewById(R.id.facebook_button);
-		ImageButton twitterButton  		   = (ImageButton) findViewById(R.id.twitter_button);
+//		ImageButton websiteButton  		   = (ImageButton) findViewById(R.id.website_button);
+//		ImageButton facebookButton 		   = (ImageButton) findViewById(R.id.facebook_button);
+//		ImageButton twitterButton  		   = (ImageButton) findViewById(R.id.twitter_button);
 		
 		ProgressBar artistImageProgress = (ProgressBar) findViewById(R.id.image_progress); 
 		

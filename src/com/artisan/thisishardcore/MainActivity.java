@@ -1,7 +1,11 @@
 package com.artisan.thisishardcore;
 
+import java.io.File;
+
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -13,6 +17,7 @@ import com.artisan.thisishardcore.logging.TIHConfigureLog4j;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.news.NewsFragment;
 import com.artisan.thisishardcore.schedule.ScheduleFragment;
+import com.artisan.thisishardcore.utils.TIHListAdapter;
 
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener{
 	private final TIHLogger logger = new TIHLogger(MainActivity.class);
@@ -58,7 +63,6 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 			selectTab(tabIdentifier, ft);
 		}
 	}
-
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

@@ -13,6 +13,7 @@ public abstract class UnifeedFragment extends ProgressSherlockFragment implement
 	/////////////////
 	
 	public String currentTab;
+	protected static final String IMAGE_CACHE_DIR = "images";
 	
 	// Tab Methods
 	///////////////

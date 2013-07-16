@@ -9,13 +9,18 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.logging.TIHLogger;
 
 public class TIHUtils {
@@ -48,6 +53,21 @@ public class TIHUtils {
 			return false;
 		}
 	}
+	
+    /**
+    * Simple network connection check.
+    *
+    * @param context
+    */
+    private void checkConnection(Context context) {
+        final ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        final NetworkInfo networkInfo = cm.getActiveNetworkInfo();
+        if (networkInfo == null || !networkInfo.isConnectedOrConnecting()) {
+            Toast.makeText(context, R.string.no_network_connection_toast, Toast.LENGTH_LONG).show();
+            logger.e("checkConnection - no connection found");
+        }
+    }
 	
 	public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
 		private ImageView imageView;

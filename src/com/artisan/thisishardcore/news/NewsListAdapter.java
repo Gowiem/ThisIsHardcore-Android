@@ -65,11 +65,11 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		// cache and set it to the ImageView or use the DownloadImageTask and 
 		// to download the image 
 		if (!TIHUtils.isEmpty(profileImageUrl)) {
-			if (this.networkImages.containsKey(profileImageUrl)) {
-				rowImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
-			} else {
-				new CachingDownloadImageTask(rowImageView).execute(profileImageUrl);	
-			}
+//			if (this.networkImages.containsKey(profileImageUrl)) {
+//				rowImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
+//			} else {
+//				new CachingDownloadImageTask(rowImageView).execute(profileImageUrl);	
+//			}
 		}
 
 		return rowView;

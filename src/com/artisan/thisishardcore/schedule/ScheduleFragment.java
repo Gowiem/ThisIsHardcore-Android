@@ -1,7 +1,5 @@
 package com.artisan.thisishardcore.schedule;
 
-
-
 import java.util.ArrayList;
 
 import android.content.Intent;
@@ -17,11 +15,12 @@ import android.widget.ListView;
 
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.UnifeedFragment;
+import com.artisan.thisishardcore.imageutils.ImageCache;
+import com.artisan.thisishardcore.imageutils.ImageFetcher;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHEvent;
 import com.artisan.thisishardcore.models.TIHEventList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
-import com.artisan.thisishardcore.unifeed.TIHResponseListener;
 
 public class ScheduleFragment extends UnifeedFragment {
 	private static final TIHLogger logger = new TIHLogger(ScheduleFragment.class);
@@ -110,11 +109,12 @@ public class ScheduleFragment extends UnifeedFragment {
 	    setContentView(R.layout.schedule);
 	    // Setup text for empty content
 	    // setEmptyText(R.string.news_empty);
+	    
+	    setupImageFetcher();
 		
 		if (currentTab == null) {
 			sendEventRequest();
-		} else {	
-			
+		} else {
 			updateTabForPreviousVisit();
 		}
 	}
@@ -123,6 +123,19 @@ public class ScheduleFragment extends UnifeedFragment {
 	public void onDestroyView() {
 		super.onDestroyView();
 		logger.d("onDestroyView");
+	}
+	
+	// Image Cache
+	///////////////
+	
+	private void setupImageFetcher() {
+		ImageCache.ImageCacheParams cacheParams =
+                new ImageCache.ImageCacheParams(getView().getContext(), IMAGE_CACHE_DIR);
+        cacheParams.setMemCacheSizePercent(0.20f); // Set memory cache to 25% of app memory
+        ImageFetcher imageFetcher = new ImageFetcher(getView().getContext(), 0);
+		imageFetcher.addImageCache(getActivity().getSupportFragmentManager(), cacheParams);
+		imageFetcher.setLoadingImage(R.drawable.default_event_icon);
+		EventListAdapter.imageFetcher = imageFetcher;
 	}
 	
 	// Tab Methods
@@ -199,6 +212,8 @@ public class ScheduleFragment extends UnifeedFragment {
 	
 	public void updateForCurrentTab() {
 		ArrayList<TIHEvent> events = getEventsForCurrentTab();
+		ImageFetcher imageFetcher = new ImageFetcher(getView().getContext(), 0);
+		
 		((ListView) getView().findViewById(R.id.listview))
 			.setAdapter(new EventListAdapter(getView().getContext(), events));
 	}

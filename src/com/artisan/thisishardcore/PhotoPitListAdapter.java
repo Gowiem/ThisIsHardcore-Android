@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.news;
+package com.artisan.thisishardcore;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -56,19 +56,19 @@ public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
 		photoAuthorTextView.setText(authorString);
 		
 		if (!TIHUtils.isEmpty(profileImageUrl)) {
-			if (this.networkImages.containsKey(profileImageUrl)) {
-				userImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
-			} else {
-				new CachingDownloadImageTask(userImageView).execute(profileImageUrl);	
-			}
+//			if (this.networkImages.containsKey(profileImageUrl)) {
+//				userImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
+//			} else {
+//				new CachingDownloadImageTask(userImageView).execute(profileImageUrl);	
+//			}
 		}
 		 
 		if (!TIHUtils.isEmpty(instaImageUrl)) {
-			if (this.networkImages.containsKey(instaImageUrl)) {
-				instaImageView.setImageBitmap(this.networkImages.get(instaImageUrl));
-			} else {
-				new CachingDownloadImageTask(instaImageView, progressImageView).execute(instaImageUrl);	
-			}
+//			if (this.networkImages.containsKey(instaImageUrl)) {
+//				instaImageView.setImageBitmap(this.networkImages.get(instaImageUrl));
+//			} else {
+//				new CachingDownloadImageTask(instaImageView, progressImageView).execute(instaImageUrl);	
+//			}
 		}
 
 		return rowView;
