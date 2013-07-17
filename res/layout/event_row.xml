@@ -10,7 +10,7 @@
     <ImageView 
         android:id="@+id/event_icon_image"
         android:layout_height="fill_parent"
-        android:layout_width="70dp"
+        android:layout_width="60dp"
         android:src="@drawable/default_event_icon"
         android:contentDescription="@string/event_icon" />
     

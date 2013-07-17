@@ -13,9 +13,13 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.artisan.thisishardcore.imageutils.ImageCache;
+import com.artisan.thisishardcore.imageutils.ImageFetcher;
 import com.artisan.thisishardcore.logging.TIHConfigureLog4j;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.news.NewsFragment;
+import com.artisan.thisishardcore.news.NewsListAdapter;
+import com.artisan.thisishardcore.schedule.EventListAdapter;
 import com.artisan.thisishardcore.schedule.ScheduleFragment;
 import com.artisan.thisishardcore.utils.TIHListAdapter;
 
@@ -32,7 +36,12 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	private PhotoPitFragment photoPitFragment;
 	
 	public String currentlySelectedTab;
+	
+	private static final String IMAGE_CACHE_DIR = "images";
 	 
+	// Lifecycle
+	/////////////
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,6 +64,8 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 				.setTag(PHOTO_PIT_TAB)
 				.setTabListener(this));	
 
+		setupImageFetcher();
+		
 		logger.d("savedInstanceState: ", savedInstanceState);
 		if (savedInstanceState != null) {
 			String tabIdentifier = savedInstanceState.getString(TAB_SELECTED);
@@ -62,6 +73,20 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			selectTab(tabIdentifier, ft);
 		}
+	}
+	
+	// Image Cache
+	///////////////
+	
+	private void setupImageFetcher() {
+		ImageCache.ImageCacheParams cacheParams =
+                new ImageCache.ImageCacheParams(this, IMAGE_CACHE_DIR);
+        cacheParams.setMemCacheSizePercent(0.20f); // Set memory cache to 25% of app memory
+        ImageFetcher imageFetcher = new ImageFetcher(this, 0);
+		imageFetcher.addImageCache(getSupportFragmentManager(), cacheParams);
+		
+		EventListAdapter.imageFetcher = imageFetcher;
+		NewsListAdapter.imageFetcher = imageFetcher;
 	}
 	
 	@Override

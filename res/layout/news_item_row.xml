@@ -46,7 +46,8 @@
         <ImageView
             android:id="@+id/row_image"
             android:layout_width="48dp"
-            android:layout_height="48dp" />
+            android:layout_height="48dp"
+            android:src="@drawable/tih_news_icon" />
 
         <TextView
             android:id="@+id/news_body"
