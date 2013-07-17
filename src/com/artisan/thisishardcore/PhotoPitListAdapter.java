@@ -1,5 +1,7 @@
 package com.artisan.thisishardcore;
 
+import java.util.logging.Logger;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,22 +11,42 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.artisan.thisishardcore.R;
+import com.artisan.thisishardcore.imageutils.ImageFetcher;
+import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.models.TIHPhotoItem;
 import com.artisan.thisishardcore.models.TIHPhotoList;
+import com.artisan.thisishardcore.news.NewsListAdapter;
 import com.artisan.thisishardcore.utils.TIHListAdapter;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
-	
-	private final Context context; 
+	private static final TIHLogger logger = new TIHLogger(TIHListAdapter.class);
+
+	private static final int ICON_IMAGE_SIZE = 48; // Image is 48x48dp in photo_pit_row layout
+	private static final int INSTA_IMAGE_SIZE = 306; // Image is 306x306 in photo_pit_row layout
 	private final TIHPhotoList photoList;
 	private final String tabIdentifier;
+	public static ImageFetcher iconFetcher;
+	public static ImageFetcher instaFetcher;
 
 	public PhotoPitListAdapter(Context context, TIHPhotoList photoList, String tabIdentifier) {
 		super(context, R.layout.photo_pit_row, photoList.items);
-		this.context = context; 
 		this.photoList = photoList;
 		this.tabIdentifier = tabIdentifier;
+		setupImageFetcher();
+	}
+	
+	private void setupImageFetcher() {
+		float screenDensity = context.getResources().getDisplayMetrics().density;
+		iconFetcher.setImageSize((int)(ICON_IMAGE_SIZE * screenDensity));
+		instaFetcher.setImageSize((int)(INSTA_IMAGE_SIZE * screenDensity));
+		instaFetcher.setLoadingImage(R.drawable.band_load);
+		iconFetcher.setLoadingImage(R.drawable.tih_news_icon);
+	}
+	
+	@Override
+	public boolean isEnabled(int position) {
+		return false;
 	}
 	
 	@Override
@@ -55,20 +77,11 @@ public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
 		dateTextView.setText(dateString);
 		photoAuthorTextView.setText(authorString);
 		
-		if (!TIHUtils.isEmpty(profileImageUrl)) {
-//			if (this.networkImages.containsKey(profileImageUrl)) {
-//				userImageView.setImageBitmap(this.networkImages.get(profileImageUrl));
-//			} else {
-//				new CachingDownloadImageTask(userImageView).execute(profileImageUrl);	
-//			}
-		}
+		loadIconForProfileUrl(profileImageUrl, userImageView, iconFetcher);
 		 
 		if (!TIHUtils.isEmpty(instaImageUrl)) {
-//			if (this.networkImages.containsKey(instaImageUrl)) {
-//				instaImageView.setImageBitmap(this.networkImages.get(instaImageUrl));
-//			} else {
-//				new CachingDownloadImageTask(instaImageView, progressImageView).execute(instaImageUrl);	
-//			}
+			logger.d("Requesting instagrame Image at URL: ", instaImageUrl);
+			instaFetcher.loadImage(instaImageUrl, instaImageView);
 		}
 
 		return rowView;

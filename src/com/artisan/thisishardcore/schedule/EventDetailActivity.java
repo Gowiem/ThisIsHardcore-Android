@@ -58,8 +58,10 @@ public class EventDetailActivity extends SherlockActivity {
 		
 		// Assign the details to the views. The DownloadImageTask takes in the artistImageProgress
 		// and handles showing/hiding it in the view.
-		if (!TIHUtils.isEmpty(artistImageUrl)) {
+		if (!TIHUtils.isEmpty(artistImageUrl) && !artistImageUrl.equalsIgnoreCase("/images/original/missing.png")) {
 			new DownloadImageTask(artistImageView, artistImageProgress).execute(artistImageUrl);
+		} else {
+			artistImageProgress.setVisibility(View.GONE);
 		}
 		artistNameTextView.setText(artistName);
 		artistTimeTextView.setText(artistTime);

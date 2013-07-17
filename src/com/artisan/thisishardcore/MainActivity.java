@@ -22,6 +22,7 @@ import com.artisan.thisishardcore.news.NewsListAdapter;
 import com.artisan.thisishardcore.schedule.EventListAdapter;
 import com.artisan.thisishardcore.schedule.ScheduleFragment;
 import com.artisan.thisishardcore.utils.TIHListAdapter;
+import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener{
 	private final TIHLogger logger = new TIHLogger(MainActivity.class);
@@ -36,8 +37,6 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	private PhotoPitFragment photoPitFragment;
 	
 	public String currentlySelectedTab;
-	
-	private static final String IMAGE_CACHE_DIR = "images";
 	 
 	// Lifecycle
 	/////////////
@@ -78,15 +77,13 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	// Image Cache
 	///////////////
 	
+	// Holy shit. This has to be a mistake... Fuck. 
 	private void setupImageFetcher() {
-		ImageCache.ImageCacheParams cacheParams =
-                new ImageCache.ImageCacheParams(this, IMAGE_CACHE_DIR);
-        cacheParams.setMemCacheSizePercent(0.20f); // Set memory cache to 25% of app memory
-        ImageFetcher imageFetcher = new ImageFetcher(this, 0);
-		imageFetcher.addImageCache(getSupportFragmentManager(), cacheParams);
-		
+		ImageFetcher imageFetcher = TIHUtils.newImageFetcher(this, 0.15f, getSupportFragmentManager());
 		EventListAdapter.imageFetcher = imageFetcher;
 		NewsListAdapter.imageFetcher = imageFetcher;
+		PhotoPitListAdapter.iconFetcher = TIHUtils.newImageFetcher(this, 0.05f, getSupportFragmentManager());
+		PhotoPitListAdapter.instaFetcher = TIHUtils.newImageFetcher(this, 0.15f, getSupportFragmentManager());
 	}
 	
 	@Override

@@ -23,14 +23,12 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 	private static final TIHLogger logger = new TIHLogger(EventListAdapter.class);
 	
 	private final int ICON_IMAGE_SIZE = 60; // Image is 60x60dp in event_row layout
-	private final Context context;
 	private final ArrayList<TIHEvent> events;
 	public static ImageFetcher imageFetcher; 
 	
 
 	public EventListAdapter(Context context, ArrayList<TIHEvent> events) {
 		super(context, R.layout.event_row, events);
-		this.context = context; 
 		this.events = events;
 		setupImageFetcher();
 	}

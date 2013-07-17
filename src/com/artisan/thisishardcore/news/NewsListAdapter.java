@@ -19,17 +19,14 @@ import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 	private static final TIHLogger logger = new TIHLogger(NewsListAdapter.class);
-
-	private static final String JOE_PROFILE_IMAGE_URL = "http://a0.twimg.com/profile_images/1372387612/tihsmall_normal.jpg";
+	
 	private static final int ICON_IMAGE_SIZE = 48; // Image is 48x48dp in news_item_row layout
-	private final Context context; 
 	private final TIHNewsList newsList;
 	private final String tabIdentifier;
 	public static ImageFetcher imageFetcher; 
 
 	public NewsListAdapter(Context context, TIHNewsList newsList, String tabIdentifier) {
 		super(context, R.layout.news_item_row, newsList.items);
-		this.context = context; 
 		this.newsList = newsList;
 		this.tabIdentifier = tabIdentifier;
 		setupImageFetcher();
@@ -73,11 +70,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		dateTextView.setText(dateString);
 		newsAuthorTextView.setText(authorString);
 		
-		// If we have the profile image url then grab it from the cache or the internet
-		if (!TIHUtils.isEmpty(profileImageUrl) && !profileImageUrl.equalsIgnoreCase(JOE_PROFILE_IMAGE_URL)) {
-			logger.d("Requesting profile image url: ", profileImageUrl);
-			imageFetcher.loadImage(profileImageUrl, rowImageView);
-		}
+		loadIconForProfileUrl(profileImageUrl, rowImageView, imageFetcher);
 
 		return rowView;
 	}

@@ -3,17 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingBottom="5dp"
     android:paddingLeft="10dp"
     android:paddingRight="10dp"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp" >
+    android:paddingTop="5dp" >
 
     <ImageView
         android:id="@+id/tiny_clock"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
         android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
         android:src="@drawable/tiny_clock" >
+
     </ImageView>
 
     <TextView
@@ -27,13 +29,17 @@
     <RelativeLayout
         android:id="@+id/insta_image_layout"
         android:layout_width="fill_parent"
-        android:layout_height="375dp"
-        android:layout_marginTop="8dp" >
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="20dp" >
 
         <ImageView
             android:id="@+id/insta_image"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="306dp"
+            android:layout_height="306dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
             android:src="@drawable/photo_pit_load" />
 
         <ProgressBar
@@ -53,9 +59,8 @@
         android:id="@+id/user_image"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:background="@color/tihBlue"
-        android:src="@drawable/default_event_icon"
         android:layout_below="@id/insta_image_layout"
+        android:src="@drawable/default_event_icon"
         android:textIsSelectable="false" />
     
     <TextView

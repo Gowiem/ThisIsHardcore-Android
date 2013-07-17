@@ -9,6 +9,7 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.Instant;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,12 +22,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.artisan.thisishardcore.R;
+import com.artisan.thisishardcore.imageutils.ImageCache;
+import com.artisan.thisishardcore.imageutils.ImageFetcher;
 import com.artisan.thisishardcore.logging.TIHLogger;
 
 public class TIHUtils {
 	private static final TIHLogger logger = new TIHLogger(TIHUtils.class);
 	private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("hh:mm a - EEE MMM dd, yyyy");
 	
+	private static final String IMAGE_CACHE_DIR = "images";
 	public static boolean runningTestSuite = true;
 	
 	public static String convertEpochTimeToString(long epochTime) {
@@ -52,6 +56,15 @@ public class TIHUtils {
 		} else {
 			return false;
 		}
+	}
+	
+	public static ImageFetcher newImageFetcher(Context context, float memCacheSize, android.support.v4.app.FragmentManager supportFragmentManager) {
+		ImageCache.ImageCacheParams cacheParams =
+			new ImageCache.ImageCacheParams(context, IMAGE_CACHE_DIR);
+		cacheParams.setMemCacheSizePercent(memCacheSize); // Set memory cache to 25% of app memory
+		ImageFetcher imageFetcher = new ImageFetcher(context, 0);
+		imageFetcher.addImageCache(supportFragmentManager, cacheParams);
+		return imageFetcher;
 	}
 	
     /**
