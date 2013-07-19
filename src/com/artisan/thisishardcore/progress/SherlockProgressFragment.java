@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.artisan.thisishardcore.progress;
 
 import android.os.Bundle;
@@ -24,7 +25,6 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.logging.TIHLogger;
 
 /**
  * The implementation of the fragment to display content. Based on {@link android.support.v4.app.ListFragment}.
@@ -32,8 +32,7 @@ import com.artisan.thisishardcore.logging.TIHLogger;
  *
  * @author Evgeny Shishkin
  */
-public class ProgressSherlockFragment extends SherlockFragment {
-	private static final TIHLogger logger = new TIHLogger(ProgressSherlockFragment.class);
+public class SherlockProgressFragment extends SherlockFragment {
 
     private View mProgressContainer;
     private View mContentContainer;
@@ -46,13 +45,13 @@ public class ProgressSherlockFragment extends SherlockFragment {
      * Provide default implementation to return a simple view.  Subclasses
      * can override to replace with their own layout.  If doing so, the
      * returned view hierarchy <em>must</em> have a progress container  whose id
-     * is {@link R.id#progress_container R.id.progress_container}, content container whose id
-     * is {@link R.id#content_container R.id.content_container} and can optionally
+     * is {@link com.devspark.progressfragment.R.id#progress_container R.id.progress_container}, content container whose id
+     * is {@link com.devspark.progressfragment.R.id#content_container R.id.content_container} and can optionally
      * have a sibling view id {@link android.R.id#empty android.R.id.empty}
      * that is to be shown when the content is empty.
      * <p/>
      * <p>If you are overriding this method with your own custom content,
-     * consider including the standard layout {@link R.layout#fragment_progress}
+     * consider including the standard layout {@link com.devspark.progressfragment.R.layout#fragment_progress}
      * in your layout file, so that you continue to retain all of the standard
      * behavior of ProgressFragment. In particular, this is currently the only
      * way to have the built-in indeterminant progress state be shown.
@@ -119,7 +118,6 @@ public class ProgressSherlockFragment extends SherlockFragment {
         if (view == null) {
             throw new IllegalArgumentException("Content view can't be null");
         }
-        logger.d("mContentContainer:", mContentContainer);
         if (mContentContainer instanceof ViewGroup) {
             ViewGroup contentContainer = (ViewGroup) mContentContainer;
             if (mContentView == null) {

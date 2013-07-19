@@ -142,22 +142,26 @@ public class NewsFragment extends FeedFragment {
 	
 	//updating event view after getting response from server
 	private void updateNewsUI(TIHNewsList newsList, int requestType) {
-		super.updateUI(newsList, requestType);
-		logger.d("updateNewsUI");
-		if (newsList != null && !newsList.items.isEmpty()) {
-			String tabIdentifier;
-			if (requestType == TIHConstants.GET_FAN_NEWS) {
-				this.fanList = newsList;
-				tabIdentifier = FAN_TAB;
-			} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
-				this.officialList = newsList;
-				tabIdentifier = OFFICIAL_TAB;
-			} else {
-				logger.e("updateNewsUI - requestType was not one of the expected values. Something went wrong");
-				return;
+		try {
+			super.updateUI(newsList, requestType);
+			logger.d("updateNewsUI");
+			if (newsList != null && !newsList.items.isEmpty()) {
+				String tabIdentifier;
+				if (requestType == TIHConstants.GET_FAN_NEWS) {
+					this.fanList = newsList;
+					tabIdentifier = FAN_TAB;
+				} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
+					this.officialList = newsList;
+					tabIdentifier = OFFICIAL_TAB;
+				} else {
+					logger.e("updateNewsUI - requestType was not one of the expected values. Something went wrong");
+					return;
+				}
+				((ListView) getView().findViewById(R.id.listview))
+						.setAdapter(new NewsListAdapter(getView().getContext(), newsList, tabIdentifier));
 			}
-			((ListView) getView().findViewById(R.id.listview))
-					.setAdapter(new NewsListAdapter(getView().getContext(), newsList, tabIdentifier));
+		} catch (NullPointerException e) {
+			logger.d("updateNewsUI threw NullPointerException");
 		}
 	}
 }

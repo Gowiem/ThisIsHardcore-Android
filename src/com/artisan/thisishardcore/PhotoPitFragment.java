@@ -81,14 +81,18 @@ public class PhotoPitFragment extends FeedFragment {
 	@Override
 	public void updateUI(String tabIdentifier) {
 		logger.d("updateUI tabIdentifier: ", tabIdentifier);
-		if (tabIdentifier.equals(OFFICIAL_TAB)) {
-			logger.d("UpdateUI -- Updating for OFFICIAL TAB");
-			updatePhotoPitUI((TIHPhotoList)officialList, TIHConstants.GET_OFFICIAL_PHOTOS);
-		} else if (tabIdentifier.equals(FAN_TAB)) {
-			logger.d("UpdateUI -- Updating for FAN TAB");
-			updatePhotoPitUI((TIHPhotoList)fanList, TIHConstants.GET_FAN_PHOTOS);
-		} else {
-			logger.d("updateUI tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
+		try {
+			if (tabIdentifier.equals(OFFICIAL_TAB)) {
+				logger.d("UpdateUI -- Updating for OFFICIAL TAB");
+				updatePhotoPitUI((TIHPhotoList)officialList, TIHConstants.GET_OFFICIAL_PHOTOS);
+			} else if (tabIdentifier.equals(FAN_TAB)) {
+				logger.d("UpdateUI -- Updating for FAN TAB");
+				updatePhotoPitUI((TIHPhotoList)fanList, TIHConstants.GET_FAN_PHOTOS);
+			} else {
+				logger.d("updateUI tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
+			}
+		} catch (NullPointerException e) {
+			logger.d("updateUI - NullPointerException throw by updateUI");
 		}
 	}
 
@@ -107,23 +111,27 @@ public class PhotoPitFragment extends FeedFragment {
 
 	// TODO: Can be abstracted out to FeedFragment
 	private void updatePhotoPitUI(TIHPhotoList photoList, int requestType) {
-		super.updateUI(photoList, requestType);
-		logger.d("updatePhotoUI");
-		if (photoList != null && !photoList.items.isEmpty()) {
-			String tabIdentifier;
-			if (requestType == TIHConstants.GET_FAN_PHOTOS) {
-				this.fanList = photoList;
-				tabIdentifier = FAN_TAB;
-			} else if (requestType == TIHConstants.GET_OFFICIAL_PHOTOS) {
-				this.officialList = photoList;
-				tabIdentifier = OFFICIAL_TAB;
-			} else {
-				logger.e("updatePhotoUI - requestType was not one of the expected values. Something went wrong");
-				return;
+		try {
+			super.updateUI(photoList, requestType);
+			logger.d("updatePhotoUI");
+			if (photoList != null && !photoList.items.isEmpty()) {
+				String tabIdentifier;
+				if (requestType == TIHConstants.GET_FAN_PHOTOS) {
+					this.fanList = photoList;
+					tabIdentifier = FAN_TAB;
+				} else if (requestType == TIHConstants.GET_OFFICIAL_PHOTOS) {
+					this.officialList = photoList;
+					tabIdentifier = OFFICIAL_TAB;
+				} else {
+					logger.e("updatePhotoUI - requestType was not one of the expected values. Something went wrong");
+					return;
+				}
+				logger.d("TODO: Created PhotoListAdapter");
+				((ListView) getView().findViewById(R.id.listview))
+					.setAdapter(new PhotoPitListAdapter(getView().getContext(), photoList, tabIdentifier));
 			}
-			logger.d("TODO: Created PhotoListAdapter");
-			((ListView) getView().findViewById(R.id.listview))
-				.setAdapter(new PhotoPitListAdapter(getView().getContext(), photoList, tabIdentifier));
+		} catch (NullPointerException e) {
+			logger.d("updatePhotoPitUI threw NullPointerException");
 		}
 	}
 }

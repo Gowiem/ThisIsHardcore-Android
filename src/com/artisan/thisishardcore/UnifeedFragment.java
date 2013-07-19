@@ -3,10 +3,11 @@ package com.artisan.thisishardcore;
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.progress.ProgressSherlockFragment;
+import com.artisan.thisishardcore.progress.SherlockProgressFragment;
 import com.artisan.thisishardcore.unifeed.TIHRequestManager;
 import com.artisan.thisishardcore.unifeed.TIHResponseListener;
 
-public abstract class UnifeedFragment extends ProgressSherlockFragment implements TIHResponseListener {
+public abstract class UnifeedFragment extends SherlockProgressFragment implements TIHResponseListener {
 	private final TIHLogger logger = new TIHLogger(UnifeedFragment.class);
 	
 	// Shared fields
@@ -26,18 +27,31 @@ public abstract class UnifeedFragment extends ProgressSherlockFragment implement
 		if (response == null) {
 			logger.d("onResponseRecieved, reponse was null. RequestType was:", requestType, 
 					"Showing Emptry Message.");
-			setContentEmpty(true);
-			setContentShown(true);	
+			try {
+				setContentEmpty(true);
+				setContentShown(true);
+			} catch (IllegalStateException e) {
+				logger.d("IllegalStateException on onResponseReceived::setContentEmpty|setContentShown");
+			}
 		}
 	}
 	
 	public void updateUI(Object list, int requestType) {
 		logger.d("UnifeedFragment UpdateUI");
-		setContentShown(true);
+		try {
+			setContentShown(true);	
+		} catch (IllegalStateException e) {
+			logger.d("IllegalStateException on updateUI::setContentShown");
+		}
 	}
 	
 	public void updateUI(Object list) {
-		setContentShown(true);
+		logger.d("UnifeedFragment UpdateUI");
+		try {
+			setContentShown(true);	
+		} catch (IllegalStateException e) {
+			logger.d("IllegalStateException on updateUI::setContentShown");
+		}
 	}
 	
 	// Request Methods

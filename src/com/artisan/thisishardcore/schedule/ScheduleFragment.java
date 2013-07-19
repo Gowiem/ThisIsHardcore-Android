@@ -196,11 +196,15 @@ public class ScheduleFragment extends UnifeedFragment {
 	}
 	
 	public void updateForCurrentTab() {
-		ArrayList<TIHEvent> events = getEventsForCurrentTab();
-		ImageFetcher imageFetcher = new ImageFetcher(getView().getContext(), 0);
-		
-		((ListView) getView().findViewById(R.id.listview))
-			.setAdapter(new EventListAdapter(getView().getContext(), events));
+		try {
+			ArrayList<TIHEvent> events = getEventsForCurrentTab();
+			ImageFetcher imageFetcher = new ImageFetcher(getView().getContext(), 0);
+			
+			((ListView) getView().findViewById(R.id.listview))
+				.setAdapter(new EventListAdapter(getView().getContext(), events));
+		} catch (NullPointerException e) {
+			logger.d("updateForCurrentTab - NullPointException probably due to Switching Tabs to fast");
+		}
 	}
 	
 	private ArrayList<TIHEvent> getEventsForCurrentTab() {
