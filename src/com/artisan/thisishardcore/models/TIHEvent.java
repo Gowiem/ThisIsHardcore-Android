@@ -3,10 +3,13 @@ package com.artisan.thisishardcore.models;
 import java.io.Serializable;
 import java.util.Date;
 
-import org.apache.log4j.Logger;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.schedule.ScheduleFragment;
 import com.artisan.thisishardcore.utils.TIHUtils;
 import com.google.gson.annotations.SerializedName;
 
@@ -14,11 +17,6 @@ public class TIHEvent implements Serializable, Comparable<TIHEvent> {
 	private static final TIHLogger logger = new TIHLogger(TIHEvent.class);
 
 	private static final long serialVersionUID = -1406942906345825244L;
-
-	public String getTime() {
-		// TODO: Deal with this shit. Fuck.  
-		return "??? - ???";
-	}
 	
 	@Override
 	public int compareTo(TIHEvent event) {
@@ -30,9 +28,55 @@ public class TIHEvent implements Serializable, Comparable<TIHEvent> {
 		return getStartDate().compareTo(event.getStartDate());
 	}
 	
+	
+	
+	public String getEventTimeString() {
+		DateTime startTime = getStartDateTime();
+		DateTime endTime = getEndDateTime();
+		if (startTime.isEqual(endTime)) {
+			return "??? - ???";
+		}
+		DateTimeFormatter sFormatter = DateTimeFormat.forPattern("hh:mm");
+		//PeriodFormatter formatter = new PeriodFormatterBuilder().appendHours().appendSeparator(":").appendMinutes().toFormatter();
+		String startString = sFormatter.print(startTime);
+		startString = stripLeadingZero(startString); 
+		DateTimeFormatter eFormatter = DateTimeFormat.forPattern("hh:mm");
+		String endString = eFormatter.print(endTime);
+		endString = stripLeadingZero(endString);
+		String amOrPmStartTime = startTime.getHourOfDay() > 12 ? "PM" : "AM";
+		return startString + " - " + endString + " " + amOrPmStartTime;
+	}
+	
+	private String stripLeadingZero(String timeString) {
+		if (timeString.startsWith("0")) {
+			return timeString.substring(1, timeString.length());
+		} else {
+			return timeString;
+		}
+	}
+	
+	private DateTime eventStartDateTime;
+	private DateTime eventEndDateTime;
+	
+	// Joda DateTime Methods
+	public DateTime getStartDateTime() {
+		if(eventStartDateTime == null) {
+			eventStartDateTime = TIHUtils.convertEpochTimeToDateTime(startTime);
+		}
+		return eventStartDateTime;
+	}
+	
+	public DateTime getEndDateTime() {
+		if(eventEndDateTime == null) {
+			eventEndDateTime = TIHUtils.convertEpochTimeToDateTime(endTime);
+		}
+		return eventEndDateTime;
+	}
+	
 	private Date eventStartDate;
 	private Date eventEndDate;
 	
+	// Date Methods
 	public Date getEndDate() {
 		if(eventEndDate == null) {
 			eventEndDate = TIHUtils.convertEpochTimeToDate(endTime);

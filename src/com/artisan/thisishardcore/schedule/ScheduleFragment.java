@@ -245,7 +245,7 @@ public class ScheduleFragment extends UnifeedFragment {
 			TIHEvent event = events.get(viewPosition); 
 			Intent intent = new Intent(getActivity(), EventDetailActivity.class);
 			intent.putExtra(EventDetailActivity.ARTIST_NAME, event.artistName);
-			intent.putExtra(EventDetailActivity.ARTIST_TIME, event.getTime());
+			intent.putExtra(EventDetailActivity.ARTIST_TIME, event.getEventTimeString());
 			intent.putExtra(EventDetailActivity.ARTIST_DESCRIPTION, event.description);
 			intent.putExtra(EventDetailActivity.ARTIST_IMAGE_URL, event.imageUrl);
 			startActivity(intent);

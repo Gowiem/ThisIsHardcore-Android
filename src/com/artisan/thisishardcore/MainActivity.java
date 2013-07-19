@@ -2,6 +2,8 @@ package com.artisan.thisishardcore;
 
 import java.io.File;
 
+import org.joda.time.DateTimeZone;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,6 +49,9 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 		setContentView(R.layout.main);
 		TIHConfigureLog4j.configure();
 		logger.d("onCreate");
+		
+		// Setting Default TimeZone for Application since I didn't know where else to put it.. It's later. 
+		DateTimeZone.setDefault(DateTimeZone.UTC);
 		
 		final ActionBar bar = getSupportActionBar();
 		bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);

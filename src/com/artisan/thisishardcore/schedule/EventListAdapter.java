@@ -52,7 +52,7 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		// Grab the event for this position and set up the views with it's data
 		final TIHEvent event = events.get(position);
 		artistNameTextView.setText(event.artistName);
-		eventTimeTextView.setText("??? - ???");
+		eventTimeTextView.setText(event.getEventTimeString());
 		
 		// Grab the icon image view and set it up for downloading from web or cache
 		ImageView iconImageView = (ImageView) rowView.findViewById(R.id.event_icon_image);
