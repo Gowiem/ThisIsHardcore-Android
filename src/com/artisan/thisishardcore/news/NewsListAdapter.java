@@ -40,8 +40,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		// Grab the views for this row
 		View rowView = inflater.inflate(R.layout.news_item_row, parent, false);
@@ -73,5 +72,10 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		loadIconForProfileUrl(profileImageUrl, rowImageView, imageFetcher);
 
 		return rowView;
+	}
+
+	@Override
+	protected void appendCachedData() {	
+		
 	}
 }
