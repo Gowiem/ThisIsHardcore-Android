@@ -310,7 +310,6 @@ public abstract class AsyncTask<Params, Progress, Result> {
         mWorker = new WorkerRunnable<Params, Result>() {
             public Result call() throws Exception {
                 mTaskInvoked.set(true);
-                logger.d("mWorker - call()");
                 Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
                 //noinspection unchecked
                 return postResult(doInBackground(mParams));
@@ -320,10 +319,8 @@ public abstract class AsyncTask<Params, Progress, Result> {
         mFuture = new FutureTask<Result>(mWorker) {
             @Override
             protected void done() {
-            	logger.d("FutureTask done()");
                 try {
                     postResultIfNotInvoked(get());
-                    logger.d("FutureTask After postResult");
                 } catch (InterruptedException e) {
                     android.util.Log.w(LOG_TAG, e);
                 } catch (ExecutionException e) {
@@ -337,7 +334,6 @@ public abstract class AsyncTask<Params, Progress, Result> {
     }
 
     private void postResultIfNotInvoked(Result result) {
-    	logger.d("postResultifNotInvoked - result: ", result);
         final boolean wasTaskInvoked = mTaskInvoked.get();
         if (!wasTaskInvoked) {
             postResult(result);
@@ -345,7 +341,6 @@ public abstract class AsyncTask<Params, Progress, Result> {
     }
 
     private Result postResult(Result result) {
-    	logger.d("postResult() - result: ", result);
         @SuppressWarnings("unchecked")
         Message message = sHandler.obtainMessage(MESSAGE_POST_RESULT,
                 new AsyncTaskResult<Result>(this, result));
@@ -602,7 +597,6 @@ public abstract class AsyncTask<Params, Progress, Result> {
      */
     public final AsyncTask<Params, Progress, Result> executeOnExecutor(Executor exec,
             Params... params) {
-    	logger.d("-- executeOnExecutor --");
         if (mStatus != Status.PENDING) {
             switch (mStatus) {
                 case RUNNING:
@@ -616,13 +610,10 @@ public abstract class AsyncTask<Params, Progress, Result> {
         }
 
         mStatus = Status.RUNNING;
-        logger.d("before onPreExecute()");
         onPreExecute();
 
         mWorker.mParams = params;
         exec.execute(mFuture);
-        
-        logger.d("after exec.execute()");
 
         return this;
     }

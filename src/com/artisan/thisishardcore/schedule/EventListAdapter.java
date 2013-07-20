@@ -58,8 +58,12 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		ImageView iconImageView = (ImageView) rowView.findViewById(R.id.event_icon_image);
 		String bandIconUrl = event.iconUrl;
 		if (!TIHUtils.isEmpty(bandIconUrl) && !bandIconUrl.equalsIgnoreCase("/icons/original/missing.png")) {
-			logger.d("calling loadImage for url: ", bandIconUrl);
-			imageFetcher.loadImage(bandIconUrl, iconImageView);
+			try {
+				logger.d("calling loadImage for url: ", bandIconUrl);
+				imageFetcher.loadImage(bandIconUrl, iconImageView);
+			} catch (Exception e) {
+				logger.d("Exception throw by imageFetcher.loadImage for bandIconUrl: ", bandIconUrl);
+			}
 		}
 		
 		// Tag the row for later use. Note: not yet implemented

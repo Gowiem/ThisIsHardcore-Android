@@ -2,7 +2,6 @@ package com.artisan.thisishardcore;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.progress.ProgressSherlockFragment;
 import com.artisan.thisishardcore.progress.SherlockProgressFragment;
 import com.artisan.thisishardcore.unifeed.TIHRequestManager;
 import com.artisan.thisishardcore.unifeed.TIHResponseListener;

@@ -50,6 +50,8 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 		TIHConfigureLog4j.configure();
 		logger.d("onCreate");
 		
+		Thread.setDefaultUncaughtExceptionHandler(new TIHExceptionHandler());
+		
 		// Setting Default TimeZone for Application since I didn't know where else to put it.. It's later. 
 		DateTimeZone.setDefault(DateTimeZone.UTC);
 		

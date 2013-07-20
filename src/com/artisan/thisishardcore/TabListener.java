@@ -2,6 +2,8 @@ package com.artisan.thisishardcore;
 
 
 
+
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar.Tab;
@@ -25,7 +27,7 @@ public class TabListener<T extends SherlockFragment> implements com.actionbarshe
         SherlockFragment preInitializedFragment = (SherlockFragment) mActivity.getSupportFragmentManager().findFragmentByTag(mTag);
         if (preInitializedFragment == null) {
             mFragment = (SherlockFragment) SherlockFragment.instantiate(mActivity, mClass.getName());
-            ft.add(android.R.id.content, mFragment, mTag);
+            ft.add(android.R.id.content, (Fragment) mFragment, mTag);
         } else {
             ft.attach(preInitializedFragment);
         }

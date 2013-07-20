@@ -42,7 +42,6 @@ import com.artisan.thisishardcore.logging.TIHLogger;
  * A simple subclass of {@link ImageResizer} that fetches and resizes images fetched from a URL.
  */
 public class ImageFetcher extends ImageResizer {
-	private static final TIHLogger logger = new TIHLogger(ImageFetcher.class);
 	
     private static final String TAG = "ImageFetcher";
     private static final int HTTP_CACHE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -85,13 +84,11 @@ public class ImageFetcher extends ImageResizer {
 
     @Override
     protected void initDiskCacheInternal() {
-    	logger.d("initDiskCacheInternal");
         super.initDiskCacheInternal();
         initHttpDiskCache();
     }
 
     private void initHttpDiskCache() {
-    	logger.d("initHttpDiskCache");
         if (!mHttpCacheDir.exists()) {
             mHttpCacheDir.mkdirs();
         }
@@ -194,8 +191,6 @@ public class ImageFetcher extends ImageResizer {
         if (BuildConfig.DEBUG) {
             Log.d(TAG, "processBitmap - " + data);
         }
-        	
-        logger.d("imageFetch.processBitmap()");
         
         final String key = ImageCache.hashKeyForDisk(data);
         FileDescriptor fileDescriptor = null;

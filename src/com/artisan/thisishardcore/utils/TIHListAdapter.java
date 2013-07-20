@@ -26,8 +26,12 @@ public abstract class TIHListAdapter<T> extends ArrayAdapter<T> {
 	public void loadIconForProfileUrl(String profileImageUrl, ImageView imageView, ImageFetcher imageFetcher) {
 		// If we have the profile image url then grab it from the cache or the internet
 		if (!TIHUtils.isEmpty(profileImageUrl) && !profileImageUrl.equalsIgnoreCase(this.JOE_PROFILE_IMAGE_URL)) {
-			logger.d("Requesting profile image url: ", profileImageUrl);
-			imageFetcher.loadImage(profileImageUrl, imageView);
+			try {
+				logger.d("Requesting profile image url: ", profileImageUrl);
+				imageFetcher.loadImage(profileImageUrl, imageView);
+			} catch (Exception e) {
+				logger.d("Exception throw by imageFetcher.loadImage for profileImageUrl: ", profileImageUrl);
+			}
 		}
 	}
 }
