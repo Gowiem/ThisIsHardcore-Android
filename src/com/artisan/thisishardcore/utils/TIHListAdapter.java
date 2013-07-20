@@ -17,6 +17,7 @@ public abstract class TIHListAdapter<T> extends ArrayAdapter<T> {
 	
 	public static final String JOE_PROFILE_IMAGE_URL = "http://a0.twimg.com/profile_images/1372387612/tihsmall_normal.jpg";
 	public final Context context;
+	public int lastViewed;
 	
 	public TIHListAdapter(Context context, int textViewResourceId, List objects) {
 		super(context, textViewResourceId, objects);

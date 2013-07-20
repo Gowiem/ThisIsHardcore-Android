@@ -67,7 +67,7 @@ public class PhotoPitFragment extends FeedFragment {
 	////////////////////////
 
 	@Override
-	public void sendRequest(String tabIdentifier) {
+	public void sendRequest(String tabIdentifier, int pageNumber) {
 		logger.d("sendRequest tabIdentifier: ", tabIdentifier);
 		if (tabIdentifier.equals(OFFICIAL_TAB)) {
 			sendPhotoPitRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_OFFICIAL_PHOTOS);

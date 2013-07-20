@@ -1,20 +1,26 @@
 package com.artisan.thisishardcore.news;
 
+import java.nio.channels.SelectableChannel;
+import java.util.List;
+import java.util.logging.Logger;
+
+import org.apache.log4j.jmx.LoggerDynamicMBean;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.artisan.thisishardcore.FeedFragment;
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.TIHWebViewActivity;
 import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.models.TIHFeedItem;
+import com.artisan.thisishardcore.models.TIHFeedList;
 import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.artisan.thisishardcore.models.TIHNewsList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
@@ -87,17 +93,20 @@ public class NewsFragment extends FeedFragment {
 	// FeedFragment Methods
 	////////////////////////
 	
-	public void sendRequest(String tabIdentifier) {
+	public void sendRequest(String tabIdentifier, int pageNumber) {
+		isLoading = true;
 		if (tabIdentifier.equals(OFFICIAL_TAB)) {
-			sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_OFFICIAL_NEWS);
+			sendNewsRequest(pageNumber, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_OFFICIAL_NEWS);
 		} else if (tabIdentifier.equals(FAN_TAB)) {
-			sendNewsRequest(0, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_NEWS);
+			sendNewsRequest(pageNumber, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_NEWS);
 		} else {
+			isLoading = false;
 			logger.d("sendRequest tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
 		}
 	}
 	
 	public void updateUI(String tabIdentifier) {
+		logger.d("***************DOES THIS METHOD EVER GET RUN?????****************");
 		logger.d("UpdateUI called with tabIdentifier:", tabIdentifier);
 		if (tabIdentifier.equals(OFFICIAL_TAB)) {
 			logger.d("UpdateUI -- Updating for OFFICIAL TAB");
@@ -140,28 +149,53 @@ public class NewsFragment extends FeedFragment {
 		}
 	}
 	
-	//updating event view after getting response from server
+	//updating feed list/list view after getting response from server
 	private void updateNewsUI(TIHNewsList newsList, int requestType) {
 		try {
 			super.updateUI(newsList, requestType);
-			logger.d("updateNewsUI");
+			logger.d("------- updateNewsUI ------");
 			if (newsList != null && !newsList.items.isEmpty()) {
-				String tabIdentifier;
+				boolean feedListCreated;
 				if (requestType == TIHConstants.GET_FAN_NEWS) {
-					this.fanList = newsList;
-					tabIdentifier = FAN_TAB;
+					this.fanList = createOrUpdateModel(newsList, (TIHNewsList)this.fanList, FAN_TAB);
+					feedListCreated = this.fanList.getWasJustCreated();
+					updateListView(this.fanList, feedListCreated, FAN_TAB);
 				} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
-					this.officialList = newsList;
-					tabIdentifier = OFFICIAL_TAB;
+					if (this.officialList != null) {
+						logger.d("BEFORE update this.officialList: ", this.officialList.shortDescription());
+					} else {
+						logger.d("BEFORE update this.officialList: **NULL**");
+					}
+					this.officialList = createOrUpdateModel(newsList, (TIHNewsList)this.officialList, OFFICIAL_TAB);
+					feedListCreated = this.officialList.getWasJustCreated(); 
+					logger.d("AFTER update this.officialList: ", this.officialList.shortDescription());
+					updateListView(this.officialList, feedListCreated, OFFICIAL_TAB);
 				} else {
 					logger.e("updateNewsUI - requestType was not one of the expected values. Something went wrong");
-					return;
 				}
-				((ListView) getView().findViewById(R.id.listview))
-						.setAdapter(new NewsListAdapter(getView().getContext(), newsList, tabIdentifier));
 			}
 		} catch (NullPointerException e) {
-			logger.d("updateNewsUI threw NullPointerException");
+			logger.e("updateNewsUI threw NullPointerException");
+		}
+		isLoading = false;
+	}
+	
+	// Creates or updates the given TIHFeedList 'currentList' returning the new list 
+	private TIHFeedList<? extends TIHFeedItem> createOrUpdateModel(TIHNewsList newList, TIHNewsList currentList, String tabIdentifier) {
+		if (currentList == null) {
+			currentList = newList;
+			currentList.setWasJustCreated(true);
+		} else {
+			currentList.mergeItems((TIHFeedList<? extends TIHFeedItem>)newList);
+			currentList.setWasJustCreated(false);
+		}
+		return currentList;
+	}
+	
+	private void updateListView(TIHFeedList<? extends TIHFeedItem> itemList, boolean shouldCreateAdapter, String tabIdentifier) {
+		if (shouldCreateAdapter) { // We just received the first FeedList page, create the adapter
+			((ListView) getView().findViewById(R.id.listview))
+				.setAdapter(new NewsListAdapter(getView().getContext(), (TIHNewsList)itemList, tabIdentifier));
 		}
 	}
 }

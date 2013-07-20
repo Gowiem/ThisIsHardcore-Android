@@ -1,16 +1,17 @@
 package com.artisan.thisishardcore;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHFeedList;
-import com.artisan.thisishardcore.news.NewsFragment;
-import com.artisan.thisishardcore.unifeed.TIHConstants;
-
+import android.R.integer;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-public abstract class FeedFragment extends UnifeedFragment {
+import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.models.TIHFeedList;
+
+public abstract class FeedFragment extends UnifeedFragment implements OnScrollListener {
 	private static final TIHLogger logger = new TIHLogger(FeedFragment.class);
 	
 	// Shared Fields
@@ -28,14 +29,22 @@ public abstract class FeedFragment extends UnifeedFragment {
 	public TIHFeedList<?> officialList;
 	public TIHFeedList<?> fanList;
 	
-	public abstract void sendRequest(String tabIdentifier);
+	private int officialTabPageNumber;
+	private int fanTabPageNumber;
+	public boolean isLoading;
+	
+	public abstract void sendRequest(String tabIdentifier, int pageNumber);
 	public abstract void updateUI(String tabIdentifier);
 	
 	// Lifecycle
 	/////////////
 	
 	public View onCreateViewHelper(View resultView) {
+		logger.d("onCreateViewHelper - check this is only called once per initialization of FeedFragment");
+		officialTabPageNumber = 1;
+		fanTabPageNumber = 1;
 		listView = (ListView) resultView.findViewById(R.id.listview);
+		listView.setOnScrollListener(this);
 		officialTabImageView = (ImageView) resultView.findViewById(R.id.official_tab);
 		fanTabImageView = (ImageView) resultView.findViewById(R.id.fan_feed_tab);
 		
@@ -50,6 +59,37 @@ public abstract class FeedFragment extends UnifeedFragment {
 		});
 		
 		return resultView;
+	}
+	
+	// OnScrollListener Methods
+	///////////////////////////
+	
+	@Override
+	public void onScrollStateChanged(AbsListView view, int scrollState) {}
+	
+	@Override
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		int loadedItems = firstVisibleItem + visibleItemCount;
+//		logger.d("onScroll - loadedItems: ", loadedItems, " firstVisibleItem: ", firstVisibleItem, "visibleItemCount: ", visibleItemCount, "totalItemCount: ", totalItemCount, "isLoading: ", isLoading);
+		if((loadedItems == totalItemCount) && !isLoading && currentTab != null) {
+			logger.d("User scrolled to end of the list. Sending another request for the next page");
+			int pageNumber = incrementAndGetPageNumber();
+			if (pageNumber <= 5) { // Let's cut the user off at 5 pages... They've had enough..
+				// TODO: We should display a loading cell at the bottom of the page
+				// and we definitely shouldn't display the full progress fragment
+				sendRequest(currentTab, pageNumber);
+			}
+		}
+	}
+	
+	private int incrementAndGetPageNumber() {
+		if (currentTab.equals(FAN_TAB)) {
+			fanTabPageNumber += 1;
+			return fanTabPageNumber;
+		} else {
+			officialTabPageNumber += 1;
+			return officialTabPageNumber;
+		}
 	}
 
 	// Tab Methods
@@ -67,8 +107,6 @@ public abstract class FeedFragment extends UnifeedFragment {
 	}
 	
 	public void officialTabClicked(View v) {
-		logger.d("--- officialTabClicked ---");
-		logger.d("currentTab:", currentTab);
 		if (currentTab == null || !currentTab.equals(OFFICIAL_TAB)) {
 			currentTab = OFFICIAL_TAB;
 			logger.d("Sending or Updating for official tab");
@@ -76,7 +114,7 @@ public abstract class FeedFragment extends UnifeedFragment {
 			// If we haven't sent the request yet then send it, otherwise update the official list 
 			// with the official feed items
 			if (officialList == null) {
-				sendRequest(OFFICIAL_TAB);	
+				sendRequest(OFFICIAL_TAB, officialTabPageNumber);	
 			} else {
 				updateUI(OFFICIAL_TAB);
 			}
@@ -88,14 +126,14 @@ public abstract class FeedFragment extends UnifeedFragment {
 	}
 	
 	public void fanTabClicked(View v) {
-		logger.d("fanTabClicked");
 		if (currentTab == null || !currentTab.equals(FAN_TAB)) {
 			currentTab = FAN_TAB;
+			logger.d("Sending or Updating for fan tab");
 			
 			// If we haven't sent the request yet then send it, otherwise update the fan list 
 			// with the fan feed list 
 			if (fanList == null) {
-				sendRequest(FAN_TAB);
+				sendRequest(FAN_TAB, fanTabPageNumber);
 			} else {
 				updateUI(FAN_TAB);
 			}

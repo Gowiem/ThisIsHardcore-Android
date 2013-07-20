@@ -22,15 +22,13 @@ public class TIHRequestManager {
 		try {
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {
-			logger.e(e.toString());
-			e.printStackTrace();
+			logger.e("error with TIHRestClient.execute - e: ", e.getLocalizedMessage());
 		}
 	}
 	
 	public static void getNews(SherlockFragment fragment, int pageNum, int pageSize, int requestType) {
 		logger.d("--- getNews ---");
 		logger.d("Page No = ", pageNum);
-		logger.d("Size = ", pageSize);
 		String newsUrl = buildFeedUrl(fragment, requestType, R.string.news_url);
 		TIHRestClient client = new TIHRestClient(newsUrl, requestType);
 		if(pageNum >= 0 && pageSize >= 0) {
@@ -40,8 +38,7 @@ public class TIHRequestManager {
 		try {
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {
-			logger.e(e.toString());
-			e.printStackTrace();
+			logger.e("error with TIHRestClient.execute - e: ", e.getLocalizedMessage());
 		}
 	}
 	
@@ -49,11 +46,14 @@ public class TIHRequestManager {
 		logger.d("---- getPhotos ---");
 		String photosUrl = buildFeedUrl(fragment, feedType, R.string.photo_pit_url); 
 		TIHRestClient client = new TIHRestClient(photosUrl, feedType);
+		if(pageNum >= 0 && pageSize >= 0) {
+			client.addParameter("page", String.valueOf(pageNum));
+			client.addParameter("size", String.valueOf(pageSize));
+		}
 		try {
 			client.execute(TIHRestClient.REQUEST_METHOD.GET, fragment);
 		} catch (Exception e) {
-			logger.e(e.toString());
-			e.printStackTrace();
+			logger.e("error with TIHRestClient.execute - e: ", e.getLocalizedMessage());
 		}
 	}
 	
@@ -63,13 +63,10 @@ public class TIHRequestManager {
 		urlBuilder.append(fragment.getResources().getString(urlId));
 		// Check the feedType for this request and append the corresponding feed to the URL
 		if (feedType == TIHConstants.GET_OFFICIAL_NEWS || feedType == TIHConstants.GET_OFFICIAL_PHOTOS) {
-			logger.d("building URL for Official Feed");
 			urlBuilder.append("official.json");
 		} else if (feedType == TIHConstants.GET_FAN_NEWS) {
-			logger.d("building URL for Fan Feed");
 			urlBuilder.append("fanfeed.json");
 		} else if (feedType == TIHConstants.GET_FAN_PHOTOS) {
-			logger.d("building URL for photo pit Fan Feed");
 			urlBuilder.append("tagged.json");
 		} else {
 			logger.e("buildNewsUrl - Error: feedType was not one of the expected values.");

@@ -1,5 +1,7 @@
 package com.artisan.thisishardcore.news;
 
+import org.apache.log4j.jmx.LoggerDynamicMBean;
+
 import android.R.integer;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -28,7 +30,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 	public NewsListAdapter(Context context, TIHNewsList newsList, String tabIdentifier) {
 		super(context, R.layout.news_item_row, newsList.items);
 		this.newsList = newsList;
-		this.tabIdentifier = tabIdentifier;
+		this.tabIdentifier = tabIdentifier; 
 		setupImageFetcher();
 	}
 	

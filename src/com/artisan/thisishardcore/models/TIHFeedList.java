@@ -1,11 +1,38 @@
 package com.artisan.thisishardcore.models;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
 // Base class for the TIHNewsList and TIHPhotosList.
 public class TIHFeedList<T extends TIHFeedItem> {
+	
+	// Fields
+	//////////
+	
+	@SerializedName("rows")
+	//Java Generics... actually awesome?!?!?!?
+	public List<T> items;
+	
+	@SerializedName("total_rows")
+	public int totalRows;
+	
+	@SerializedName("offset")
+	public int offset;
+	
+	private boolean wasJustCreated;
+	
+	// Setters/Getters
+	///////////////////
+	
+	public void setWasJustCreated(boolean wasJustCreated) {
+		this.wasJustCreated = wasJustCreated;
+	}
+	
+	public boolean getWasJustCreated() {
+		return wasJustCreated;
+	}
 	
 	// Methods
 	///////////
@@ -22,20 +49,25 @@ public class TIHFeedList<T extends TIHFeedItem> {
 		return builder.toString();
 	}
 	
+	public String shortDescription() {
+		return "TIHFeedList - type: " + getFeedItemType() + " count: " + items.size() + " wasJustCreated?: " + getWasJustCreated();
+	}
+	
+	private String getFeedItemType() {
+		String itemType;
+		if (items.get(0) != null) {
+			itemType = items.get(0).getAuthor().equals("This Is Hc Fest 2013") ? "OFFICIAL" : "FAN";
+		} else {
+			itemType = "UNKNOWN";
+		}
+		return itemType;
+	}
+	
 	public T getItemAtIndex(int index) {
 		return items.get(index);
 	}
 	
-	// Fields
-	//////////
-	
-	@SerializedName("rows")
-	//Java Generics... actually awesome?!?!?!?
-	public List<T> items;
-	
-	@SerializedName("total_rows")
-	public int totalRows;
-	
-	@SerializedName("offset")
-	public int offset;
+	public void mergeItems(TIHFeedList<? extends TIHFeedItem> feedList) {
+		items.addAll((Collection<? extends T>) feedList.items);
+	}
 }

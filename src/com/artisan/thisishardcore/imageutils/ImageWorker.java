@@ -258,8 +258,6 @@ public abstract class ImageWorker {
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, "doInBackground - starting work");
             }
-            logger.d("BitmapWorkerTask doInBackground");
-            logger.d("imageCache: ", mImageCache);
 
             data = params[0];
             final String dataString = String.valueOf(data);
@@ -283,7 +281,6 @@ public abstract class ImageWorker {
             // the cache
             if (mImageCache != null && !isCancelled() && getAttachedImageView() != null
                     && !mExitTasksEarly) {
-            	logger.d("trying to get bitmap from ImageCache");
                 bitmap = mImageCache.getBitmapFromDiskCache(dataString);
             }
             
@@ -318,7 +315,6 @@ public abstract class ImageWorker {
             if (BuildConfig.DEBUG) {
                 Log.d(TAG, "doInBackground - finished work");
             }
-            logger.d("ImageWorker Task returning Drawable: ", drawable);
 
             return drawable;
         }
