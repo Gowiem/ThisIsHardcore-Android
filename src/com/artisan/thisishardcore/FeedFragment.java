@@ -24,7 +24,9 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	// Views
 	public ImageView officialTabImageView;
 	public ImageView fanTabImageView;
-	public ListView listView;
+	
+	public ListView officalListView;
+	public ListView fanListView;
 	
 	public TIHFeedList<?> officialList;
 	public TIHFeedList<?> fanList;
@@ -43,8 +45,11 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 		logger.d("onCreateViewHelper - check this is only called once per initialization of FeedFragment");
 		officialTabPageNumber = 1;
 		fanTabPageNumber = 1;
-		listView = (ListView) resultView.findViewById(R.id.listview);
-		listView.setOnScrollListener(this);
+		officalListView = (ListView) resultView.findViewById(R.id.official_list);
+		officalListView.setOnScrollListener(this);
+		fanListView = (ListView) resultView.findViewById(R.id.fan_list);
+		fanListView.setOnScrollListener(this);
+		
 		officialTabImageView = (ImageView) resultView.findViewById(R.id.official_tab);
 		fanTabImageView = (ImageView) resultView.findViewById(R.id.fan_feed_tab);
 		
@@ -119,9 +124,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 				updateUI(OFFICIAL_TAB);
 			}
 			
-			// Swap the tab images 
-			officialTabImageView.setImageResource(R.drawable.official_blue);
-			fanTabImageView.setImageResource(R.drawable.fan_feed_grey);	
+			showOfficialFeed();
 		}
 	}
 	
@@ -137,11 +140,28 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 			} else {
 				updateUI(FAN_TAB);
 			}
-			
-			// Swap the tab images
-			officialTabImageView.setImageResource(R.drawable.official_grey);
-			fanTabImageView.setImageResource(R.drawable.fan_feed_blue);
+			showFanFeed();
 		}
+	}
+	
+	private void showOfficialFeed() {
+		// Swap the tab images 
+		officialTabImageView.setImageResource(R.drawable.official_blue);
+		fanTabImageView.setImageResource(R.drawable.fan_feed_grey);
+		
+		// Hide the fan list view and show the official list view
+		officalListView.setVisibility(View.VISIBLE);
+		fanListView.setVisibility(View.GONE);
+	}
+	
+	private void showFanFeed() {
+		// Swap the tab images
+		officialTabImageView.setImageResource(R.drawable.official_grey);
+		fanTabImageView.setImageResource(R.drawable.fan_feed_blue);
+		
+		// Hide the official list view and show the fan list view
+		officalListView.setVisibility(View.GONE);
+		fanListView.setVisibility(View.VISIBLE);
 	}
 
 }

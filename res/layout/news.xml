@@ -48,13 +48,8 @@
             android:scaleType="fitXY"
             android:src="@drawable/tab_header_cap" />
 
-        <ListView
-            android:id="@+id/listview"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:animationCache="true"
-            android:scrollbars="none"
-            tools:listitem="@layout/news_item_row" />
+        <include layout="@layout/tab_listviews"  android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        
     </LinearLayout>
 
 </LinearLayout>

@@ -6,6 +6,8 @@ import java.util.logging.Logger;
 
 import org.apache.log4j.jmx.LoggerDynamicMBean;
 
+import android.R.integer;
+import android.R.raw;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,6 +26,7 @@ import com.artisan.thisishardcore.models.TIHFeedList;
 import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.artisan.thisishardcore.models.TIHNewsList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
+import com.artisan.thisishardcore.utils.TIHListAdapter;
 
 public class NewsFragment extends FeedFragment {
 	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 
@@ -57,7 +60,7 @@ public class NewsFragment extends FeedFragment {
 		onCreateViewHelper(result);
 		
 		// Setup click listener for the list items
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		officalListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				listItemClicked(parent, view, position, id);
@@ -123,12 +126,7 @@ public class NewsFragment extends FeedFragment {
 	//////////////////////
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
-		TIHNewsItem itemClicked = null;
-		// Don't allow users to check out fan news items
-		if (currentTab.equals(FAN_TAB)) {
-			return;
-		}	
-		itemClicked = (TIHNewsItem) officialList.getItemAtIndex(position);
+		TIHNewsItem itemClicked = (TIHNewsItem) officialList.getItemAtIndex(position);
 		if (itemClicked != null) {
 			Intent webViewIntent = new Intent(getActivity(), TIHWebViewActivity.class);
 			webViewIntent.putExtra(TIHWebViewActivity.WEB_VIEW_URL, itemClicked.getUrl());
@@ -161,14 +159,8 @@ public class NewsFragment extends FeedFragment {
 					feedListCreated = this.fanList.getWasJustCreated();
 					updateListView(this.fanList, feedListCreated, FAN_TAB);
 				} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
-					if (this.officialList != null) {
-						logger.d("BEFORE update this.officialList: ", this.officialList.shortDescription());
-					} else {
-						logger.d("BEFORE update this.officialList: **NULL**");
-					}
 					this.officialList = createOrUpdateModel(newsList, (TIHNewsList)this.officialList, OFFICIAL_TAB);
 					feedListCreated = this.officialList.getWasJustCreated(); 
-					logger.d("AFTER update this.officialList: ", this.officialList.shortDescription());
 					updateListView(this.officialList, feedListCreated, OFFICIAL_TAB);
 				} else {
 					logger.e("updateNewsUI - requestType was not one of the expected values. Something went wrong");
@@ -193,9 +185,13 @@ public class NewsFragment extends FeedFragment {
 	}
 	
 	private void updateListView(TIHFeedList<? extends TIHFeedItem> itemList, boolean shouldCreateAdapter, String tabIdentifier) {
+		int listViewId = tabIdentifier.equals(OFFICIAL_TAB) ? R.id.official_list : R.id.fan_list;
+		ListView feedListView = (ListView) getView().findViewById(listViewId); 
 		if (shouldCreateAdapter) { // We just received the first FeedList page, create the adapter
-			((ListView) getView().findViewById(R.id.listview))
-				.setAdapter(new NewsListAdapter(getView().getContext(), (TIHNewsList)itemList, tabIdentifier));
+			feedListView.setAdapter(new NewsListAdapter(getView().getContext(), (TIHNewsList)itemList, tabIdentifier));
+		} else {
+			TIHListAdapter<TIHFeedList<? extends TIHFeedItem>> adapter = (TIHListAdapter<TIHFeedList<? extends TIHFeedItem>>) feedListView.getAdapter(); 
+			adapter.notifyDataSetChanged();
 		}
 	}
 }

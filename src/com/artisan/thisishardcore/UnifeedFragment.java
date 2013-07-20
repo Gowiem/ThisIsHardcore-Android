@@ -1,5 +1,7 @@
 package com.artisan.thisishardcore;
 
+import android.R.integer;
+
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.progress.SherlockProgressFragment;
@@ -58,20 +60,27 @@ public abstract class UnifeedFragment extends SherlockProgressFragment implement
 	
 	public void sendEventRequest(){
 		logger.d("--- sendEventRequest ---");
-		setContentShown(false);
+		setContentShown(false); // Show the progress fragment
 		TIHRequestManager.getEvents((SherlockFragment)this);
 	}
 	
-	public void sendNewsRequest(int pageNum, int pageSize, int feedType) {
+	public void sendNewsRequest(int pageNumber, int pageSize, int feedType) {
 		logger.d("--- sendNewsRequest ---");
-		setContentShown(false);
-		TIHRequestManager.getNews((SherlockFragment)this, pageNum, pageSize, feedType);
+		showProgressFragment(pageNumber);
+		TIHRequestManager.getNews((SherlockFragment)this, pageNumber, pageSize, feedType);
 	}
 	
-	public void sendPhotoPitRequest(int pageNum, int pageSize, int feedType) {
+	public void sendPhotoPitRequest(int pageNumber, int pageSize, int feedType) {
 		logger.d("--- sendPhotoPitRequest ---");
-		setContentShown(false);
-		TIHRequestManager.getPhotos((SherlockFragment)this, pageNum, pageSize, feedType);
+		showProgressFragment(pageNumber);
+		TIHRequestManager.getPhotos((SherlockFragment)this, pageNumber, pageSize, feedType);
+	}
+	
+	private void showProgressFragment(int pageNumber) {
+		// We only want to show the progress fragment when we are loading the first page 
+		if (pageNumber == 1) {
+			setContentShown(false);
+		}
 	}
 
 }
