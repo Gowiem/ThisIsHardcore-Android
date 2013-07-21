@@ -77,9 +77,8 @@ public class NewsFragment extends FeedFragment {
 	    logger.d("onActivityCreated");
 		
 	    // Setup content view
+	    setEmptyText(R.string.news_empty);
 	    setContentView(R.layout.news);
-	    // Setup text for empty content
-	    // setEmptyText(R.string.news_empty);
 		if (currentTab == null) {
 			officialTabClicked(officialTabImageView);	
 		} else {

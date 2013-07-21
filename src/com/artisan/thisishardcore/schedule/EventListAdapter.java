@@ -59,7 +59,6 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		String bandIconUrl = event.iconUrl;
 		if (!TIHUtils.isEmpty(bandIconUrl) && !bandIconUrl.equalsIgnoreCase("/icons/original/missing.png")) {
 			try {
-				logger.d("calling loadImage for url: ", bandIconUrl);
 				imageFetcher.loadImage(bandIconUrl, iconImageView);
 			} catch (Exception e) {
 				logger.d("Exception throw by imageFetcher.loadImage for bandIconUrl: ", bandIconUrl);

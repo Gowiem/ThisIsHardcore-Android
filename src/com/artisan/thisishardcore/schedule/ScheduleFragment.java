@@ -2,6 +2,8 @@ package com.artisan.thisishardcore.schedule;
 
 import java.util.ArrayList;
 
+import org.apache.log4j.jmx.LoggerDynamicMBean;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -104,11 +106,9 @@ public class ScheduleFragment extends UnifeedFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
-	    logger.d("onActivityCreated");
 
+	    setEmptyText(R.string.schedule_empty);
 	    setContentView(R.layout.schedule);
-	    // Setup text for empty content
-	    // setEmptyText(R.string.news_empty);
 		
 		if (currentTab == null) {
 			sendEventRequest();

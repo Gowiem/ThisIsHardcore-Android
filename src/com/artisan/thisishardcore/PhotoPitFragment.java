@@ -48,6 +48,7 @@ public class PhotoPitFragment extends FeedFragment {
 		super.onActivityCreated(savedInstanceState);
 
 		// Setup content view
+		setEmptyText(R.string.photo_pit_empty);
 		setContentView(R.layout.photo_pit);
 		if (currentTab == null) {
 			officialTabClicked(officialTabImageView);	

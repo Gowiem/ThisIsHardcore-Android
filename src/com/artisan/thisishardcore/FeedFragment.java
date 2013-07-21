@@ -91,13 +91,13 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		int loadedItems = firstVisibleItem + visibleItemCount;
-		logger.d("onScroll - loadedItems: ", loadedItems, " totalItemCount: ", totalItemCount, " isLoading: ", isLoading);
 		// Sometimes onScroll can be called with totalItem = 0. Causes issues. Return here to fix
 		if (totalItemCount == 0) { return; } 
 		if((loadedItems == totalItemCount) && !isLoading && currentTab != null) {
-			logger.d("User scrolled to end of the list. Sending another request for the next page");
+			
 			int pageNumber = incrementAndGetPageNumber();
 			if (pageNumber <= 5) { // Let's cut the user off at 5 pages... They've had enough..
+				logger.d("User scrolled to end of the list. Sending another request for the next page");
 				// TODO: We should display a loading cell at the bottom of the page
 				sendRequest(currentTab, pageNumber);
 			}

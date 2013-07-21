@@ -16,6 +16,8 @@
 
 package com.artisan.thisishardcore.progress;
 
+import org.apache.log4j.jmx.LoggerDynamicMBean;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,8 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.R;
+import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.schedule.ScheduleFragment;
 
 /**
  * The implementation of the fragment to display content. Based on {@link android.support.v4.app.ListFragment}.
@@ -33,6 +37,7 @@ import com.artisan.thisishardcore.R;
  * @author Evgeny Shishkin
  */
 public class SherlockProgressFragment extends SherlockFragment {
+	private static final TIHLogger logger = new TIHLogger(SherlockProgressFragment.class);
 
     private View mProgressContainer;
     private View mContentContainer;
@@ -100,8 +105,10 @@ public class SherlockProgressFragment extends SherlockFragment {
      * @see #getContentView()
      */
     public void setContentView(int layoutResId) {
+    	logger.d("setContentView");
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View contentView = layoutInflater.inflate(layoutResId, null);
+        logger.d("contentView: ", contentView);
         setContentView(contentView);
     }
 
@@ -118,6 +125,7 @@ public class SherlockProgressFragment extends SherlockFragment {
         if (view == null) {
             throw new IllegalArgumentException("Content view can't be null");
         }
+        logger.d("mContentContainer: ", mContentContainer);
         if (mContentContainer instanceof ViewGroup) {
             ViewGroup contentContainer = (ViewGroup) mContentContainer;
             if (mContentView == null) {

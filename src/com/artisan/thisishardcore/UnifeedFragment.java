@@ -1,6 +1,8 @@
 package com.artisan.thisishardcore;
 
-import android.R.integer;
+import android.R.anim;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.artisan.thisishardcore.logging.TIHLogger;
@@ -16,10 +18,13 @@ public abstract class UnifeedFragment extends SherlockProgressFragment implement
 	
 	public String currentTab;
 	
-	// Tab Methods
-	///////////////
+	// Abstract Methods
+	////////////////////
 	
 	abstract public void updateForCurrentTab();
+	
+	// Lifecycle
+	/////////////
 	
 	// Response Methods
 	////////////////////
@@ -29,6 +34,7 @@ public abstract class UnifeedFragment extends SherlockProgressFragment implement
 			logger.d("onResponseRecieved, reponse was null. RequestType was:", requestType, 
 					"Showing Emptry Message.");
 			try {
+				hideContentViews();
 				setContentEmpty(true);
 				setContentShown(true);
 			} catch (IllegalStateException e) {
@@ -40,7 +46,7 @@ public abstract class UnifeedFragment extends SherlockProgressFragment implement
 	public void updateUI(Object list, int requestType) {
 		logger.d("UnifeedFragment UpdateUI");
 		try {
-			setContentShown(true);	
+			setContentShown(true);
 		} catch (IllegalStateException e) {
 			logger.d("IllegalStateException on updateUI::setContentShown");
 		}
@@ -52,6 +58,29 @@ public abstract class UnifeedFragment extends SherlockProgressFragment implement
 			setContentShown(true);	
 		} catch (IllegalStateException e) {
 			logger.d("IllegalStateException on updateUI::setContentShown");
+		}
+	}
+	
+	// Hide/Show Views
+	///////////////////
+	
+	private void hideContentViews() {
+		ViewGroup contentContainer = (ViewGroup) getView().findViewById(R.id.content_container);
+		for (int i = 0; i < contentContainer.getChildCount(); i++) {
+			View childView = contentContainer.getChildAt(i);
+			if (childView.getId() != android.R.id.empty) {
+				childView.setVisibility(View.GONE);
+			}
+		}
+	}
+	
+	private void showContentViews() {
+		ViewGroup contentContainer = (ViewGroup) getContentView();
+		for (int i = 0; i < contentContainer.getChildCount(); i++) {
+			View childView = contentContainer.getChildAt(i);
+			if (childView.getId() != android.R.id.empty) {
+				childView.setVisibility(View.VISIBLE);
+			}
 		}
 	}
 	

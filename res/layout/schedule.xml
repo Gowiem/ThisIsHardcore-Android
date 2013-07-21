@@ -36,6 +36,24 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
+        <TextView
+            android:id="@android:id/empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/hc_bell"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:padding="8dp"
+            android:shadowColor="#aa00"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:textColor="#a00"
+            android:textSize="18sp"
+            android:textStyle="bold|italic" >
+        </TextView>
+
         <RelativeLayout
             android:id="@+id/tabs_layout"
             android:layout_width="fill_parent"
