@@ -509,12 +509,22 @@ public class ImageCache {
     public static File getDiskCacheDir(Context context, String uniqueName) {
         // Check if media is mounted or storage is built-in, if so, try and use external cache dir
         // otherwise use internal cache dir
-        final String cachePath =
-                Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
-                        !isExternalStorageRemovable() ? getExternalCacheDir(context).getPath() :
-                                context.getCacheDir().getPath();
-
-        return new File(cachePath + File.separator + uniqueName);
+    	// NOTE: This was causing issues when using my other test device due to issues with having 
+    	// the device plugged into my Mac. The problem went away on it's own, but I added the 
+    	// following exception handling to make sure it doesn't crash again. 
+    	// This is 'caution' statement from Google:
+    	// Caution: External storage can become unavailable if the user mounts the external storage on a computer 
+    	// Located at: https://developer.android.com/guide/topics/data/data-storage.html
+    	String cachePath;
+    	try {
+            cachePath = Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState()) ||
+                            !isExternalStorageRemovable() ? getExternalCacheDir(context).getPath() :
+                                    context.getCacheDir().getPath();
+		} catch (Exception e) {
+			Log.d("com.artisan.thisishardcore", "UTILS - getDiskCacheDir threw Exception: " + e.getLocalizedMessage() + "#6");
+			cachePath = context.getCacheDir().getPath();
+		}
+    	return new File(cachePath + File.separator + uniqueName);
     }
 
     /**
