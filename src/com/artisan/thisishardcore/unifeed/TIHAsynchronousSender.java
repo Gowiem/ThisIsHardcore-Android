@@ -49,9 +49,7 @@ public class TIHAsynchronousSender extends Thread {
 				response = getClient().execute((HttpUriRequest) request);
 			}
 			Object object = invokeParser(response, wrapper.requestType);
-			logger.d("Before setResponse");
 			wrapper.setResponse(object);
-			logger.d("Before posting to Handler");
 			handler.post(wrapper);
 
 		} catch (ClientProtocolException e) {
@@ -79,15 +77,12 @@ public class TIHAsynchronousSender extends Thread {
 		switch (reqType) {
 		
 		case TIHConstants.GET_FAN_NEWS:
-			logger.d("Before parsing fan news list");
 			object = TIHParser.parseNewsList(response);
 			break;
 		case TIHConstants.GET_OFFICIAL_NEWS:
-			logger.d("Before parsing official news list");
 			object = TIHParser.parseNewsList(response);
 			break;
 		case TIHConstants.GET_EVENTS_DETAILS:
-			logger.d("Before parseEventList");
 			object = TIHParser.parseEventList(response);
 			break;
 		case TIHConstants.GET_OFFICIAL_PHOTOS:

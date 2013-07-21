@@ -1,6 +1,6 @@
 package com.artisan.thisishardcore;
 
-import android.R.integer;
+import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -9,7 +9,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.artisan.thisishardcore.logging.TIHLogger;
+import com.artisan.thisishardcore.models.TIHFeedItem;
 import com.artisan.thisishardcore.models.TIHFeedList;
+import com.artisan.thisishardcore.models.TIHNewsList;
+import com.artisan.thisishardcore.models.TIHPhotoList;
+import com.artisan.thisishardcore.news.NewsListAdapter;
+import com.artisan.thisishardcore.utils.TIHListAdapter;
 
 public abstract class FeedFragment extends UnifeedFragment implements OnScrollListener {
 	private static final TIHLogger logger = new TIHLogger(FeedFragment.class);
@@ -41,10 +46,13 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	// Lifecycle
 	/////////////
 	
-	public View onCreateViewHelper(View resultView) {
-		logger.d("onCreateViewHelper - check this is only called once per initialization of FeedFragment");
+	public void init() {
 		officialTabPageNumber = 1;
 		fanTabPageNumber = 1;
+	}
+	
+	public View onCreateViewHelper(View resultView) {
+		logger.d("onCreateViewHelper - officialTabPageNumber: ", officialTabPageNumber, "fanTabPageNumber: ", fanTabPageNumber);
 		officalListView = (ListView) resultView.findViewById(R.id.official_list);
 		officalListView.setOnScrollListener(this);
 		fanListView = (ListView) resultView.findViewById(R.id.fan_list);
@@ -66,6 +74,14 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 		return resultView;
 	}
 	
+
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		logger.d("onDestroyView");
+		currentTab = null;
+	}
+	
 	// OnScrollListener Methods
 	///////////////////////////
 	
@@ -75,13 +91,14 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	@Override
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 		int loadedItems = firstVisibleItem + visibleItemCount;
-//		logger.d("onScroll - loadedItems: ", loadedItems, " firstVisibleItem: ", firstVisibleItem, "visibleItemCount: ", visibleItemCount, "totalItemCount: ", totalItemCount, "isLoading: ", isLoading);
+		logger.d("onScroll - loadedItems: ", loadedItems, " totalItemCount: ", totalItemCount, " isLoading: ", isLoading);
+		// Sometimes onScroll can be called with totalItem = 0. Causes issues. Return here to fix
+		if (totalItemCount == 0) { return; } 
 		if((loadedItems == totalItemCount) && !isLoading && currentTab != null) {
 			logger.d("User scrolled to end of the list. Sending another request for the next page");
 			int pageNumber = incrementAndGetPageNumber();
 			if (pageNumber <= 5) { // Let's cut the user off at 5 pages... They've had enough..
 				// TODO: We should display a loading cell at the bottom of the page
-				// and we definitely shouldn't display the full progress fragment
 				sendRequest(currentTab, pageNumber);
 			}
 		}
@@ -94,6 +111,41 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 		} else {
 			officialTabPageNumber += 1;
 			return officialTabPageNumber;
+		}
+	}
+	
+	// Update UI Helpers
+	/////////////////////
+	
+	// Creates or updates the given TIHFeedList 'currentList' returning the new list 
+	public TIHFeedList<? extends TIHFeedItem> createOrUpdateModel(TIHFeedList<? extends TIHFeedItem> newList, 
+				TIHFeedList<? extends TIHFeedItem> currentList, 
+				String tabIdentifier) {
+		if (currentList == null) {
+			currentList = newList;
+			currentList.setWasJustCreated(true);
+		} else {
+			currentList.mergeItems((TIHFeedList<? extends TIHFeedItem>)newList);
+			currentList.setWasJustCreated(false);
+		}
+		return currentList;
+	}
+	
+	public void updateListView(TIHFeedList<? extends TIHFeedItem> itemList, boolean feedListCreated, String tabIdentifier) {
+		int listViewId = tabIdentifier.equals(OFFICIAL_TAB) ? R.id.official_list : R.id.fan_list;
+		ListView feedListView = (ListView) getView().findViewById(listViewId); 
+		if (feedListCreated || feedListView.getAdapter() == null) { // We just received the first FeedList page, create the adapter
+			logger.d("creating new List Adapter");
+			if (itemList.getClass() == TIHNewsList.class) {
+				feedListView.setAdapter(new NewsListAdapter(getView().getContext(), (TIHNewsList)itemList, tabIdentifier));
+			} else if (itemList.getClass() == TIHPhotoList.class) {
+				feedListView.setAdapter(new PhotoPitListAdapter(getView().getContext(), (TIHPhotoList)itemList, tabIdentifier));
+			}
+		} else {
+			logger.d("Using current List Adapter");
+			@SuppressWarnings("unchecked")
+			TIHListAdapter<TIHFeedList<? extends TIHFeedItem>> adapter = (TIHListAdapter<TIHFeedList<? extends TIHFeedItem>>) feedListView.getAdapter(); 
+			adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -119,7 +171,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 			// If we haven't sent the request yet then send it, otherwise update the official list 
 			// with the official feed items
 			if (officialList == null) {
-				sendRequest(OFFICIAL_TAB, officialTabPageNumber);	
+				sendRequest(OFFICIAL_TAB, 1);	
 			} else {
 				updateUI(OFFICIAL_TAB);
 			}
@@ -136,7 +188,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 			// If we haven't sent the request yet then send it, otherwise update the fan list 
 			// with the fan feed list 
 			if (fanList == null) {
-				sendRequest(FAN_TAB, fanTabPageNumber);
+				sendRequest(FAN_TAB, 1);
 			} else {
 				updateUI(FAN_TAB);
 			}

@@ -20,7 +20,7 @@ import com.artisan.thisishardcore.utils.TIHListAdapter;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
-	private static final TIHLogger logger = new TIHLogger(TIHListAdapter.class);
+	private static final TIHLogger logger = new TIHLogger(PhotoPitListAdapter.class);
 
 	private static final int ICON_IMAGE_SIZE = 48; // Image is 48x48dp in photo_pit_row layout
 	private static final int INSTA_IMAGE_SIZE = 306; // Image is 306x306 in photo_pit_row layout
@@ -58,7 +58,6 @@ public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
 		View rowView = inflater.inflate(R.layout.photo_pit_row, parent, false);
 		rowView.setTag(position);
 		ImageView instaImageView = (ImageView)rowView.findViewById(R.id.insta_image);
-		ProgressBar progressImageView = (ProgressBar)rowView.findViewById(R.id.image_progress);
 		TextView dateTextView = (TextView) rowView.findViewById(R.id.days_ago);
 		TextView photoBodyTextView = (TextView) rowView.findViewById(R.id.photo_body);
 		TextView photoAuthorTextView = (TextView) rowView.findViewById(R.id.photo_author);
@@ -73,14 +72,13 @@ public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
 		String authorString    = photoItem.getAuthor();
 		
 		// Set the content for the views
-		photoBodyTextView.setText(photoItem.getBody());
+		photoBodyTextView.setText(bodyText);
 		dateTextView.setText(dateString);
 		photoAuthorTextView.setText(authorString);
 		
 		loadIconForProfileUrl(profileImageUrl, userImageView, iconFetcher);
 		 
 		if (!TIHUtils.isEmpty(instaImageUrl)) {
-			logger.d("Requesting instagrame Image at URL: ", instaImageUrl);
 			instaFetcher.loadImage(instaImageUrl, instaImageView);
 		}
 

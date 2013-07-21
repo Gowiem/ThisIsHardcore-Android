@@ -39,7 +39,6 @@ public class TIHParser {
 			response = builder.toString();
 			InputStream inputStream = new ByteArrayInputStream(response.getBytes("UTF-8"));
 			Reader inReader = new InputStreamReader(inputStream);
-			//			logger.d("List Response:", response);
 			return inReader;
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -48,7 +47,6 @@ public class TIHParser {
 	}
 
 	public static TIHNewsList parseNewsList(HttpResponse response) {
-		logger.d("parseNewsList");
 		if(response != null){
 			try {
 				Reader reader = new InputStreamReader(response.getEntity().getContent(), "UTF-8");
@@ -67,7 +65,6 @@ public class TIHParser {
 
 	@SuppressWarnings("unchecked")
 	public static TIHEventList parseEventList(HttpResponse response) {
-		logger.d("parseEventList");
 		if(response != null){
 			try {
 				Reader reader = new InputStreamReader(response.getEntity().getContent(), "UTF-8");
@@ -86,7 +83,6 @@ public class TIHParser {
 	}
 
 	public static TIHPhotoList parsePhotoList(HttpResponse response) {
-		logger.d("parsePhotoList");
 		if(response != null){
 			try {
 				Reader reader = new InputStreamReader(response.getEntity().getContent());

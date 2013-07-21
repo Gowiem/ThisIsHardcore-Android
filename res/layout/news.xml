@@ -48,8 +48,10 @@
             android:scaleType="fitXY"
             android:src="@drawable/tab_header_cap" />
 
-        <include layout="@layout/tab_listviews"  android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        
+        <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/tab_listviews" />
     </LinearLayout>
 
 </LinearLayout>

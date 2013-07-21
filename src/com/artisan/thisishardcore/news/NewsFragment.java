@@ -37,6 +37,7 @@ public class NewsFragment extends FeedFragment {
 	public static NewsFragment newInstance() {
 		logger.d("newInstance");
 		NewsFragment contentFragment = new NewsFragment();
+		contentFragment.init();
 		Bundle args = new Bundle();
 		contentFragment.setArguments(args);
 		
@@ -86,13 +87,6 @@ public class NewsFragment extends FeedFragment {
 		}
 	}
 	
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		logger.d("onDestroyView");
-		currentTab = null;
-	}
-	
 	// FeedFragment Methods
 	////////////////////////
 	
@@ -108,9 +102,8 @@ public class NewsFragment extends FeedFragment {
 		}
 	}
 	
+	// Called when the User switched tabs
 	public void updateUI(String tabIdentifier) {
-		logger.d("***************DOES THIS METHOD EVER GET RUN?????****************");
-		logger.d("UpdateUI called with tabIdentifier:", tabIdentifier);
 		if (tabIdentifier.equals(OFFICIAL_TAB)) {
 			logger.d("UpdateUI -- Updating for OFFICIAL TAB");
 			updateNewsUI((TIHNewsList)officialList, TIHConstants.GET_OFFICIAL_NEWS);
@@ -122,8 +115,8 @@ public class NewsFragment extends FeedFragment {
 		}
 	}
 	
-	// List Functionality
-	//////////////////////
+	// Item Clicked Functionality
+	//////////////////////////////
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
 		TIHNewsItem itemClicked = (TIHNewsItem) officialList.getItemAtIndex(position);
@@ -135,11 +128,11 @@ public class NewsFragment extends FeedFragment {
 	}
 	
 	// UnifeedFragment Overrides
-	//////////////////////////////
+	/////////////////////////////
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
-		logger.d("onResponseReceived");
+		logger.d("---- onResponseReceived ----");
 		super.onResponseReceived(response, requestType);
 		if(response != null){
 			TIHNewsList newsList = (TIHNewsList)response;
@@ -155,43 +148,25 @@ public class NewsFragment extends FeedFragment {
 			if (newsList != null && !newsList.items.isEmpty()) {
 				boolean feedListCreated;
 				if (requestType == TIHConstants.GET_FAN_NEWS) {
-					this.fanList = createOrUpdateModel(newsList, (TIHNewsList)this.fanList, FAN_TAB);
+					logger.d("FAN TAB");
+					this.fanList = createOrUpdateModel(newsList, this.fanList, FAN_TAB);
 					feedListCreated = this.fanList.getWasJustCreated();
 					updateListView(this.fanList, feedListCreated, FAN_TAB);
 				} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
-					this.officialList = createOrUpdateModel(newsList, (TIHNewsList)this.officialList, OFFICIAL_TAB);
-					feedListCreated = this.officialList.getWasJustCreated(); 
+					logger.d("OFFICIAL TAB - step 1");
+					this.officialList = createOrUpdateModel(newsList, this.officialList, OFFICIAL_TAB);
+					logger.d("OFFICIAL TAB - step 2");
+					feedListCreated = this.officialList.getWasJustCreated();
+					logger.d("OFFICIAL TAB - step 3");
 					updateListView(this.officialList, feedListCreated, OFFICIAL_TAB);
+					logger.d("OFFICIAL TAB - step 4");
 				} else {
 					logger.e("updateNewsUI - requestType was not one of the expected values. Something went wrong");
 				}
 			}
 		} catch (NullPointerException e) {
-			logger.e("updateNewsUI threw NullPointerException");
+			logger.e("updateNewsUI threw NullPointerException: ", e.getLocalizedMessage());
 		}
 		isLoading = false;
-	}
-	
-	// Creates or updates the given TIHFeedList 'currentList' returning the new list 
-	private TIHFeedList<? extends TIHFeedItem> createOrUpdateModel(TIHNewsList newList, TIHNewsList currentList, String tabIdentifier) {
-		if (currentList == null) {
-			currentList = newList;
-			currentList.setWasJustCreated(true);
-		} else {
-			currentList.mergeItems((TIHFeedList<? extends TIHFeedItem>)newList);
-			currentList.setWasJustCreated(false);
-		}
-		return currentList;
-	}
-	
-	private void updateListView(TIHFeedList<? extends TIHFeedItem> itemList, boolean shouldCreateAdapter, String tabIdentifier) {
-		int listViewId = tabIdentifier.equals(OFFICIAL_TAB) ? R.id.official_list : R.id.fan_list;
-		ListView feedListView = (ListView) getView().findViewById(listViewId); 
-		if (shouldCreateAdapter) { // We just received the first FeedList page, create the adapter
-			feedListView.setAdapter(new NewsListAdapter(getView().getContext(), (TIHNewsList)itemList, tabIdentifier));
-		} else {
-			TIHListAdapter<TIHFeedList<? extends TIHFeedItem>> adapter = (TIHListAdapter<TIHFeedList<? extends TIHFeedItem>>) feedListView.getAdapter(); 
-			adapter.notifyDataSetChanged();
-		}
 	}
 }
