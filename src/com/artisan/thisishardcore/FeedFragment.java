@@ -1,10 +1,13 @@
 package com.artisan.thisishardcore;
 
-import android.os.Bundle;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
+import android.widget.ArrayAdapter;
+import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -32,6 +35,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	
 	public ListView officalListView;
 	public ListView fanListView;
+	private View footerView; 
 	
 	public TIHFeedList<?> officialList;
 	public TIHFeedList<?> fanList;
@@ -57,6 +61,10 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 		officalListView.setOnScrollListener(this);
 		fanListView = (ListView) resultView.findViewById(R.id.fan_list);
 		fanListView.setOnScrollListener(this);
+		
+		footerView = ((LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
+		officalListView.addFooterView(footerView, null, false);
+		fanListView.addFooterView(footerView, null, false);
 		
 		officialTabImageView = (ImageView) resultView.findViewById(R.id.official_tab);
 		fanTabImageView = (ImageView) resultView.findViewById(R.id.fan_feed_tab);
@@ -98,10 +106,26 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 			int pageNumber = incrementAndGetPageNumber();
 			if (pageNumber <= 5) { // Let's cut the user off at 5 pages... They've had enough..
 				logger.d("User scrolled to end of the list. Sending another request for the next page");
-				// TODO: We should display a loading cell at the bottom of the page
 				sendRequest(currentTab, pageNumber);
+			} else {
+				getListViewForTabIdentifier(currentTab).removeFooterView(footerView);
 			}
 		}
+	}
+	
+	private void addLoadingFooterView() {
+		logger.d("Add Loading Footer View");
+		ListView listView = getListViewForTabIdentifier(currentTab);
+		View footerView = ((LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
+		logger.d("footerView: ", footerView);
+		listView.addFooterView(footerView);
+	}
+	
+	private void removeLoadingFooterView() {
+		logger.d("Remove Loading Footer View");
+		ListView listView = getListViewForTabIdentifier(currentTab);
+		View footerView = listView.findViewById(R.layout.loading_footer);
+		listView.removeFooterView(footerView);
 	}
 	
 	private int incrementAndGetPageNumber() {
@@ -111,6 +135,14 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 		} else {
 			officialTabPageNumber += 1;
 			return officialTabPageNumber;
+		}
+	}
+	
+	private ListView getListViewForTabIdentifier(String tabIdentifier) {
+		if (tabIdentifier.equals(OFFICIAL_TAB)) {
+			return officalListView;
+		} else {
+			return fanListView;
 		}
 	}
 	
@@ -132,20 +164,22 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	}
 	
 	public void updateListView(TIHFeedList<? extends TIHFeedItem> itemList, boolean feedListCreated, String tabIdentifier) {
-		int listViewId = tabIdentifier.equals(OFFICIAL_TAB) ? R.id.official_list : R.id.fan_list;
-		ListView feedListView = (ListView) getView().findViewById(listViewId); 
+//		int listViewId = tabIdentifier.equals(OFFICIAL_TAB) ? R.id.official_list : R.id.fan_list;
+//		ListView feedListView = (ListView) getView().findViewById(listViewId); 
+		ListView feedListView = getListViewForTabIdentifier(tabIdentifier);
 		if (feedListCreated || feedListView.getAdapter() == null) { // We just received the first FeedList page, create the adapter
-			logger.d("creating new List Adapter");
 			if (itemList.getClass() == TIHNewsList.class) {
 				feedListView.setAdapter(new NewsListAdapter(getView().getContext(), (TIHNewsList)itemList, tabIdentifier));
 			} else if (itemList.getClass() == TIHPhotoList.class) {
 				feedListView.setAdapter(new PhotoPitListAdapter(getView().getContext(), (TIHPhotoList)itemList, tabIdentifier));
 			}
 		} else {
-			logger.d("Using current List Adapter");
+//			removeLoadingFooterView();
 			@SuppressWarnings("unchecked")
-			TIHListAdapter<TIHFeedList<? extends TIHFeedItem>> adapter = (TIHListAdapter<TIHFeedList<? extends TIHFeedItem>>) feedListView.getAdapter(); 
-			adapter.notifyDataSetChanged();
+			HeaderViewListAdapter headerAdapter = (HeaderViewListAdapter)feedListView.getAdapter();
+			TIHListAdapter<TIHFeedList<? extends TIHFeedItem>> tihAdapter = 
+					((TIHListAdapter<TIHFeedList<? extends TIHFeedItem>>)headerAdapter.getWrappedAdapter()); 
+			tihAdapter.notifyDataSetChanged();
 		}
 	}
 

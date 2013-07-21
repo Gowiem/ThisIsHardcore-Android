@@ -152,13 +152,9 @@ public class NewsFragment extends FeedFragment {
 					feedListCreated = this.fanList.getWasJustCreated();
 					updateListView(this.fanList, feedListCreated, FAN_TAB);
 				} else if (requestType == TIHConstants.GET_OFFICIAL_NEWS) {
-					logger.d("OFFICIAL TAB - step 1");
 					this.officialList = createOrUpdateModel(newsList, this.officialList, OFFICIAL_TAB);
-					logger.d("OFFICIAL TAB - step 2");
 					feedListCreated = this.officialList.getWasJustCreated();
-					logger.d("OFFICIAL TAB - step 3");
 					updateListView(this.officialList, feedListCreated, OFFICIAL_TAB);
-					logger.d("OFFICIAL TAB - step 4");
 				} else {
 					logger.e("updateNewsUI - requestType was not one of the expected values. Something went wrong");
 				}

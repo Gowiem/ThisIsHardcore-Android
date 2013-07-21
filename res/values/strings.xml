@@ -2,8 +2,9 @@
 <resources>
 
     <string name="app_name">This is Hardcore</string>
+    <string name="loading_footer_text">Loading&#8230;</string>
     
-    <!-- More Navigation -->
+    <!-- Empty Messages -->
     <string name="schedule_empty">Couldn\'t fetch the Schedule</string>
     <string name="photo_pit_empty">Couldn\'t fetch Instagram Photos</string>
     <string name="news_empty">Couldn\'t fetch News</string>

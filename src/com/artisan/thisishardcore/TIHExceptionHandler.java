@@ -6,11 +6,11 @@ import com.artisan.thisishardcore.imageutils.ImageFetcher;
 import com.artisan.thisishardcore.logging.TIHLogger;
 
 public class TIHExceptionHandler implements UncaughtExceptionHandler {
-	private static final TIHLogger logger = new TIHLogger(ImageFetcher.class);
+	private static final TIHLogger logger = new TIHLogger(TIHExceptionHandler.class);
 	
 	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
-		logger.e("UncaughtException -> exception: ", ex.getLocalizedMessage());
+		logger.e("UncaughtException -> exception: ", ex.getLocalizedMessage());	
 	}
 
 }
