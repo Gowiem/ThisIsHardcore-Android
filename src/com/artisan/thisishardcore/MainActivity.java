@@ -1,13 +1,9 @@
 package com.artisan.thisishardcore;
 
-import java.io.File;
-
 import org.joda.time.DateTimeZone;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -15,7 +11,6 @@ import com.actionbarsherlock.app.ActionBar.Tab;
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.artisan.thisishardcore.imageutils.ImageCache;
 import com.artisan.thisishardcore.imageutils.ImageFetcher;
 import com.artisan.thisishardcore.logging.TIHConfigureLog4j;
 import com.artisan.thisishardcore.logging.TIHLogger;
@@ -23,7 +18,6 @@ import com.artisan.thisishardcore.news.NewsFragment;
 import com.artisan.thisishardcore.news.NewsListAdapter;
 import com.artisan.thisishardcore.schedule.EventListAdapter;
 import com.artisan.thisishardcore.schedule.ScheduleFragment;
-import com.artisan.thisishardcore.utils.TIHListAdapter;
 import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener{
@@ -49,8 +43,7 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 		setContentView(R.layout.main);
 		TIHConfigureLog4j.configure();
 		logger.d("onCreate");
-		
-		Thread.setDefaultUncaughtExceptionHandler(new TIHExceptionHandler());
+		Thread.setDefaultUncaughtExceptionHandler(new TIHExceptionHandler(this));
 		
 		// Setting Default TimeZone for Application since I didn't know where else to put it.. It's later. 
 		DateTimeZone.setDefault(DateTimeZone.UTC);
