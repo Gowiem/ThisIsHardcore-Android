@@ -9,6 +9,8 @@ import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
+import android.text.GetChars;
+
 import com.artisan.thisishardcore.logging.TIHLogger;
 import com.artisan.thisishardcore.utils.TIHUtils;
 import com.google.gson.annotations.SerializedName;
@@ -28,7 +30,12 @@ public class TIHEvent implements Serializable, Comparable<TIHEvent> {
 		return getStartDate().compareTo(event.getStartDate());
 	}
 	
-	
+	public String getEventDayTimeString() {
+		DateTimeFormatter sFormatter = DateTimeFormat.forPattern("MMMMMM d, yyyy");
+		DateTime startTime = getStartDateTime();
+		String result = sFormatter.print(startTime);
+		return result;
+	}
 	
 	public String getEventTimeString() {
 		DateTime startTime = getStartDateTime();
@@ -37,7 +44,6 @@ public class TIHEvent implements Serializable, Comparable<TIHEvent> {
 			return "??? - ???";
 		}
 		DateTimeFormatter sFormatter = DateTimeFormat.forPattern("hh:mm");
-		//PeriodFormatter formatter = new PeriodFormatterBuilder().appendHours().appendSeparator(":").appendMinutes().toFormatter();
 		String startString = sFormatter.print(startTime);
 		startString = stripLeadingZero(startString); 
 		DateTimeFormatter eFormatter = DateTimeFormat.forPattern("hh:mm");

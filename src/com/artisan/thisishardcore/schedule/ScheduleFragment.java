@@ -3,6 +3,7 @@ package com.artisan.thisishardcore.schedule;
 import java.util.ArrayList;
 
 import org.apache.log4j.jmx.LoggerDynamicMBean;
+import org.w3c.dom.Text;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.artisan.thisishardcore.R;
 import com.artisan.thisishardcore.UnifeedFragment;
@@ -36,6 +38,9 @@ public class ScheduleFragment extends UnifeedFragment {
 	private ImageView dayTwoTabImageView;
 	private ImageView dayThreeTabImageView;
 	private ImageView dayFourTabImageView;
+	
+	private TextView venueTextView;
+	private TextView dateTextView;
 	
 	private TIHEventList eventList;
 	
@@ -61,6 +66,10 @@ public class ScheduleFragment extends UnifeedFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 			Bundle savedInstanceState) {
 		View result = inflater.inflate(R.layout.schedule, container, false);
+		
+		// Grab the header venue and date text views
+		venueTextView = (TextView) result.findViewById(R.id.header_venue);
+		dateTextView = (TextView) result.findViewById(R.id.header_date);
 		
 		// Grab the tab image views
 		dayOneTabImageView = (ImageView) result.findViewById(R.id.day_one_tab);
@@ -198,13 +207,23 @@ public class ScheduleFragment extends UnifeedFragment {
 	public void updateForCurrentTab() {
 		try {
 			ArrayList<TIHEvent> events = getEventsForCurrentTab();
-			ImageFetcher imageFetcher = new ImageFetcher(getView().getContext(), 0);
-			
 			((ListView) getView().findViewById(R.id.listview))
 				.setAdapter(new EventListAdapter(getView().getContext(), events));
+			if (events.get(0) != null) {
+				setupTabHeader(events.get(0));
+			}
 		} catch (NullPointerException e) {
 			logger.d("updateForCurrentTab - NullPointException probably due to Switching Tabs to fast");
 		}
+	}
+	
+	private void setupTabHeader(TIHEvent event) {
+		logger.d("setupTabHeader for event: ", event);
+		String tabHeaderDate = event.getEventDayTimeString();
+		String tabHeaderVenue = event.venue;
+		
+		dateTextView.setText(tabHeaderDate);
+		venueTextView.setText(tabHeaderVenue);
 	}
 	
 	private ArrayList<TIHEvent> getEventsForCurrentTab() {
