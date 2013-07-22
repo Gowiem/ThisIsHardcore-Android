@@ -51,6 +51,7 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 
 		// Grab the event for this position and set up the views with it's data
 		final TIHEvent event = events.get(position);
+		convertView.setTag(position);
 		artistNameTextView.setText(event.artistName);
 		eventTimeTextView.setText(event.getEventTimeString());
 		
@@ -63,10 +64,9 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 			} catch (Exception e) {
 				logger.d("Exception throw by imageFetcher.loadImage for bandIconUrl: ", bandIconUrl);
 			}
+		} else {
+			iconImageView.setImageResource(R.drawable.default_event_icon);
 		}
-		
-		// Tag the row for later use. Note: not yet implemented
-		convertView.setTag(position);
 		
 		return convertView;
 	}
