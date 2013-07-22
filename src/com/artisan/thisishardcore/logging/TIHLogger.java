@@ -7,7 +7,7 @@ import com.artisan.thisishardcore.utils.TIHUtils;
 public class TIHLogger {
 	private static final Logger logger = Logger.getLogger("com.artisan.thisishardcore");
 	private final Class<?> clazz;
-	private static boolean loggerIsConfigured = false;
+	public static boolean enabled;
 	
 	public TIHLogger(Class<?> clazz) {
 //		if(clazz.getName().contains("com.test.artisan")) {
@@ -36,11 +36,11 @@ public class TIHLogger {
 	public void e(Object... logObjects) { error(logObjects); } // Error
 	public void i(Object... logObjects) { info(logObjects); }  // Info
 	
-	public void fatal(Object... logObjects) { logger.fatal(buildLogMessage(logObjects)); } // Fatal
-	public void debug(Object... logObjects) { logger.debug(buildLogMessage(logObjects)); } // Debug
-	public void warn(Object... logObjects) { logger.warn(buildLogMessage(logObjects)); }   // Warn
-	public void error(Object... logObjects) { logger.error(buildLogMessage(logObjects)); } // Error
-	public void info(Object... logObjects) { logger.info(buildLogMessage(logObjects)); }   // Info
+	public void fatal(Object... logObjects) { if (enabled) { logger.fatal(buildLogMessage(logObjects)); }} // Fatal
+	public void debug(Object... logObjects) { if (enabled) { logger.debug(buildLogMessage(logObjects)); }} // Debug
+	public void warn(Object... logObjects) { if (enabled) { logger.warn(buildLogMessage(logObjects)); }}   // Warn
+	public void error(Object... logObjects) { if (enabled) { logger.error(buildLogMessage(logObjects)); }} // Error
+	public void info(Object... logObjects) { if (enabled) { logger.info(buildLogMessage(logObjects)); }}   // Info
 
 	public void logLongMessage(String messageString) {
 		if(messageString.length() > 4000) {
