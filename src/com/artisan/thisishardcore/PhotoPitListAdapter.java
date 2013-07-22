@@ -51,17 +51,18 @@ public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		// Grab the views for this row
-		View rowView = inflater.inflate(R.layout.photo_pit_row, parent, false);
-		rowView.setTag(position);
-		ImageView instaImageView = (ImageView)rowView.findViewById(R.id.insta_image);
-		TextView dateTextView = (TextView) rowView.findViewById(R.id.days_ago);
-		TextView photoBodyTextView = (TextView) rowView.findViewById(R.id.photo_body);
-		TextView photoAuthorTextView = (TextView) rowView.findViewById(R.id.photo_author);
-		ImageView userImageView = (ImageView)rowView.findViewById(R.id.user_image);
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.photo_pit_row, parent, false);
+		}
+		
+		convertView.setTag(position);
+		ImageView instaImageView = (ImageView)convertView.findViewById(R.id.insta_image);
+		TextView dateTextView = (TextView) convertView.findViewById(R.id.days_ago);
+		TextView photoBodyTextView = (TextView) convertView.findViewById(R.id.photo_body);
+		TextView photoAuthorTextView = (TextView) convertView.findViewById(R.id.photo_author);
+		ImageView userImageView = (ImageView)convertView.findViewById(R.id.user_image);
 
 		// Grab the newsItem for this position and get it's content
 		TIHPhotoItem photoItem = (TIHPhotoItem) photoList.getItemAtIndex(position);
@@ -82,6 +83,6 @@ public class PhotoPitListAdapter extends TIHListAdapter<TIHPhotoList> {
 			instaFetcher.loadImage(instaImageUrl, instaImageView);
 		}
 
-		return rowView;
+		return convertView;
 	}
 }

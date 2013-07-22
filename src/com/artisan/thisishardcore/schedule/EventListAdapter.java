@@ -41,13 +41,13 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		// Grab the views for this row
-		View rowView = inflater.inflate(R.layout.event_row, parent, false);
-		TextView artistNameTextView = (TextView) rowView.findViewById(R.id.artist_name);
-		TextView eventTimeTextView = (TextView) rowView.findViewById(R.id.event_time);
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.event_row, parent, false);
+		}
+		TextView artistNameTextView = (TextView) convertView.findViewById(R.id.artist_name);
+		TextView eventTimeTextView = (TextView) convertView.findViewById(R.id.event_time);
 
 		// Grab the event for this position and set up the views with it's data
 		final TIHEvent event = events.get(position);
@@ -55,7 +55,7 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		eventTimeTextView.setText(event.getEventTimeString());
 		
 		// Grab the icon image view and set it up for downloading from web or cache
-		ImageView iconImageView = (ImageView) rowView.findViewById(R.id.event_icon_image);
+		ImageView iconImageView = (ImageView) convertView.findViewById(R.id.event_icon_image);
 		String bandIconUrl = event.iconUrl;
 		if (!TIHUtils.isEmpty(bandIconUrl) && !bandIconUrl.equalsIgnoreCase("/icons/original/missing.png")) {
 			try {
@@ -66,8 +66,8 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 		}
 		
 		// Tag the row for later use. Note: not yet implemented
-		rowView.setTag(position);
+		convertView.setTag(position);
 		
-		return rowView;
+		return convertView;
 	}
 }

@@ -42,18 +42,18 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LayoutInflater inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		// Grab the views for this row
-		View rowView = inflater.inflate(R.layout.news_item_row, parent, false);
-		rowView.setTag(position);
-		ImageView newsIconImageView = (ImageView)rowView.findViewById(R.id.news_icon); 
-		TextView dateTextView = (TextView) rowView.findViewById(R.id.news_date);
-		TextView newsBodyTextView = (TextView) rowView.findViewById(R.id.news_body);
-		TextView newsAuthorTextView = (TextView) rowView.findViewById(R.id.news_author);
-		ImageView rowImageView = (ImageView)rowView.findViewById(R.id.row_image);
-		ImageView indicatorView = (ImageView)rowView.findViewById(R.id.indicator);
+		if (convertView == null) {
+			LayoutInflater inflater = (LayoutInflater) context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(R.layout.news_item_row, parent, false);
+		}
+		
+		convertView.setTag(position);
+		TextView dateTextView = (TextView) convertView.findViewById(R.id.news_date);
+		TextView newsBodyTextView = (TextView) convertView.findViewById(R.id.news_body);
+		TextView newsAuthorTextView = (TextView) convertView.findViewById(R.id.news_author);
+		ImageView rowImageView = (ImageView)convertView.findViewById(R.id.row_image);
+		ImageView indicatorView = (ImageView)convertView.findViewById(R.id.indicator);
 
 		// Grab the newsItem for this position and get it's content
 		TIHNewsItem newsItem = (TIHNewsItem) newsList.getItemAtIndex(position);
@@ -68,12 +68,12 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		}
 		
 		// Set the content for the views
-		newsBodyTextView.setText(newsItem.getBody());
+		newsBodyTextView.setText(bodyText);
 		dateTextView.setText(dateString);
 		newsAuthorTextView.setText(authorString);
 		
 		loadIconForProfileUrl(profileImageUrl, rowImageView, imageFetcher);
 
-		return rowView;
+		return convertView;
 	}
 }
