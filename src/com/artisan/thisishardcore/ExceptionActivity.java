@@ -48,10 +48,12 @@ public class ExceptionActivity extends Activity {
 	
 	private void sendMeAnEmail(String errorReport) {
 		/* Create the Intent */
-		final Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts("mailto","mgowie@useartisan.com", null));
+		final Intent emailIntent = new Intent(Intent.ACTION_SEND);
 
 		/* Fill it with Data */
-		emailIntent.setType("plain/text");
+		String emailList[] = { "mgowie@useartisan.com" };  
+		emailIntent.setType("text/plain");
+		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, emailList);
 		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "This is Hardcore Error");
 		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Hey I got an error: " + errorReport);
 
