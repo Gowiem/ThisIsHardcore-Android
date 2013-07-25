@@ -67,6 +67,13 @@ public class NewsFragment extends FeedFragment {
 				listItemClicked(parent, view, position, id);
 			};
 		});
+		
+		fanListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				listItemClicked(parent, view, position, id);
+			};
+		});
 				
 		return(result); 
 	}
@@ -118,8 +125,9 @@ public class NewsFragment extends FeedFragment {
 	//////////////////////////////
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
-		TIHNewsItem itemClicked = (TIHNewsItem) officialList.getItemAtIndex(position);
-		if (itemClicked != null) {
+		TIHFeedList<?> modelList = getNewsListForTab(currentTab);
+		TIHNewsItem itemClicked = (TIHNewsItem) modelList.getItemAtIndex(position);
+		if (itemClicked != null && itemClicked.getUrl() != null) {
 			Intent webViewIntent = new Intent(getActivity(), TIHWebViewActivity.class);
 			webViewIntent.putExtra(TIHWebViewActivity.WEB_VIEW_URL, itemClicked.getUrl());
 			startActivity(webViewIntent);
@@ -163,5 +171,16 @@ public class NewsFragment extends FeedFragment {
 			logger.e("updateNewsUI threw NullPointerException: ", e.getLocalizedMessage());
 		}
 		isLoading = false;
+	}
+	
+	// News Helpers
+	////////////////
+	
+	private TIHFeedList<?> getNewsListForTab(String tabIdentifier) {
+		if (tabIdentifier.equals(OFFICIAL_TAB)) {
+			return officialList;
+		} else {
+			return fanList;
+		}
 	}
 }

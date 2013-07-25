@@ -61,10 +61,13 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		String dateString      = newsItem.getDateString();
 		String profileImageUrl = newsItem.getProfileUrl();
 		String authorString    = newsItem.getAuthor();
+		String postUrl         = newsItem.getUrl();
 		
 		// If this is the Fan Feed then we don't want the user to be able to click the news item row
-		if (tabIdentifier.equals(FeedFragment.FAN_TAB)) {
+		if (postUrl == null) {
 			indicatorView.setVisibility(View.GONE);
+		} else {
+			indicatorView.setVisibility(View.VISIBLE);
 		}
 		
 		// Set the content for the views
