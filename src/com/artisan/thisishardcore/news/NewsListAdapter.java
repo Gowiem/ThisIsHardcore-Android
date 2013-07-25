@@ -73,7 +73,10 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		// Set the content for the views
 		newsBodyTextView.setText(bodyText);
 		dateTextView.setText(dateString);
-		newsAuthorTextView.setText(authorString);
+		if (!authorString.equals("This Is Hc Fest 2013")) {
+			newsAuthorTextView.setText(authorString);
+		}
+		
 		
 		loadIconForProfileUrl(profileImageUrl, rowImageView, imageFetcher);
 
