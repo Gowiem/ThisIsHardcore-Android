@@ -105,7 +105,7 @@ public abstract class ImageWorker {
                 // for more info on what was changed.
                 task.executeOnExecutor(AsyncTask.DUAL_THREAD_EXECUTOR, data);
 			} catch (Exception e) {
-				logger.d("Exception caught while downloading image for url: ", data);
+				//logger.d("Exception caught while downloading image for url: ", data);
 			}
         }
     }

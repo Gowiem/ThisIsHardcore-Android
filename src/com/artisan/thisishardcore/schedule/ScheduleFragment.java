@@ -48,7 +48,7 @@ public class ScheduleFragment extends UnifeedFragment {
 	//////////////
 	
 	public static ScheduleFragment newInstance() {
-		logger.d("newInstance");
+		//logger.d("newInstance");
 		ScheduleFragment fragment = new ScheduleFragment();
 		Bundle args = new Bundle();
 		fragment.setArguments(args);
@@ -58,7 +58,7 @@ public class ScheduleFragment extends UnifeedFragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		logger.d("onCreate");
+		//logger.d("onCreate");
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -129,7 +129,7 @@ public class ScheduleFragment extends UnifeedFragment {
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		logger.d("onDestroyView");
+		//logger.d("onDestroyView");
 	}
 	
 	// Tab Methods
@@ -144,7 +144,7 @@ public class ScheduleFragment extends UnifeedFragment {
 	}
 	
 	public void tabClicked(View view, String tabIdentifier) {
-		logger.d("tabClicked:", tabIdentifier);
+		//logger.d("tabClicked:", tabIdentifier);
 		
 		// Don't update if we're already on the current tab
 		if (currentTab == tabIdentifier) { return; }
@@ -213,12 +213,12 @@ public class ScheduleFragment extends UnifeedFragment {
 				setupTabHeader(events.get(0));
 			}
 		} catch (NullPointerException e) {
-			logger.d("updateForCurrentTab - NullPointException probably due to Switching Tabs to fast");
+			//logger.d("updateForCurrentTab - NullPointException probably due to Switching Tabs to fast");
 		}
 	}
 	
 	private void setupTabHeader(TIHEvent event) {
-		logger.d("setupTabHeader for event: ", event);
+		//logger.d("setupTabHeader for event: ", event);
 		String tabHeaderDate = event.getEventDayTimeString();
 		String tabHeaderVenue = event.venue;
 		
@@ -242,7 +242,7 @@ public class ScheduleFragment extends UnifeedFragment {
 	}
 
 	private ImageView getTabImageViewForTabIdentifier(String tabIdentifier) {
-		logger.d("getTabImageViewForTabIdentifier - tabIdentifier:", tabIdentifier);
+		//logger.d("getTabImageViewForTabIdentifier - tabIdentifier:", tabIdentifier);
 		if (tabIdentifier.equals(DAY_ONE_TAB)) {
 			return dayOneTabImageView; 
 		} else if (tabIdentifier.equals(DAY_TWO_TAB)) {
@@ -282,7 +282,7 @@ public class ScheduleFragment extends UnifeedFragment {
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
-		logger.d("onResponseReceived");
+		//logger.d("onResponseReceived");
 		super.onResponseReceived(response, requestType);
 		if(response != null){
 			TIHEventList eventList = (TIHEventList)response;
@@ -293,7 +293,7 @@ public class ScheduleFragment extends UnifeedFragment {
 	
 	//updating event view after getting response from server
 	private void updateUI(TIHEventList eventList) {
-		logger.d("updateUI");
+		//logger.d("updateUI");
 		super.updateUI(eventList);
 		if (eventList != null && !eventList.events.isEmpty()) {
 			this.eventList = eventList;

@@ -36,7 +36,7 @@ public class TIHUtils {
 	public static String convertEpochTimeToString(long epochTime) {
 		Date epochDate = convertEpochTimeToDate(epochTime);
 		String dateString = dateFormatter.format(epochDate);
-		// logger.d("Converted epochInt:", epochTime, "to date:", epochDate, "and then to date string:", dateString);
+		// //logger.d("Converted epochInt:", epochTime, "to date:", epochDate, "and then to date string:", dateString);
 		return dateString;
 	}
 	
@@ -114,7 +114,7 @@ public class TIHUtils {
 
 		protected void onPostExecute(final Bitmap result) {
 			Handler handler = new Handler();
-			logger.d("onPostExecute()");
+			//logger.d("onPostExecute()");
 			Runnable runnable = new Runnable() {
 				@Override
 				public void run() {

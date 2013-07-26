@@ -30,7 +30,7 @@ public class EventDetailActivity extends SherlockActivity {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		logger.d("onCreate");
+		//logger.d("onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.event_detail);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);

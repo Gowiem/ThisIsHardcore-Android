@@ -31,33 +31,32 @@ public abstract class UnifeedFragment extends SherlockProgressFragment implement
 	
 	public void onResponseReceived(Object response, int requestType) {
 		if (response == null) {
-			logger.d("onResponseRecieved, reponse was null. RequestType was:", requestType, 
-					"Showing Emptry Message.");
+			//logger.d("onResponseRecieved, reponse was null. RequestType was:", requestType, "Showing Empty Message.");
 			try {
 				hideContentViews();
 				setContentEmpty(true);
 				setContentShown(true);
 			} catch (IllegalStateException e) {
-				logger.d("IllegalStateException on onResponseReceived::setContentEmpty|setContentShown");
+				//logger.d("IllegalStateException on onResponseReceived::setContentEmpty|setContentShown");
 			}
 		}
 	}
 	
 	public void updateUI(Object list, int requestType) {
-		logger.d("UnifeedFragment UpdateUI");
+		//logger.d("UnifeedFragment UpdateUI");
 		try {
 			setContentShown(true);
 		} catch (IllegalStateException e) {
-			logger.d("IllegalStateException on updateUI::setContentShown");
+			//logger.d("IllegalStateException on updateUI::setContentShown");
 		}
 	}
 	
 	public void updateUI(Object list) {
-		logger.d("UnifeedFragment UpdateUI");
+		//logger.d("UnifeedFragment UpdateUI");
 		try {
 			setContentShown(true);	
 		} catch (IllegalStateException e) {
-			logger.d("IllegalStateException on updateUI::setContentShown");
+			//logger.d("IllegalStateException on updateUI::setContentShown");
 		}
 	}
 	
@@ -88,19 +87,19 @@ public abstract class UnifeedFragment extends SherlockProgressFragment implement
 	///////////////////
 	
 	public void sendEventRequest(){
-		logger.d("--- sendEventRequest ---");
+		//logger.d("--- sendEventRequest ---");
 		setContentShown(false); // Show the progress fragment
 		TIHRequestManager.getEvents((SherlockFragment)this);
 	}
 	
 	public void sendNewsRequest(int pageNumber, int pageSize, int feedType) {
-		logger.d("--- sendNewsRequest ---");
+		//logger.d("--- sendNewsRequest ---");
 		showProgressFragment(pageNumber);
 		TIHRequestManager.getNews((SherlockFragment)this, pageNumber, pageSize, feedType);
 	}
 	
 	public void sendPhotoPitRequest(int pageNumber, int pageSize, int feedType) {
-		logger.d("--- sendPhotoPitRequest ---");
+		//logger.d("--- sendPhotoPitRequest ---");
 		showProgressFragment(pageNumber);
 		TIHRequestManager.getPhotos((SherlockFragment)this, pageNumber, pageSize, feedType);
 	}

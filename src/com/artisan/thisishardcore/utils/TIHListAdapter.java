@@ -30,7 +30,7 @@ public abstract class TIHListAdapter<T> extends ArrayAdapter<T> {
 			try {
 				imageFetcher.loadImage(profileImageUrl, imageView);
 			} catch (Exception e) {
-				logger.d("Exception throw by imageFetcher.loadImage for profileImageUrl: ", profileImageUrl);
+				//logger.d("Exception throw by imageFetcher.loadImage for profileImageUrl: ", profileImageUrl);
 			}
 		}
 	}

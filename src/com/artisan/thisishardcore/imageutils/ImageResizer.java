@@ -123,7 +123,7 @@ public class ImageResizer extends ImageWorker {
         options.inJustDecodeBounds = true;
         BitmapFactory.decodeResource(res, resId, options);
 
-        logger.d("width: ", reqWidth, "height: ", reqHeight);
+        //logger.d("width: ", reqWidth, "height: ", reqHeight);
         
         // Calculate inSampleSize
         options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);

@@ -44,7 +44,7 @@ public class TIHRestClient {
 		switch (method) {
 		case GET:
 			String combinedParams = addParamsToUrl();
-            logger.d("execute request - Final URL: " + url + combinedParams);
+            //logger.d("execute request - Final URL: " + url + combinedParams);
             HttpGet request = new HttpGet(url + combinedParams);
 
             //add headers

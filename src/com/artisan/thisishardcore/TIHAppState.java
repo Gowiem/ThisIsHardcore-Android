@@ -28,14 +28,14 @@ public class TIHAppState {
 
 
 	public static void showActivityIndicator(Context context, String msg){
-		logger.d("showActivityIndicator");
+		//logger.d("showActivityIndicator");
 		if(progressDialog != null && progressDialog.isShowing()){
 			progressDialog.setMessage(msg);
 		}
 		else{
 			progressDialog = ProgressDialog.show(context, null, msg);
 			progressDialog.show();
-			logger.d("progressDialog.show() was called");
+			//logger.d("progressDialog.show() was called");
 		}
 	}
 
@@ -44,7 +44,7 @@ public class TIHAppState {
 	}
 
 	public static void stopActivityIndicator(){
-		logger.d("stopActivityIndicator - progressDialog: ", progressDialog);
+		//logger.d("stopActivityIndicator - progressDialog: ", progressDialog);
 		try {
 			if(progressDialog != null && progressDialog.isShowing())
 				progressDialog.dismiss();

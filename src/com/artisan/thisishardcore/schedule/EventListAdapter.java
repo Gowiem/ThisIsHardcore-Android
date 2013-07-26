@@ -63,7 +63,7 @@ public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 				imageFetcher.loadImage(bandIconUrl, iconImageView);
 			} catch (Exception e) {
 				iconImageView.setImageResource(R.drawable.default_event_icon);
-				logger.d("Exception throw by imageFetcher.loadImage for bandIconUrl: ", bandIconUrl);
+				//logger.d("Exception throw by imageFetcher.loadImage for bandIconUrl: ", bandIconUrl);
 			}
 		} else {
 			iconImageView.setImageResource(R.drawable.default_event_icon);

@@ -20,7 +20,7 @@ public class PhotoPitFragment extends FeedFragment {
 	/////////////
 
 	protected static PhotoPitFragment newInstance() {
-		logger.d("newInstance");
+		//logger.d("newInstance");
 		PhotoPitFragment contentFragment = new PhotoPitFragment();
 		contentFragment.init();
 		Bundle args = new Bundle();
@@ -69,25 +69,25 @@ public class PhotoPitFragment extends FeedFragment {
 			sendPhotoPitRequest(pageNumber, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_PHOTOS);
 		} else {
 			isLoading = false;
-			logger.d("sendRequest tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
+			//logger.d("sendRequest tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
 		}
 	}
 
 	@Override
 	public void updateUI(String tabIdentifier) {
-		logger.d("updateUI tabIdentifier: ", tabIdentifier);
+		//logger.d("updateUI tabIdentifier: ", tabIdentifier);
 		try {
 			if (tabIdentifier.equals(OFFICIAL_TAB)) {
-				logger.d("UpdateUI -- Updating for OFFICIAL TAB");
+				//logger.d("UpdateUI -- Updating for OFFICIAL TAB");
 				updatePhotoPitUI((TIHPhotoList)officialList, TIHConstants.GET_OFFICIAL_PHOTOS);
 			} else if (tabIdentifier.equals(FAN_TAB)) {
-				logger.d("UpdateUI -- Updating for FAN TAB");
+				//logger.d("UpdateUI -- Updating for FAN TAB");
 				updatePhotoPitUI((TIHPhotoList)fanList, TIHConstants.GET_FAN_PHOTOS);
 			} else {
-				logger.d("updateUI tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
+				//logger.d("updateUI tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
 			}
 		} catch (NullPointerException e) {
-			logger.d("updateUI - NullPointerException throw by updateUI");
+			//logger.d("updateUI - NullPointerException throw by updateUI");
 		}
 	}
 
@@ -96,7 +96,7 @@ public class PhotoPitFragment extends FeedFragment {
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
-		logger.d("onResponseReceived");
+		//logger.d("onResponseReceived");
 		super.onResponseReceived(response, requestType);
 		if(response != null){
 			TIHPhotoList photoList = (TIHPhotoList)response;
@@ -108,7 +108,7 @@ public class PhotoPitFragment extends FeedFragment {
 	private void updatePhotoPitUI(TIHPhotoList photoList, int requestType) {
 		try {
 			super.updateUI(photoList, requestType);
-			logger.d("updatePhotoUI");
+			//logger.d("updatePhotoUI");
 			if (photoList != null && !photoList.items.isEmpty()) {
 				boolean feedListCreated;
 				if (requestType == TIHConstants.GET_FAN_PHOTOS) {
@@ -124,7 +124,7 @@ public class PhotoPitFragment extends FeedFragment {
 				}
 			}
 		} catch (NullPointerException e) {
-			logger.d("updatePhotoPitUI threw NullPointerException");
+			//logger.d("updatePhotoPitUI threw NullPointerException");
 		}
 		isLoading = false;
 	}

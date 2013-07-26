@@ -42,7 +42,7 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		TIHConfigureLog4j.configure();
-		logger.d("onCreate");
+		//logger.d("onCreate");
 		Thread.setDefaultUncaughtExceptionHandler(new TIHExceptionHandler(this));
 		
 		// Setting Default TimeZone for Application since I didn't know where else to put it.. It's later. 
@@ -65,10 +65,10 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 
 		setupImageFetcher();
 		
-		logger.d("savedInstanceState: ", savedInstanceState);
+		//logger.d("savedInstanceState: ", savedInstanceState);
 		if (savedInstanceState != null) {
 			String tabIdentifier = savedInstanceState.getString(TAB_SELECTED);
-			logger.d("savedInstanceState was not null, trying to select tab with identifier: ", tabIdentifier.toString());
+			//logger.d("savedInstanceState was not null, trying to select tab with identifier: ", tabIdentifier.toString());
 			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 			selectTab(tabIdentifier, ft);
 		}
@@ -135,12 +135,12 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
-		logger.d("onSaveInstanceState -  setting currentlySelectedTab: ", currentlySelectedTab);
+		//logger.d("onSaveInstanceState -  setting currentlySelectedTab: ", currentlySelectedTab);
 		outState.putString(TAB_SELECTED, currentlySelectedTab);
 	}
 	
 	private void detachFragment(FragmentTransaction ft) {
-		logger.d("Detaching Fragment:", currentlySelectedTab);
+		//logger.d("Detaching Fragment:", currentlySelectedTab);
 		if (currentlySelectedTab == null) { return; }; 
 		if (currentlySelectedTab.equals(NEWS_TAB)) {
 			ft.detach(newsFragment);
@@ -149,44 +149,44 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 		} else if (currentlySelectedTab.equals(SCHEDULE_TAB)) {
 			ft.detach(scheduleFragment);
 		} else {
-			logger.d("Currently selected tab was null, nothing to detach");
+			//logger.d("Currently selected tab was null, nothing to detach");
 		}
 	}
 	
 	private void selectTab(String tabIdentifier, final FragmentTransaction ft) {
 		detachFragment(ft);
 		if (tabIdentifier.equals(NEWS_TAB)) {
-			logger.d("News Tab Selected");
+			//logger.d("News Tab Selected");
 			currentlySelectedTab = NEWS_TAB;
 			if (newsFragment == null) {
-				logger.d("News Fragment was null - creating new instance");
+				//logger.d("News Fragment was null - creating new instance");
 				newsFragment = NewsFragment.newInstance();
 				ft.add(R.id.fragment_container, newsFragment, NEWS_TAB);
 			} else {
 				ft.attach(newsFragment);	
 			}
 		} else if (tabIdentifier.equals(SCHEDULE_TAB)) {
-			logger.d("Schedule Tab Selected");
+			//logger.d("Schedule Tab Selected");
 			currentlySelectedTab = SCHEDULE_TAB;
 			if (scheduleFragment == null) {
-				logger.d("Schedule Fragment was null - creating new instance");
+				//logger.d("Schedule Fragment was null - creating new instance");
 				scheduleFragment = ScheduleFragment.newInstance();
 				ft.add(R.id.fragment_container, scheduleFragment, SCHEDULE_TAB);
 			} else {
 				ft.attach(scheduleFragment);	
 			}
 		} else if (tabIdentifier.equals(PHOTO_PIT_TAB)) {
-			logger.d("Photo Pit Tab Selected");
+			//logger.d("Photo Pit Tab Selected");
 			currentlySelectedTab = PHOTO_PIT_TAB;
 			if (photoPitFragment == null) {
-				logger.d("Photo Pit Fragment was null - creating new instance");
+				//logger.d("Photo Pit Fragment was null - creating new instance");
 				photoPitFragment = PhotoPitFragment.newInstance();
 				ft.add(R.id.fragment_container, photoPitFragment, PHOTO_PIT_TAB);
 			} else {
 				ft.attach(photoPitFragment);	
 			}
 		} else {
-			logger.d("onTabSelected -> couldn't find the tab with tag: ", tabIdentifier);
+			//logger.d("onTabSelected -> couldn't find the tab with tag: ", tabIdentifier);
 		}
 	}
 

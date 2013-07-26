@@ -27,8 +27,8 @@ public class TIHRequestManager {
 	}
 	
 	public static void getNews(SherlockFragment fragment, int pageNum, int pageSize, int requestType) {
-		logger.d("--- getNews ---");
-		logger.d("Page No = ", pageNum);
+		//logger.d("--- getNews ---");
+		//logger.d("Page No = ", pageNum);
 		String newsUrl = buildFeedUrl(fragment, requestType, R.string.news_url);
 		TIHRestClient client = new TIHRestClient(newsUrl, requestType);
 		if(pageNum >= 0 && pageSize >= 0) {
@@ -43,7 +43,7 @@ public class TIHRequestManager {
 	}
 	
 	public static void getPhotos(SherlockFragment fragment, int pageNum, int pageSize, int feedType) {
-		logger.d("---- getPhotos ---");
+		//logger.d("---- getPhotos ---");
 		String photosUrl = buildFeedUrl(fragment, feedType, R.string.photo_pit_url); 
 		TIHRestClient client = new TIHRestClient(photosUrl, feedType);
 		if(pageNum >= 0 && pageSize >= 0) {

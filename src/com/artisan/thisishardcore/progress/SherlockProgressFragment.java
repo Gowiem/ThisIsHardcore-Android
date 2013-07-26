@@ -105,10 +105,10 @@ public class SherlockProgressFragment extends SherlockFragment {
      * @see #getContentView()
      */
     public void setContentView(int layoutResId) {
-    	logger.d("setContentView");
+    	//logger.d("setContentView");
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         View contentView = layoutInflater.inflate(layoutResId, null);
-        logger.d("contentView: ", contentView);
+        //logger.d("contentView: ", contentView);
         setContentView(contentView);
     }
 
@@ -125,7 +125,7 @@ public class SherlockProgressFragment extends SherlockFragment {
         if (view == null) {
             throw new IllegalArgumentException("Content view can't be null");
         }
-        logger.d("mContentContainer: ", mContentContainer);
+        //logger.d("mContentContainer: ", mContentContainer);
         if (mContentContainer instanceof ViewGroup) {
             ViewGroup contentContainer = (ViewGroup) mContentContainer;
             if (mContentView == null) {

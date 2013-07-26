@@ -23,7 +23,7 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
 	
 	@SuppressLint("SetJavaScriptEnabled")
 	public void onCreate(Bundle savedInstanceState) {
-		logger.d("onCreate");
+		//logger.d("onCreate");
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.webview);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -60,7 +60,7 @@ private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);
         
         @Override
         public void onPageFinished(WebView view, String url) {
-        	logger.d("onPageFinished Loading");
+        	//logger.d("onPageFinished Loading");
         	final Handler handler = new Handler();
     	    handler.postDelayed(new Runnable() {
     	      @Override

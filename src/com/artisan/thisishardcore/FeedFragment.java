@@ -56,7 +56,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	}
 	
 	public View onCreateViewHelper(View resultView) {
-		logger.d("onCreateViewHelper - officialTabPageNumber: ", officialTabPageNumber, "fanTabPageNumber: ", fanTabPageNumber);
+		//logger.d("onCreateViewHelper - officialTabPageNumber: ", officialTabPageNumber, "fanTabPageNumber: ", fanTabPageNumber);
 		officalListView = (ListView) resultView.findViewById(R.id.official_list);
 		officalListView.setOnScrollListener(this);
 		fanListView = (ListView) resultView.findViewById(R.id.fan_list);
@@ -86,7 +86,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
-		logger.d("onDestroyView");
+		//logger.d("onDestroyView");
 		currentTab = null;
 	}
 	
@@ -105,7 +105,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 			
 			int pageNumber = incrementAndGetPageNumber();
 			if (pageNumber <= 5) { // Let's cut the user off at 5 pages... They've had enough..
-				logger.d("User scrolled to end of the list. Sending another request for the next page");
+				//logger.d("User scrolled to end of the list. Sending another request for the next page");
 				sendRequest(currentTab, pageNumber);
 			} else {
 				getListViewForTabIdentifier(currentTab).removeFooterView(footerView);
@@ -114,15 +114,15 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	}
 	
 	private void addLoadingFooterView() {
-		logger.d("Add Loading Footer View");
+		//logger.d("Add Loading Footer View");
 		ListView listView = getListViewForTabIdentifier(currentTab);
 		View footerView = ((LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.loading_footer, null, false);
-		logger.d("footerView: ", footerView);
+		//logger.d("footerView: ", footerView);
 		listView.addFooterView(footerView);
 	}
 	
 	private void removeLoadingFooterView() {
-		logger.d("Remove Loading Footer View");
+		//logger.d("Remove Loading Footer View");
 		ListView listView = getListViewForTabIdentifier(currentTab);
 		View footerView = listView.findViewById(R.layout.loading_footer);
 		listView.removeFooterView(footerView);
@@ -200,7 +200,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	public void officialTabClicked(View v) {
 		if (currentTab == null || !currentTab.equals(OFFICIAL_TAB)) {
 			currentTab = OFFICIAL_TAB;
-			logger.d("Sending or Updating for official tab");
+			//logger.d("Sending or Updating for official tab");
 			
 			// If we haven't sent the request yet then send it, otherwise update the official list 
 			// with the official feed items
@@ -217,7 +217,7 @@ public abstract class FeedFragment extends UnifeedFragment implements OnScrollLi
 	public void fanTabClicked(View v) {
 		if (currentTab == null || !currentTab.equals(FAN_TAB)) {
 			currentTab = FAN_TAB;
-			logger.d("Sending or Updating for fan tab");
+			//logger.d("Sending or Updating for fan tab");
 			
 			// If we haven't sent the request yet then send it, otherwise update the fan list 
 			// with the fan feed list 

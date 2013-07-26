@@ -36,7 +36,7 @@ public class NewsFragment extends FeedFragment {
 	/////////////
 
 	public static NewsFragment newInstance() {
-		logger.d("newInstance");
+		//logger.d("newInstance");
 		NewsFragment contentFragment = new NewsFragment();
 		contentFragment.init();
 		Bundle args = new Bundle();
@@ -82,7 +82,7 @@ public class NewsFragment extends FeedFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 	    super.onActivityCreated(savedInstanceState);
-	    logger.d("onActivityCreated");
+	    //logger.d("onActivityCreated");
 		
 	    // Setup content view
 	    setEmptyText(R.string.news_empty);
@@ -105,20 +105,20 @@ public class NewsFragment extends FeedFragment {
 			sendNewsRequest(pageNumber, TIHConstants.RESULT_PER_REQUEST, TIHConstants.GET_FAN_NEWS);
 		} else {
 			isLoading = false;
-			logger.d("sendRequest tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
+			//logger.d("sendRequest tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
 		}
 	}
 	
 	// Called when the User switched tabs
 	public void updateUI(String tabIdentifier) {
 		if (tabIdentifier.equals(OFFICIAL_TAB)) {
-			logger.d("UpdateUI -- Updating for OFFICIAL TAB");
+			//logger.d("UpdateUI -- Updating for OFFICIAL TAB");
 			updateNewsUI((TIHNewsList)officialList, TIHConstants.GET_OFFICIAL_NEWS);
 		} else if (tabIdentifier.equals(FAN_TAB)) {
-			logger.d("UpdateUI -- Updating for FAN TAB");
+			//logger.d("UpdateUI -- Updating for FAN TAB");
 			updateNewsUI((TIHNewsList)fanList, TIHConstants.GET_FAN_NEWS);
 		} else {
-			logger.d("updateUI tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
+			//logger.d("updateUI tabIdentifier: ", tabIdentifier, "didn't equal one of the expected values");
 		}
 	}
 	
@@ -127,11 +127,11 @@ public class NewsFragment extends FeedFragment {
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
 		TIHFeedList<?> modelList = getNewsListForTab(currentTab);
-		logger.d("modelList: " + modelList);
+		//logger.d("modelList: " + modelList);
 		TIHNewsItem itemClicked = (TIHNewsItem) modelList.getItemAtIndex(position);
-		logger.d("itemClicked: " + itemClicked);
+		//logger.d("itemClicked: " + itemClicked);
 		if (itemClicked != null && !TIHUtils.isEmpty(itemClicked.getUrl())) {
-			logger.d("itemClicked - url: " + itemClicked.getUrl());
+			//logger.d("itemClicked - url: " + itemClicked.getUrl());
 			Intent webViewIntent = new Intent(getActivity(), TIHWebViewActivity.class);
 			webViewIntent.putExtra(TIHWebViewActivity.WEB_VIEW_URL, itemClicked.getUrl());
 			startActivity(webViewIntent);
@@ -143,7 +143,7 @@ public class NewsFragment extends FeedFragment {
 
 	@Override
 	public void onResponseReceived(Object response, int requestType) {
-		logger.d("---- onResponseReceived ----");
+		//logger.d("---- onResponseReceived ----");
 		super.onResponseReceived(response, requestType);
 		if(response != null){
 			TIHNewsList newsList = (TIHNewsList)response;
@@ -155,11 +155,11 @@ public class NewsFragment extends FeedFragment {
 	private void updateNewsUI(TIHNewsList newsList, int requestType) {
 		try {
 			super.updateUI(newsList, requestType);
-			logger.d("------- updateNewsUI ------");
+			//logger.d("------- updateNewsUI ------");
 			if (newsList != null && !newsList.items.isEmpty()) {
 				boolean feedListCreated;
 				if (requestType == TIHConstants.GET_FAN_NEWS) {
-					logger.d("FAN TAB");
+					//logger.d("FAN TAB");
 					this.fanList = createOrUpdateModel(newsList, this.fanList, FAN_TAB);
 					feedListCreated = this.fanList.getWasJustCreated();
 					updateListView(this.fanList, feedListCreated, FAN_TAB);
