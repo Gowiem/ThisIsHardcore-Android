@@ -64,7 +64,7 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		String postUrl         = newsItem.getUrl();
 		
 		// If this is the Fan Feed then we don't want the user to be able to click the news item row
-		if (postUrl == null) {
+		if (TIHUtils.isEmpty(postUrl)) {
 			indicatorView.setVisibility(View.GONE);
 		} else {
 			indicatorView.setVisibility(View.VISIBLE);
@@ -73,8 +73,8 @@ public class NewsListAdapter extends TIHListAdapter<TIHNewsList> {
 		// Set the content for the views
 		newsBodyTextView.setText(bodyText);
 		dateTextView.setText(dateString);
-		if (!authorString.equals("This Is Hc Fest 2013")) {
-			newsAuthorTextView.setText(authorString);
+		if (tabIdentifier.equals(NewsFragment.OFFICIAL_TAB)) {
+			newsAuthorTextView.setVisibility(View.GONE);
 		}
 		
 		

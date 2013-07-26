@@ -27,6 +27,7 @@ import com.artisan.thisishardcore.models.TIHNewsItem;
 import com.artisan.thisishardcore.models.TIHNewsList;
 import com.artisan.thisishardcore.unifeed.TIHConstants;
 import com.artisan.thisishardcore.utils.TIHListAdapter;
+import com.artisan.thisishardcore.utils.TIHUtils;
 
 public class NewsFragment extends FeedFragment {
 	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 
@@ -126,8 +127,11 @@ public class NewsFragment extends FeedFragment {
 	
 	private void listItemClicked(AdapterView<?> parent, View view, int position, long id) {
 		TIHFeedList<?> modelList = getNewsListForTab(currentTab);
+		logger.d("modelList: " + modelList);
 		TIHNewsItem itemClicked = (TIHNewsItem) modelList.getItemAtIndex(position);
-		if (itemClicked != null && itemClicked.getUrl() != null) {
+		logger.d("itemClicked: " + itemClicked);
+		if (itemClicked != null && !TIHUtils.isEmpty(itemClicked.getUrl())) {
+			logger.d("itemClicked - url: " + itemClicked.getUrl());
 			Intent webViewIntent = new Intent(getActivity(), TIHWebViewActivity.class);
 			webViewIntent.putExtra(TIHWebViewActivity.WEB_VIEW_URL, itemClicked.getUrl());
 			startActivity(webViewIntent);
