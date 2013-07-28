@@ -10,7 +10,15 @@
 
     <uses-sdk
         android:minSdkVersion="10"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="17" />
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true"
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:xlargeScreens="false" />
 
     <application
         android:allowBackup="true"
@@ -51,7 +59,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
-        
+
         <!-- ExceptionActivity -->
         <activity
             android:name="com.artisan.thisishardcore.ExceptionActivity"
