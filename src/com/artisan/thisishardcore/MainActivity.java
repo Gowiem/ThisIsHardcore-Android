@@ -97,21 +97,25 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 	public boolean onOptionsItemSelected(MenuItem item) {
 		String urlString;
 		switch (item.getItemId()) {
-		case android.R.id.home: 
+		case android.R.id.home:
 			return(true);
-		case R.id.stuff_to_do_item: 
+		case R.id.stuff_to_do_item:
 			urlString = getResources().getString(R.string.stuff_to_do_url);
 			launchWebViewWithUrl(urlString);
 			return(true);
-		case R.id.accommodations_item: 
+		case R.id.accommodations_item:
 			urlString = getResources().getString(R.string.accommodations_url);
 			launchWebViewWithUrl(urlString);
 			return(true);
-		case R.id.facebook_item: 
+		case R.id.vendors_item:
+			urlString = getResources().getString(R.string.vendors_url);
+			launchWebViewWithUrl(urlString);
+			return(true);
+		case R.id.facebook_item:
 			urlString = getResources().getString(R.string.tihc_facebook_url);
 			launchWebViewWithUrl(urlString);
 			return(true);
-		case R.id.twitter_item: 
+		case R.id.twitter_item:
 			urlString = getResources().getString(R.string.tihc_twitter_url);
 			launchWebViewWithUrl(urlString);
 			return(true);

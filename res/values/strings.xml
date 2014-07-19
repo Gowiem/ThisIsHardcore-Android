@@ -14,14 +14,16 @@
     <!-- More Navigation -->
     <string name="stuff_to_do">Stuff to do in Philly</string>
     <string name="accommodations">Accommodations</string>
+    <string name="vendors">Vendors</string>
     <string name="tihc_facebook">TIHC Facebook</string>
     <string name="tihc_twitter">TIHC Twitter</string>
     <string name="about_tihc">About TIHC</string>
     <string name="about_artisan">About Artisan</string>
 
     <!-- More URLs -->
-    <string name="stuff_to_do_url">http://assets.apprenaissance.com/tihc/stuff_to_do_in_philly.html</string>
-    <string name="accommodations_url">http://assets.apprenaissance.com/tihc/accomodations.html</string>
+    <string name="stuff_to_do_url">https://s3.amazonaws.com/appren-tihc/stuff_to_do_in_philly.html</string>
+    <string name="accommodations_url">https://s3.amazonaws.com/appren-tihc/accomodations.html</string>
+    <string name="vendors_url">http://www.thisishardcorefest.com/vendors</string>
     <string name="tihc_facebook_url">https://www.facebook.com/thisishardcorefest</string>
     <string name="tihc_twitter_url">https://twitter.com/#!/TIHCfest</string>
     <string name="about_tihc_url">http://www.thisishardcorefest.com/</string>
