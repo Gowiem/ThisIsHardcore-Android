@@ -37,22 +37,22 @@ public class TIHEventList {
 
 	private void instantiateEventDays() {
 		calendar = Calendar.getInstance();
-		calendar.set(Calendar.YEAR, 2013);
-		calendar.set(Calendar.MONTH, Calendar.AUGUST);
+		calendar.set(Calendar.YEAR, 2014);
+		calendar.set(Calendar.MONTH, Calendar.JULY);
 		calendar.set(Calendar.HOUR_OF_DAY, 23);
 		calendar.set(Calendar.MINUTE, 59);
 		calendar.set(Calendar.SECOND, 0);
 		// Day 1
-		calendar.set(Calendar.DAY_OF_MONTH, 8);
+		calendar.set(Calendar.DAY_OF_MONTH, 24);
 		DAY_1 = calendar.getTime();
 		// Day 2
-		calendar.set(Calendar.DAY_OF_MONTH, 9);
+		calendar.set(Calendar.DAY_OF_MONTH, 25);
 		DAY_2 = calendar.getTime();
 		// Day 3
-		calendar.set(Calendar.DAY_OF_MONTH, 10);
+		calendar.set(Calendar.DAY_OF_MONTH, 26);
 		DAY_3 = calendar.getTime();
 		// Day 4
-		calendar.set(Calendar.DAY_OF_MONTH, 11);
+		calendar.set(Calendar.DAY_OF_MONTH, 27);
 		DAY_4 = calendar.getTime();
 	}
 
