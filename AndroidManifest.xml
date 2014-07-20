@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.artisan.thisishardcore"
     android:versionCode="1"
@@ -20,7 +20,17 @@
         android:smallScreens="true"
         android:xlargeScreens="false" />
 
+    <permission
+        android:name="com.artisan.thisishardcore.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.artisan.thisishardcore.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
     <application
+        android:name=".ArtisanInstrumentedApplication"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
@@ -65,6 +75,24 @@
             android:name="com.artisan.thisishardcore.ExceptionActivity"
             android:label="@string/app_name" >
         </activity>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <service android:name="com.artisan.services.ArtisanService" />
+
+        <receiver
+            android:name="com.artisan.push.ArtisanPushReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.artisan.thisishardcore" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="com.artisan.push.ArtisanPushService" />
     </application>
 
 </manifest>
