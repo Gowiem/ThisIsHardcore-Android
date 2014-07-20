@@ -12,7 +12,7 @@ public class ArtisanInstrumentedApplication extends ArtisanApplication {
 
 		// GCM_SENDER_ID is your Project Number from the Google Developer Console.
 		// More information at http://developer.android.com/google/gcm/gs.html
-		ArtisanManager.setPushSenderId("GCM_SENDER_ID");
+		ArtisanManager.setPushSenderId("123580659132");
 		ArtisanManager.startArtisan(this, "53cbf05afc67c718cc000005");
 	}
 
