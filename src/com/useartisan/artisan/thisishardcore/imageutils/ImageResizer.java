@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.imageutils;
+package com.useartisan.artisan.thisishardcore.imageutils;
 
 import java.io.FileDescriptor;
 
@@ -26,8 +26,8 @@ import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.util.Log;
 
-import com.artisan.thisishardcore.BuildConfig;
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.BuildConfig;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 /**
  * A simple subclass of {@link ImageWorker} that resizes images from resources given a target width

@@ -1,11 +1,11 @@
-package com.artisan.thisishardcore.logging;
+package com.useartisan.artisan.thisishardcore.logging;
 
 import org.apache.log4j.Logger;
 
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
 
 public class TIHLogger {
-	private static final Logger logger = Logger.getLogger("com.artisan.thisishardcore");
+	private static final Logger logger = Logger.getLogger("com.useartisan.artisan.thisishardcore");
 	private final Class<?> clazz;
 	public static boolean enabled;
 	

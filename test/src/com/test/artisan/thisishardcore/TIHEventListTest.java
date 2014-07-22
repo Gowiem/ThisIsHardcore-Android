@@ -10,9 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.artisan.thisishardcore.models.TIHEvent;
-import com.artisan.thisishardcore.models.TIHEventList;
-import com.artisan.thisishardcore.unifeed.TIHConstants;
+import com.useartisan.artisan.thisishardcore.models.TIHEvent;
+import com.useartisan.artisan.thisishardcore.models.TIHEventList;
+import com.useartisan.artisan.thisishardcore.unifeed.TIHConstants;
 
 @RunWith(TIHTestRunner.class)
 public class TIHEventListTest {

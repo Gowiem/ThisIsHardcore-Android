@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.unifeed;
+package com.useartisan.artisan.thisishardcore.unifeed;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -15,8 +15,8 @@ import org.apache.log4j.Logger;
 import android.os.Handler;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.artisan.thisishardcore.PhotoPitFragment;
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.PhotoPitFragment;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 public class TIHRestClient {
 	private static final TIHLogger logger = new TIHLogger(TIHRestClient.class);

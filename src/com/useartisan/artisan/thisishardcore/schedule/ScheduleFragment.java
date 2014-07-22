@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.schedule;
+package com.useartisan.artisan.thisishardcore.schedule;
 
 import java.util.ArrayList;
 
@@ -17,14 +17,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.UnifeedFragment;
-import com.artisan.thisishardcore.imageutils.ImageCache;
-import com.artisan.thisishardcore.imageutils.ImageFetcher;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHEvent;
-import com.artisan.thisishardcore.models.TIHEventList;
-import com.artisan.thisishardcore.unifeed.TIHConstants;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.UnifeedFragment;
+import com.useartisan.artisan.thisishardcore.imageutils.ImageCache;
+import com.useartisan.artisan.thisishardcore.imageutils.ImageFetcher;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.models.TIHEvent;
+import com.useartisan.artisan.thisishardcore.models.TIHEventList;
+import com.useartisan.artisan.thisishardcore.unifeed.TIHConstants;
 
 public class ScheduleFragment extends UnifeedFragment {
 	private static final TIHLogger logger = new TIHLogger(ScheduleFragment.class);

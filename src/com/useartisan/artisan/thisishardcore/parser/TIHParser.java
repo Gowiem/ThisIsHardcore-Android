@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.parser;
+package com.useartisan.artisan.thisishardcore.parser;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -12,13 +12,13 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.log4j.Logger;
 
-import com.artisan.thisishardcore.MainActivity;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHEvent;
-import com.artisan.thisishardcore.models.TIHEventList;
-import com.artisan.thisishardcore.models.TIHFeedList;
-import com.artisan.thisishardcore.models.TIHNewsList;
-import com.artisan.thisishardcore.models.TIHPhotoList;
+import com.useartisan.artisan.thisishardcore.MainActivity;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.models.TIHEvent;
+import com.useartisan.artisan.thisishardcore.models.TIHEventList;
+import com.useartisan.artisan.thisishardcore.models.TIHFeedList;
+import com.useartisan.artisan.thisishardcore.models.TIHNewsList;
+import com.useartisan.artisan.thisishardcore.models.TIHPhotoList;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 

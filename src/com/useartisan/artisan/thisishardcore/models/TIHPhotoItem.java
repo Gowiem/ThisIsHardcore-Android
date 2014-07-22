@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.models;
+package com.useartisan.artisan.thisishardcore.models;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
@@ -7,8 +7,8 @@ import org.joda.time.DateTime;
 import org.joda.time.Period;
 import org.joda.time.PeriodType;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
 
 
 public class TIHPhotoItem extends TIHFeedItem {

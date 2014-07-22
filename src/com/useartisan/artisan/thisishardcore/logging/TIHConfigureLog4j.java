@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.logging;
+package com.useartisan.artisan.thisishardcore.logging;
 
 import java.io.File;
 
@@ -24,7 +24,7 @@ public class TIHConfigureLog4j {
 			logConfigurator.configure();
 			TIHLogger.enabled = true;
 		} catch (Exception e) {
-			Log.e("com.artisan.thisishardcore", "ERROR: Couldn't configure logger.", e);
+			Log.e("com.useartisan.artisan.thisishardcore", "ERROR: Couldn't configure logger.", e);
 			TIHLogger.enabled = false;
 			return;
 		}

@@ -1,14 +1,14 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 import android.R.anim;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.progress.SherlockProgressFragment;
-import com.artisan.thisishardcore.unifeed.TIHRequestManager;
-import com.artisan.thisishardcore.unifeed.TIHResponseListener;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.progress.SherlockProgressFragment;
+import com.useartisan.artisan.thisishardcore.unifeed.TIHRequestManager;
+import com.useartisan.artisan.thisishardcore.unifeed.TIHResponseListener;
 
 public abstract class UnifeedFragment extends SherlockProgressFragment implements TIHResponseListener {
 	private final TIHLogger logger = new TIHLogger(UnifeedFragment.class);

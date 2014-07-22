@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.utils;
+package com.useartisan.artisan.thisishardcore.utils;
 
 
 import java.io.InputStream;
@@ -21,10 +21,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.imageutils.ImageCache;
-import com.artisan.thisishardcore.imageutils.ImageFetcher;
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.imageutils.ImageCache;
+import com.useartisan.artisan.thisishardcore.imageutils.ImageFetcher;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 public class TIHUtils {
 	private static final TIHLogger logger = new TIHLogger(TIHUtils.class);

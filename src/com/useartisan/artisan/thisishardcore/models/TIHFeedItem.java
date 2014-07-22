@@ -1,6 +1,6 @@
-package com.artisan.thisishardcore.models;
+package com.useartisan.artisan.thisishardcore.models;
 
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
 import com.google.gson.annotations.SerializedName;
 
 public class TIHFeedItem {

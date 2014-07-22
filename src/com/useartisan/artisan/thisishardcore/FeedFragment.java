@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,13 +11,13 @@ import android.widget.HeaderViewListAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHFeedItem;
-import com.artisan.thisishardcore.models.TIHFeedList;
-import com.artisan.thisishardcore.models.TIHNewsList;
-import com.artisan.thisishardcore.models.TIHPhotoList;
-import com.artisan.thisishardcore.news.NewsListAdapter;
-import com.artisan.thisishardcore.utils.TIHListAdapter;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.models.TIHFeedItem;
+import com.useartisan.artisan.thisishardcore.models.TIHFeedList;
+import com.useartisan.artisan.thisishardcore.models.TIHNewsList;
+import com.useartisan.artisan.thisishardcore.models.TIHPhotoList;
+import com.useartisan.artisan.thisishardcore.news.NewsListAdapter;
+import com.useartisan.artisan.thisishardcore.utils.TIHListAdapter;
 
 public abstract class FeedFragment extends UnifeedFragment implements OnScrollListener {
 	private static final TIHLogger logger = new TIHLogger(FeedFragment.class);

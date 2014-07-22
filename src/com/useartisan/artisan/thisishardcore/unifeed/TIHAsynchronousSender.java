@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.unifeed;
+package com.useartisan.artisan.thisishardcore.unifeed;
 
 import java.io.IOException;
 
@@ -15,9 +15,9 @@ import org.apache.log4j.Logger;
 
 import android.os.Handler;
 
-import com.artisan.thisishardcore.PhotoPitFragment;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.parser.TIHParser;
+import com.useartisan.artisan.thisishardcore.PhotoPitFragment;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.parser.TIHParser;
 
 
 public class TIHAsynchronousSender extends Thread {

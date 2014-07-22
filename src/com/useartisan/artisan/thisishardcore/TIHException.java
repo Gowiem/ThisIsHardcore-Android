@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 public class TIHException extends RuntimeException {
 	

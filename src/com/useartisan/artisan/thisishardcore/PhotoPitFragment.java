@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 import android.os.Bundle;
 import android.text.style.SuperscriptSpan;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHNewsList;
-import com.artisan.thisishardcore.models.TIHPhotoList;
-import com.artisan.thisishardcore.unifeed.TIHConstants;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.models.TIHNewsList;
+import com.useartisan.artisan.thisishardcore.models.TIHPhotoList;
+import com.useartisan.artisan.thisishardcore.unifeed.TIHConstants;
 
 
 public class PhotoPitFragment extends FeedFragment {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.imageutils;
+package com.useartisan.artisan.thisishardcore.imageutils;
 
 import java.io.File;
 import java.io.FileDescriptor;
@@ -42,7 +42,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.util.LruCache;
 import android.util.Log;
 
-import com.artisan.thisishardcore.BuildConfig;
+import com.useartisan.artisan.thisishardcore.BuildConfig;
 
 /**
  * This class handles disk and memory caching of bitmaps in conjunction with the
@@ -521,7 +521,7 @@ public class ImageCache {
                             !isExternalStorageRemovable() ? getExternalCacheDir(context).getPath() :
                                     context.getCacheDir().getPath();
 		} catch (Exception e) {
-			Log.d("com.artisan.thisishardcore", "UTILS - getDiskCacheDir threw Exception: " + e.getLocalizedMessage() + "#6");
+			Log.d("com.useartisan.artisan.thisishardcore", "UTILS - getDiskCacheDir threw Exception: " + e.getLocalizedMessage() + "#6");
 			cachePath = context.getCacheDir().getPath();
 		}
     	return new File(cachePath + File.separator + uniqueName);

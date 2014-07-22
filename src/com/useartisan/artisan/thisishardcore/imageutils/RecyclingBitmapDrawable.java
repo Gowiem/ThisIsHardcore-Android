@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.imageutils;
+package com.useartisan.artisan.thisishardcore.imageutils;
 
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 
-import com.artisan.thisishardcore.BuildConfig;
+import com.useartisan.artisan.thisishardcore.BuildConfig;
 
 /**
  * A BitmapDrawable that keeps track of whether it is being displayed or cached.

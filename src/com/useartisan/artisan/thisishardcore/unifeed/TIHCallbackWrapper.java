@@ -1,7 +1,7 @@
-package com.artisan.thisishardcore.unifeed;
+package com.useartisan.artisan.thisishardcore.unifeed;
 
 
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 
 public class TIHCallbackWrapper implements Runnable {

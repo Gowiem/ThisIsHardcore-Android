@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.unifeed;
+package com.useartisan.artisan.thisishardcore.unifeed;
 
 
 
@@ -7,9 +7,9 @@ import org.apache.log4j.Logger;
 import android.R.integer;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.news.NewsFragment;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.news.NewsFragment;
 
 
 public class TIHRequestManager {

@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.schedule;
+package com.useartisan.artisan.thisishardcore.schedule;
 
 
 import android.content.Intent;
@@ -11,10 +11,10 @@ import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.utils.TIHUtils;
-import com.artisan.thisishardcore.utils.TIHUtils.DownloadImageTask;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils.DownloadImageTask;
 
 
 public class EventDetailActivity extends SherlockActivity {

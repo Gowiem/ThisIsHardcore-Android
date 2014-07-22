@@ -1,10 +1,10 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 
 
 import org.apache.log4j.Logger;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 import android.app.ProgressDialog;
 import android.content.Context;

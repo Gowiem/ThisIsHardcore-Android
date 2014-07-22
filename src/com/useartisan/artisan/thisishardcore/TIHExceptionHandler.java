@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 
@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 public class TIHExceptionHandler implements UncaughtExceptionHandler {
 
@@ -75,7 +75,7 @@ public class TIHExceptionHandler implements UncaughtExceptionHandler {
 		report.append(SINGLE_LINE_SEP);
 		report.append(lineSeperator);
 
-		Log.e("com.artisan.thisishardcore", "Report ::" + report.toString());
+		Log.e("com.useartisan.artisan.thisishardcore", "Report ::" + report.toString());
 		Intent crashedIntent = new Intent(context, ExceptionActivity.class);
 		crashedIntent.putExtra(ExceptionActivity.ERROR_REPORT, report.toString());
 //		crashedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);

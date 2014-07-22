@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.imageutils;
+package com.useartisan.artisan.thisishardcore.imageutils;
 
 import java.lang.ref.WeakReference;
 
@@ -34,9 +34,9 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-import com.artisan.thisishardcore.BuildConfig;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.news.NewsListAdapter;
+import com.useartisan.artisan.thisishardcore.BuildConfig;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.news.NewsListAdapter;
 
 /**
  * This class wraps up completing some arbitrary long running work when loading a bitmap to an

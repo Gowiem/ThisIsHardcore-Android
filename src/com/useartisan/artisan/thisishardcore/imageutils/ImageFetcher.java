@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.imageutils;
+package com.useartisan.artisan.thisishardcore.imageutils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -34,9 +34,9 @@ import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.artisan.thisishardcore.BuildConfig;
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.BuildConfig;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 /**
  * A simple subclass of {@link ImageResizer} that fetches and resizes images fetched from a URL.

@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 import org.joda.time.DateTimeZone;
 
@@ -16,14 +16,14 @@ import com.actionbarsherlock.view.MenuItem;
 import com.artisan.activity.ArtisanActivity;
 import com.artisan.services.ArtisanBoundActivity;
 import com.artisan.services.ArtisanService;
-import com.artisan.thisishardcore.imageutils.ImageFetcher;
-import com.artisan.thisishardcore.logging.TIHConfigureLog4j;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.news.NewsFragment;
-import com.artisan.thisishardcore.news.NewsListAdapter;
-import com.artisan.thisishardcore.schedule.EventListAdapter;
-import com.artisan.thisishardcore.schedule.ScheduleFragment;
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.imageutils.ImageFetcher;
+import com.useartisan.artisan.thisishardcore.logging.TIHConfigureLog4j;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.news.NewsFragment;
+import com.useartisan.artisan.thisishardcore.news.NewsListAdapter;
+import com.useartisan.artisan.thisishardcore.schedule.EventListAdapter;
+import com.useartisan.artisan.thisishardcore.schedule.ScheduleFragment;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
 
 public class MainActivity extends SherlockFragmentActivity implements com.actionbarsherlock.app.ActionBar.TabListener, ArtisanBoundActivity {
 	private final TIHLogger logger = new TIHLogger(MainActivity.class);

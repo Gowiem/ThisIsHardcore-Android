@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.unifeed;
+package com.useartisan.artisan.thisishardcore.unifeed;
 
 public class TIHConstants {
 	

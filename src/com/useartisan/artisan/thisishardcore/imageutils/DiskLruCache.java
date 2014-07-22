@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.imageutils;
+package com.useartisan.artisan.thisishardcore.imageutils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedWriter;

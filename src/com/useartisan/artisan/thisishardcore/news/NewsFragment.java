@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.news;
+package com.useartisan.artisan.thisishardcore.news;
 
 import java.nio.channels.SelectableChannel;
 import java.util.List;
@@ -17,17 +17,17 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.artisan.thisishardcore.FeedFragment;
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.TIHWebViewActivity;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHFeedItem;
-import com.artisan.thisishardcore.models.TIHFeedList;
-import com.artisan.thisishardcore.models.TIHNewsItem;
-import com.artisan.thisishardcore.models.TIHNewsList;
-import com.artisan.thisishardcore.unifeed.TIHConstants;
-import com.artisan.thisishardcore.utils.TIHListAdapter;
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.FeedFragment;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.TIHWebViewActivity;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.models.TIHFeedItem;
+import com.useartisan.artisan.thisishardcore.models.TIHFeedList;
+import com.useartisan.artisan.thisishardcore.models.TIHNewsItem;
+import com.useartisan.artisan.thisishardcore.models.TIHNewsList;
+import com.useartisan.artisan.thisishardcore.unifeed.TIHConstants;
+import com.useartisan.artisan.thisishardcore.utils.TIHListAdapter;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
 
 public class NewsFragment extends FeedFragment {
 	private static final TIHLogger logger = new TIHLogger(NewsFragment.class); 

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.imageutils;
+package com.useartisan.artisan.thisishardcore.imageutils;
 
 import java.util.ArrayDeque;
 import java.util.concurrent.BlockingQueue;
@@ -37,7 +37,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.os.Process;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 /**
  * *************************************

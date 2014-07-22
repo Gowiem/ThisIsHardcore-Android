@@ -3,9 +3,9 @@ package com.test.artisan.thisishardcore;
 import org.junit.runners.model.InitializationError;
 import org.robolectric.RobolectricTestRunner;
 
-import com.artisan.thisishardcore.logging.TIHConfigureLog4jTest;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.logging.TIHConfigureLog4jTest;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
 
 
 public class TIHTestRunner extends RobolectricTestRunner {

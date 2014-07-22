@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import android.widget.ProgressBar;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.MenuItem;
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 public class TIHWebViewActivity extends SherlockActivity {
 private static final TIHLogger logger = new TIHLogger(TIHWebViewActivity.class);

@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.schedule;
+package com.useartisan.artisan.thisishardcore.schedule;
 
 
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.imageutils.ImageFetcher;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.models.TIHEvent;
-import com.artisan.thisishardcore.utils.TIHListAdapter;
-import com.artisan.thisishardcore.utils.TIHUtils;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.imageutils.ImageFetcher;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.models.TIHEvent;
+import com.useartisan.artisan.thisishardcore.utils.TIHListAdapter;
+import com.useartisan.artisan.thisishardcore.utils.TIHUtils;
 
 public class EventListAdapter extends TIHListAdapter<TIHEvent>{
 	private static final TIHLogger logger = new TIHLogger(EventListAdapter.class);

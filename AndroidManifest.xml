@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.artisan.thisishardcore"
+    package="com.useartisan.artisan.thisishardcore"
     android:versionCode="102"
     android:versionName="1.2" >
 
@@ -21,10 +21,10 @@
         android:xlargeScreens="false" />
 
     <permission
-        android:name="com.artisan.thisishardcore.permission.C2D_MESSAGE"
+        android:name="com.useartisan.artisan.thisishardcore.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="com.artisan.thisishardcore.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.useartisan.artisan.thisishardcore.permission.C2D_MESSAGE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -38,7 +38,7 @@
 
         <!-- SplashScreenActivity -->
         <activity
-            android:name="com.artisan.thisishardcore.SplashScreenActivity"
+            android:name="com.useartisan.artisan.thisishardcore.SplashScreenActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Sherlock.NoActionBar" >
@@ -51,7 +51,7 @@
 
         <!-- MainActivity -->
         <activity
-            android:name="com.artisan.thisishardcore.MainActivity"
+            android:name="com.useartisan.artisan.thisishardcore.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
@@ -59,20 +59,20 @@
 
         <!-- EventDetailActivity -->
         <activity
-            android:name="com.artisan.thisishardcore.schedule.EventDetailActivity"
+            android:name="com.useartisan.artisan.thisishardcore.schedule.EventDetailActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
         <!-- TIHWebViewActivity -->
         <activity
-            android:name="com.artisan.thisishardcore.TIHWebViewActivity"
+            android:name="com.useartisan.artisan.thisishardcore.TIHWebViewActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" >
         </activity>
 
         <!-- ExceptionActivity -->
         <activity
-            android:name="com.artisan.thisishardcore.ExceptionActivity"
+            android:name="com.useartisan.artisan.thisishardcore.ExceptionActivity"
             android:label="@string/app_name" >
         </activity>
 
@@ -88,7 +88,7 @@
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
 
-                <category android:name="com.artisan.thisishardcore" />
+                <category android:name="com.useartisan.artisan.thisishardcore" />
             </intent-filter>
         </receiver>
 

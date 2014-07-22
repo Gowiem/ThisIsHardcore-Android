@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.artisan.thisishardcore.progress;
+package com.useartisan.artisan.thisishardcore.progress;
 
 import org.apache.log4j.jmx.LoggerDynamicMBean;
 
@@ -26,9 +26,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
-import com.artisan.thisishardcore.R;
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.schedule.ScheduleFragment;
+import com.useartisan.artisan.thisishardcore.R;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.schedule.ScheduleFragment;
 
 /**
  * The implementation of the fragment to display content. Based on {@link android.support.v4.app.ListFragment}.

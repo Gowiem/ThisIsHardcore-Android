@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.logging;
+package com.useartisan.artisan.thisishardcore.logging;
 
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.ConsoleAppender;

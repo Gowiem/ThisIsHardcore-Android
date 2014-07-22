@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.models;
+package com.useartisan.artisan.thisishardcore.models;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,9 +10,9 @@ import java.util.Map;
 
 import android.R.integer;
 
-import com.artisan.thisishardcore.logging.TIHLogger;
-import com.artisan.thisishardcore.schedule.EventListAdapter;
-import com.artisan.thisishardcore.unifeed.TIHConstants;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.schedule.EventListAdapter;
+import com.useartisan.artisan.thisishardcore.unifeed.TIHConstants;
 
 
 public class TIHEventList {

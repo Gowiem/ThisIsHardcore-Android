@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.utils;
+package com.useartisan.artisan.thisishardcore.utils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -9,8 +9,8 @@ import android.graphics.Bitmap;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
-import com.artisan.thisishardcore.imageutils.ImageFetcher;
-import com.artisan.thisishardcore.logging.TIHLogger;
+import com.useartisan.artisan.thisishardcore.imageutils.ImageFetcher;
+import com.useartisan.artisan.thisishardcore.logging.TIHLogger;
 
 public abstract class TIHListAdapter<T> extends ArrayAdapter<T> {
 	private static final TIHLogger logger = new TIHLogger(TIHListAdapter.class);

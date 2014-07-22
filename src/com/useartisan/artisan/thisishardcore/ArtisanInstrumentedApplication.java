@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore;
+package com.useartisan.artisan.thisishardcore;
 
 import com.artisan.application.ArtisanApplication;
 import com.artisan.manager.ArtisanManager;

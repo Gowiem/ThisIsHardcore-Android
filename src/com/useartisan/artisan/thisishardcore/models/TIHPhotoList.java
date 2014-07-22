@@ -1,4 +1,4 @@
-package com.artisan.thisishardcore.models;
+package com.useartisan.artisan.thisishardcore.models;
 
 import java.util.List;
 
