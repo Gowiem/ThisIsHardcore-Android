@@ -165,6 +165,10 @@ public class MainActivity extends SherlockFragmentActivity implements com.action
 			urlString = getResources().getString(R.string.vendors_url);
 			launchWebViewWithUrl(urlString);
 			return(true);
+		case R.id.tih_aftershows:
+			urlString = getResources().getString(R.string.aftershows_url);
+			launchWebViewWithUrl(urlString);
+			return(true);
 		case R.id.facebook_item:
 			urlString = getResources().getString(R.string.tihc_facebook_url);
 			launchWebViewWithUrl(urlString);
